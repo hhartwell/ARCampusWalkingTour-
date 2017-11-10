@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="1"
+    android:rowCount="2"
+    tools:context="harvey.com.walkgujava.FullGalleryActivity">
+
+    <TextView
+        android:id="@+id/GalleryTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GALLERY TITLE PLACEHOLDER"
+        android:textAlignment="center"
+        android:textSize="40sp" />
+
+    <Spinner
+        android:id="@+id/dormSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/back" />
+
+        <Button
+            android:id="@+id/map_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/map" />
+
+        <Button
+            android:id="@+id/keys_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/keys" />
+    </LinearLayout>
+
+</GridLayout>
