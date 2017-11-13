@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
@@ -26,9 +27,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import java.util.ArrayList;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
-    private final static String TAG = "MAP ACTIVITY";
-
-
+    private final static String TAG = "MapActivity";
     private GoogleMap mMap;
 
     /**
@@ -58,13 +57,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
+        CreateGeofenceToComplete();
     }
 
     private void CreateGeofenceToComplete() {
         //create the geofence list
         geofenceList = new ArrayList<>();
-
+        Toast.makeText(this, "from create geofence", Toast.LENGTH_SHORT).show();
         // create the client
         geofencingClient = getGeofencingClient();
 
@@ -112,19 +111,21 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "successfully added geofence: " + geofence.getRequestId());
+                        Toast.makeText(MapActivity.this, "geo fence created", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.d(TAG, "failed to add geofence: " + geofence.getRequestId());
+                        Toast.makeText(MapActivity.this, "geo fence not created", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private GeofencingClient getGeofencingClient(){
+    private GeofencingClient getGeofencingClient() {
         // check to see if client has already been created or not
-        if(geofencingClient != null){
+        if (geofencingClient != null) {
             return geofencingClient;
         }
         // retrieve the geofencing client from locationServices
@@ -136,7 +137,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
      * also specifies how the geofence notifications are initially triggered
      * @return geofence request
      */
-    private GeofencingRequest getGeofencingRequest(){
+    private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
 
         // the INITIAL_TRIGGER_ENTER flag indicates taht geofencing service should trigger a
@@ -152,9 +153,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     }
 
 
-    private PendingIntent getGeofencingPendingIntent(){
+    private PendingIntent getGeofencingPendingIntent() {
         // reuse old intent if it exists
-        if(pendingIntent != null){
+        if (pendingIntent != null) {
             return pendingIntent;
         }
         // need to send this to unity scene when it is imported into the project
@@ -177,10 +178,21 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        Toast.makeText(this, "MapReady", Toast.LENGTH_SHORT).show();
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
     }
 }
