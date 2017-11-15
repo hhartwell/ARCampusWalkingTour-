@@ -3,6 +3,7 @@
     package="harvey.com.walkgujava">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -41,6 +42,7 @@
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map"></activity>
+
     </application>
 
 </manifest>

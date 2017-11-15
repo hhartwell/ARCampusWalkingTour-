@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
@@ -47,6 +49,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private GeofencingRequest geofencingRequest;
     private ArrayList<Geofence> geofenceList;
 
+    // fused location services client
+    // used for finding current location
+    FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        createFusedLocationServices();
         CreateGeofenceToComplete();
+    }
+    private void createFusedLocationServices(){
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     private void CreateGeofenceToComplete() {
@@ -86,7 +95,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 // how the geo fence will be triggered
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                        Geofence.GEOFENCE_TRANSITION_EXIT)
+                        Geofence.GEOFENCE_TRANSITION_EXIT |
+                        Geofence.GEOFENCE_TRANSITION_DWELL)
                 // create it
                 .build();
 
@@ -143,7 +153,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         // the INITIAL_TRIGGER_ENTER flag indicates taht geofencing service should trigger a
         // GEOFENCE_TRANSITION_ENTER notification when the geofence is added and tif the device
         // is already inside that geofence
-        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL);
 
         // add the geofences to be monitered by geofencing services.
         builder.addGeofences(geofenceList);
@@ -180,7 +190,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap = googleMap;
         Toast.makeText(this, "MapReady", Toast.LENGTH_SHORT).show();
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+        LatLng sydney = new LatLng(47.667826, -117.401336 );
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
@@ -194,5 +204,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
+        LatLng currLocation;
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                location.getLongitude();
+                location.getLatitude();
+                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            }
+        });
+
     }
 }
