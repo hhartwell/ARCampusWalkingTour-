@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WalkGonzagaMapWithStep</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="google_maps_key">AIzaSyAjTGte0dnk_OORrMawQkjlbN0WET0Mki8</string> /string>
+</resources>
