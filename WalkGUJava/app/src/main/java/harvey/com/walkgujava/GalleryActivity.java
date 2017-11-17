@@ -2,13 +2,18 @@ package harvey.com.walkgujava;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Vibrator;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class GalleryActivity extends AppCompatActivity {
 
@@ -71,5 +76,32 @@ public class GalleryActivity extends AppCompatActivity {
         public void onClick(View view) {
 
         }
+    }
+
+    /**
+     * function that will open an alert dialog with an image when given an image view.
+     * meant to be used with GalleryItem
+     * @param imageView
+     * @param width
+     * @param height
+     */
+    private void viewPhoto(ImageView imageView, int width, int height){
+        ImageView tmp = imageView;
+        AlertDialog.Builder imageDialog = new AlertDialog.Builder(this);
+        LayoutInflater inflator = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
+
+        View layout = inflator.inflate(R.layout.custom_fullimage_dialog,
+                (ViewGroup) findViewById(R.id.layout_root));
+        ImageView image = (ImageView) layout.findViewById(R.id.fullimage);
+        image.setImageDrawable(tmp.getDrawable());
+        imageDialog.setView(layout);
+        imageDialog.setPositiveButton("done", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        imageDialog.create();
+        imageDialog.show();
     }
 }
