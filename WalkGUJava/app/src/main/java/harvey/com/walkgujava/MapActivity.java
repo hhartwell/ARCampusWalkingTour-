@@ -95,8 +95,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 // how the geo fence will be triggered
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                        Geofence.GEOFENCE_TRANSITION_EXIT |
-                        Geofence.GEOFENCE_TRANSITION_DWELL)
+                        Geofence.GEOFENCE_TRANSITION_EXIT)
                 // create it
                 .build();
 
@@ -106,6 +105,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         // permissions check
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "permisions denied fine location");
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -127,6 +127,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, e.getMessage());
                         Log.d(TAG, "failed to add geofence: " + geofence.getRequestId());
                         Toast.makeText(MapActivity.this, "geo fence not created", Toast.LENGTH_SHORT).show();
                     }
@@ -151,13 +152,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
 
         // the INITIAL_TRIGGER_ENTER flag indicates taht geofencing service should trigger a
-        // GEOFENCE_TRANSITION_ENTER notification when the geofence is added and tif the device
+        // GEOFENCE_TRANSITION_ENTER notification when the geofence is added and if the device
         // is already inside that geofence
-        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_DWELL);
+        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
 
         // add the geofences to be monitered by geofencing services.
         builder.addGeofences(geofenceList);
-
+        assert(geofenceList != null);
+        Log.d(TAG, geofenceList.get(0).getRequestId() + " from getGeoFencingRequest");
         // build and return the request
         return builder.build();
     }
@@ -169,10 +171,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             return pendingIntent;
         }
         // need to send this to unity scene when it is imported into the project
-        Intent intent = new Intent(this, GalleryActivity.class);
+        Intent intent = new Intent(this, GeoFenceHelperService.class);
         // we need to use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences()
-        return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        return pendingIntent;
     }
 
 
@@ -206,6 +209,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         }
 
         LatLng currLocation;
+        /*
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
             @Override
             public void onSuccess(Location location) {
@@ -215,6 +219,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             }
         });
+        */
 
     }
 }
