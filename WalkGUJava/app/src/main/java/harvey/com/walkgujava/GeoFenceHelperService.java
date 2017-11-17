@@ -13,13 +13,20 @@ import java.util.List;
 
 /**
  * Created by Harvey on 11/17/2017.
+ *
+ * intent service that listens for geofence transitions.
+ * currently only listens for ENTER and EXIT transitions.
  */
 
 public class GeoFenceHelperService extends IntentService{
     final String TAG = "GeoFenceHelperService";
+    public GeoFenceHelperService(){
+        super("geofence services");
+    }
     public GeoFenceHelperService(String name) {
         super(name);
     }
+
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {

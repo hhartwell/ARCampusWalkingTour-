@@ -101,6 +101,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         // add geofence to geofence list
         geofenceList.add(geofence);
+        if(geofenceList.get(0) == null){
+            Log.d(TAG, "desmet geofence never added to list");
+        }
 
 
         // permissions check
@@ -137,6 +140,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private GeofencingClient getGeofencingClient() {
         // check to see if client has already been created or not
         if (geofencingClient != null) {
+            Log.d(TAG, "geofencing client already exists");
             return geofencingClient;
         }
         // retrieve the geofencing client from locationServices
@@ -158,7 +162,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         // add the geofences to be monitered by geofencing services.
         builder.addGeofences(geofenceList);
-        assert(geofenceList != null);
+        if(geofenceList == null){
+            Log.d(TAG, "geofence list has not been initialized");
+        }
+
         Log.d(TAG, geofenceList.get(0).getRequestId() + " from getGeoFencingRequest");
         // build and return the request
         return builder.build();
@@ -168,6 +175,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private PendingIntent getGeofencingPendingIntent() {
         // reuse old intent if it exists
         if (pendingIntent != null) {
+            Log.d(TAG, "intent already exists. pulling old intent in getGeofencingPendingIntent");
             return pendingIntent;
         }
         // need to send this to unity scene when it is imported into the project
@@ -175,6 +183,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         // we need to use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences()
         pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         return pendingIntent;
     }
 
