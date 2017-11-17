@@ -127,6 +127,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Log.e(TAG, e.getMessage());
                         Log.d(TAG, "failed to add geofence: " + geofence.getRequestId());
                         Toast.makeText(MapActivity.this, "geo fence not created", Toast.LENGTH_SHORT).show();
                     }
