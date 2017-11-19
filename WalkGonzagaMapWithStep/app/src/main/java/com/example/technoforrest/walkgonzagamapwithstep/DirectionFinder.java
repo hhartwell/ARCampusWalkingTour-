@@ -6,6 +6,8 @@ package com.example.technoforrest.walkgonzagamapwithstep;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -19,7 +21,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +29,11 @@ DirectionFinder {
     private static final String DIRECTION_URL_API = "https://maps.googleapis.com/maps/api/directions/json?";
     private static final String GOOGLE_API_KEY = "AIzaSyB6i74DghDAxM3oeOrL8W0Oqii4sI51tuo";
     private DirectionFinderListener listener;
-    private String origin;
-    private String destination;
+    private LatLng origin;
+    private LatLng destination;
+    private String TAG = "Direction Finder: ";
 
-    public DirectionFinder(DirectionFinderListener listener, String origin, String destination) {
+    public DirectionFinder(DirectionFinderListener listener, LatLng origin, LatLng destination) {
         this.listener = listener;
         this.origin = origin;
         this.destination = destination;
@@ -43,10 +45,10 @@ DirectionFinder {
     }
 
     private String createUrl() throws UnsupportedEncodingException {
-        String urlOrigin = URLEncoder.encode(origin, "utf-8");
-        String urlDestination = URLEncoder.encode(destination, "utf-8");
-
-        return DIRECTION_URL_API + "origin=" + urlOrigin + "&destination=" + urlDestination + "&key=" + GOOGLE_API_KEY;
+        //String urlOrigin = URLEncoder.encode(origin.toString(), "utf-8");
+        //String urlDestination = URLEncoder.encode(destination.toString(), "utf-8");
+        Log.d(TAG, "createUrl: " + DIRECTION_URL_API + "origin=" + origin + "&destination=" + destination + "&key=" + GOOGLE_API_KEY);
+        return DIRECTION_URL_API + "origin=" + origin + "&destination=" + destination + "&key=" + GOOGLE_API_KEY;
     }
 
     private class DownloadRawData extends AsyncTask<String, Void, String> {
