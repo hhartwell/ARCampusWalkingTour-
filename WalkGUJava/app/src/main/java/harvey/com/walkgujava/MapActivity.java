@@ -16,6 +16,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingClient;
 import com.google.android.gms.location.GeofencingRequest;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -74,7 +75,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         geofenceList = new ArrayList<>();
         Toast.makeText(this, "from create geofence", Toast.LENGTH_SHORT).show();
         // create the client
-        geofencingClient = getGeofencingClient();
+        geofencingClient = LocationServices.getGeofencingClient(this);
 
         // build the geofence
         // this uses a builder to assign all attributes.
@@ -88,9 +89,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 // double latitude
                 // float radius in meters
                 .setCircularRegion(
-                        47.668,
-                        -117.401,
-                        20)
+                        47.666366,
+                        -117.402053,
+                        150)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 // how the geo fence will be triggered
@@ -102,6 +103,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         // add geofence to geofence list
         geofenceList.add(geofence);
+
 
 
         // permissions check
@@ -133,6 +135,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                         Toast.makeText(MapActivity.this, "geo fence not created", Toast.LENGTH_SHORT).show();
                     }
                 });
+        Log.d(TAG, "CREATE_GEOFENCE_TO_COMPLETE DONE RUNNING");
+
+
+        if (LocationServices.getFusedLocationProviderClient(this).getLastLocation() == null){
+            Log.d(TAG, "it was null!");
+        }
+
     }
 
     private GeofencingClient getGeofencingClient() {
@@ -158,7 +167,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
 
         // add the geofences to be monitered by geofencing services.
-        builder.addGeofence(geofenceList.get(0));
+        builder.addGeofences(geofenceList);
         assert(geofenceList != null);
         Log.d(TAG, geofenceList.get(0).toString() + " from getGeoFencingRequest");
         // build and return the request
@@ -175,11 +184,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         Intent intent = new Intent(this, GeoFenceHelperService.class);
         // we need to use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences()
+        Log.d(TAG, intent.toString());
         pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d(TAG, "INSIDE PENDING INTENT");
         return pendingIntent;
     }
-
 
     /**
      * Manipulates the map once available.
@@ -209,6 +218,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
 
         LatLng currLocation;
         /*

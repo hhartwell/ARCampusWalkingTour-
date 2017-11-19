@@ -18,6 +18,7 @@ import java.util.List;
 public class GeoFenceHelperService extends IntentService{
     private final static String TAG = "GeoFenceHelperService";
     private final static String DEBUG_TAG = "GEOFENCEHELPERSERVICE";
+
     public GeoFenceHelperService(String name) {
         super(name);
     }
@@ -40,11 +41,14 @@ public class GeoFenceHelperService extends IntentService{
                 geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
             // get the geofences that were triggered
             List<Geofence> triggeredFences = geofencingEvent.getTriggeringGeofences();
-            Intent i = new Intent(this, OptionsActivity.class);
-            startActivity(i);
+
+
 
             Log.d(TAG, triggeredFences.get(0).getRequestId() + " has been triggered");
-            Toast.makeText(this, triggeredFences.get(0).getRequestId() + " has been triggered", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, triggeredFences.get(0).getRequestId() + " has been triggered", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, OptionsActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(i);
 
         }
         else{
