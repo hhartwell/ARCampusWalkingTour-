@@ -88,14 +88,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 // double latitude
                 // float radius in meters
                 .setCircularRegion(
-                        47.667834,
-                        -117.401336,
+                        47.668,
+                        -117.401,
                         20)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 // how the geo fence will be triggered
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                        Geofence.GEOFENCE_TRANSITION_EXIT)
+                        Geofence.GEOFENCE_TRANSITION_EXIT | Geofence.GEOFENCE_TRANSITION_DWELL)
+                .setLoiteringDelay(1000)
                 // create it
                 .build();
 
@@ -157,9 +158,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
 
         // add the geofences to be monitered by geofencing services.
-        builder.addGeofences(geofenceList);
+        builder.addGeofence(geofenceList.get(0));
         assert(geofenceList != null);
-        Log.d(TAG, geofenceList.get(0).getRequestId() + " from getGeoFencingRequest");
+        Log.d(TAG, geofenceList.get(0).toString() + " from getGeoFencingRequest");
         // build and return the request
         return builder.build();
     }
@@ -175,6 +176,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         // we need to use FLAG_UPDATE_CURRENT so that we get the same pending intent back when
         // calling addGeofences() and removeGeofences()
         pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Log.d(TAG, "INSIDE PENDING INTENT");
         return pendingIntent;
     }
 
@@ -193,9 +195,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         mMap = googleMap;
         Toast.makeText(this, "MapReady", Toast.LENGTH_SHORT).show();
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(47.667826, -117.401336 );
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng desmet = new LatLng(47.667826, -117.401336 );
+        mMap.addMarker(new MarkerOptions().position(desmet).title("Marker at desmet"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(desmet));
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

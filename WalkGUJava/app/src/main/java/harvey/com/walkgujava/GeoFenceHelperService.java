@@ -16,28 +16,39 @@ import java.util.List;
  */
 
 public class GeoFenceHelperService extends IntentService{
-    final String TAG = "GeoFenceHelperService";
+    private final static String TAG = "GeoFenceHelperService";
+    private final static String DEBUG_TAG = "GEOFENCEHELPERSERVICE";
     public GeoFenceHelperService(String name) {
         super(name);
+    }
+    public GeoFenceHelperService(){
+        super(TAG);
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        Log.d(DEBUG_TAG, "IN ON_HANDLE_INTENT");
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()){
-            Log.d(TAG, "there was an error");
+            Log.d(DEBUG_TAG, "there was an error");
             return;
         }
         // get the transition types
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
         if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
-               geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT){
+               geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT ||
+                geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
             // get the geofences that were triggered
             List<Geofence> triggeredFences = geofencingEvent.getTriggeringGeofences();
+            Intent i = new Intent(this, OptionsActivity.class);
+            startActivity(i);
 
             Log.d(TAG, triggeredFences.get(0).getRequestId() + " has been triggered");
             Toast.makeText(this, triggeredFences.get(0).getRequestId() + " has been triggered", Toast.LENGTH_SHORT).show();
 
+        }
+        else{
+            Log.e(TAG, "ERROR IN ONHANDLEINTENT");
         }
     }
 }
