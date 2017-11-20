@@ -91,13 +91,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .setCircularRegion(
                         47.666366,
                         -117.402053,
-                        150)
+                        300)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 // how the geo fence will be triggered
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
                         Geofence.GEOFENCE_TRANSITION_EXIT | Geofence.GEOFENCE_TRANSITION_DWELL)
-                .setLoiteringDelay(1000)
+                .setLoiteringDelay(10)
                 // create it
                 .build();
 
@@ -130,7 +130,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 .addOnFailureListener(this, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.e(TAG, e.getMessage());
+                        //Log.e(TAG, e.getMessage().toString());
                         Log.d(TAG, "failed to add geofence: " + geofence.getRequestId());
                         Toast.makeText(MapActivity.this, "geo fence not created", Toast.LENGTH_SHORT).show();
                     }
@@ -207,31 +207,5 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         LatLng desmet = new LatLng(47.667826, -117.401336 );
         mMap.addMarker(new MarkerOptions().position(desmet).title("Marker at desmet"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(desmet));
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-
-        LatLng currLocation;
-        /*
-        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                location.getLongitude();
-                location.getLatitude();
-                LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            }
-        });
-        */
-
     }
 }

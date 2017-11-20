@@ -46,7 +46,8 @@
             android:name=".MapActivity"
             android:label="@string/title_activity_map"/>
 
-        <service android:name=".GeoFenceHelperService"/>
+        <service android:name=".GeoFenceHelperService"
+            android:exported="true"/>
 
 
     </application>
