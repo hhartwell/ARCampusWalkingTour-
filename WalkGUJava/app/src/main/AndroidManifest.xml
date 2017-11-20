@@ -21,11 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".OptionsActivity" />
-        <activity android:name=".IntroductionActivity" />
-        <activity android:name=".FullInformationActivity" />
+        <activity android:name=".FatherDesmetInformation" />
         <activity android:name=".KeysActivity" />
-        <activity android:name=".GalleryActivity" />
+        <activity android:name=".DesmetGalleryActivity" />
         <activity android:name=".FullGalleryActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -38,6 +36,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD_JPDEcHibunV7_G2iUmzZ_9aL8AAmpcw" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".MapActivity"

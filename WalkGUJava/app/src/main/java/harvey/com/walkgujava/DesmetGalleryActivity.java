@@ -1,6 +1,5 @@
 package harvey.com.walkgujava;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,45 +9,31 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class GalleryActivity extends AppCompatActivity {
+public class DesmetGalleryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gallery);
+        setContentView(R.layout.activity_desmet_gallery);
+        setTitle("Desmet Gallery");
+
 
         // retieve button resources
-        Button backButton = (Button) findViewById(R.id.back_button);
-        Button mapButton = (Button) findViewById(R.id.map_button);
-        Button keysButton = (Button) findViewById(R.id.keys_button);
+        ImageButton fatherDesmet = (ImageButton) findViewById(R.id.fatherDesmet);
 
-        // set on click listeners to the buttons
-        backButton.setOnClickListener(new View.OnClickListener() {
+        fatherDesmet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // needs to be fixed to be a true back button
-                Intent intent = new Intent(view.getContext(), KeysActivity.class);
-                startActivity(intent);
-            }
-        });
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // needs to be fixed to be a true back button
-                Intent intent = new Intent(view.getContext(), MapActivity.class);
-                startActivity(intent);
-            }
-        });
-        keysButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // needs to be fixed to be a true back button
-                Intent intent = new Intent(view.getContext(), KeysActivity.class);
+                Intent intent = new Intent(view.getContext(), FatherDesmetInformation.class);
                 startActivity(intent);
             }
         });
@@ -103,5 +88,47 @@ public class GalleryActivity extends AppCompatActivity {
         });
         imageDialog.create();
         imageDialog.show();
+    }
+
+    private void backToGallery(){
+        Intent intent = new Intent(this,FullGalleryActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+    private void backToMap(){
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Sets up the options menu.
+     * @param menu The options menu.
+     * @return Boolean.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.desmet_gallery_menu, menu);
+        return true;
+    }
+
+
+    /**
+     * assigns what each button of the menu does
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.option_get_gallery:
+                backToGallery();
+                return true;
+            case R.id.option_get_map:
+                backToMap();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
