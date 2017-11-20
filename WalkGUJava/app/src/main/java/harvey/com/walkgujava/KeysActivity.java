@@ -3,6 +3,8 @@ package harvey.com.walkgujava;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,36 +29,59 @@ public class KeysActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keys);
-
-        // grab button resources
-        Button backButton = (Button) findViewById(R.id.back_button);
-        Button galleryButton = (Button) findViewById(R.id.gallery_button);
-        Button mapButton = (Button) findViewById(R.id.map_button);
-
-        // attatch on click listeners to each button
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // this needs to retrieve the intent that started this activity then start
-                // the activity that sent the intent.
-                Intent intent = new Intent(view.getContext(), OptionsActivity.class);
-                startActivity(intent);
-            }
-        });
-        galleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), GalleryActivity.class);
-                startActivity(intent);
-            }
-        });
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), MapActivity.class);
-                startActivity(intent);
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Keys");
     }
+
+
+    private void backToMain(){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+    private void backToMap(){  
+        Intent intent = new Intent(this, MapActivity.class);
+        startActivity(intent);
+    }
+
+    private void backToGallery(){
+        Intent intent = new Intent(this,FullGalleryActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
+    /**
+     * assigns what each button of the menu does
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.option_get_home:
+                backToMain();
+                return true;
+            case R.id.option_get_map:
+                backToMap();
+                return true;
+            case R.id.option_get_gallery:
+                backToGallery();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+    /**
+     * Sets up the options menu.
+     * @param menu The options menu.
+     * @return Boolean.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.keys_menu, menu);
+        return true;
+    }
+
 }
