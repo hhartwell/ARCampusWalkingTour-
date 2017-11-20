@@ -38,16 +38,16 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-<<<<<<< HEAD
+
             android:value="AIzaSyD_JPDEcHibunV7_G2iUmzZ_9aL8AAmpcw"
             />
-=======
+
             android:value="AIzaSyD_JPDEcHibunV7_G2iUmzZ_9aL8AAmpcw" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
->>>>>>> 24c9856769e89a8fcd8288dfce205afe53427805
+
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map"/>

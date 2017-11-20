@@ -46,7 +46,7 @@ public class GeoFenceHelperService extends IntentService{
 
             Log.d(TAG, triggeredFences.get(0).getRequestId() + " has been triggered");
             //Toast.makeText(this, triggeredFences.get(0).getRequestId() + " has been triggered", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this, OptionsActivity.class);
+            Intent i = new Intent(this, MainActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
 
