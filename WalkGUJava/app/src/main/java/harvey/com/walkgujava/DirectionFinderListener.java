@@ -1,4 +1,4 @@
-package com.example.technoforrest.walkgonzagamapwithstep;
+package harvey.com.walkgujava;
 
 /**
  * Created by Danielle on 11/16/2017.
@@ -6,6 +6,7 @@ package com.example.technoforrest.walkgonzagamapwithstep;
 
 
 import java.util.List;
+
 
 
 public interface DirectionFinderListener {
