@@ -29,11 +29,11 @@ DirectionFinder {
     private static final String DIRECTION_URL_API = "https://maps.googleapis.com/maps/api/directions/json?";
     private static final String GOOGLE_API_KEY = "AIzaSyB6i74DghDAxM3oeOrL8W0Oqii4sI51tuo";
     private DirectionFinderListener listener;
-    private LatLng origin;
-    private LatLng destination;
+    private String origin;
+    private String destination;
     private String TAG = "Direction Finder: ";
 
-    public DirectionFinder(DirectionFinderListener listener, LatLng origin, LatLng destination) {
+    public DirectionFinder(DirectionFinderListener listener, String origin, String destination) {
         this.listener = listener;
         this.origin = origin;
         this.destination = destination;
