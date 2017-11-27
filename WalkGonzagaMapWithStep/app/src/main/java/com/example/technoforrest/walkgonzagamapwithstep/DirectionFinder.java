@@ -48,7 +48,7 @@ DirectionFinder {
         //String urlOrigin = URLEncoder.encode(origin.toString(), "utf-8");
         //String urlDestination = URLEncoder.encode(destination.toString(), "utf-8");
         Log.d(TAG, "createUrl: " + DIRECTION_URL_API + "origin=" + origin + "&destination=" + destination + "&key=" + GOOGLE_API_KEY);
-        return DIRECTION_URL_API + "origin=" + origin + "&destination=" + destination + "&key=" + GOOGLE_API_KEY;
+        return DIRECTION_URL_API + "origin=" + origin + "&destination=" + destination + "&sensor=false" + "&mode=walking" + "&key=" + GOOGLE_API_KEY;
     }
 
     private class DownloadRawData extends AsyncTask<String, Void, String> {
@@ -102,7 +102,7 @@ DirectionFinder {
             JSONArray jsonLegs = jsonRoute.getJSONArray("legs");
             JSONObject jsonLeg = jsonLegs.getJSONObject(0);
             JSONObject jsonDistance = jsonLeg.getJSONObject("distance");
-            JSONObject jsonDuration = jsonLeg.getJSONObject("duration");
+            //JSONObject jsonDuration = jsonLeg.getJSONObject("duration");
             JSONObject jsonEndLocation = jsonLeg.getJSONObject("end_location");
             JSONObject jsonStartLocation = jsonLeg.getJSONObject("start_location");
 

@@ -2,11 +2,13 @@ package com.example.technoforrest.walkgonzagamapwithstep;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -49,7 +52,7 @@ public class MapsActivity extends FragmentActivity
         implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, DirectionFinderListener, SensorEventListener, StepListener {
+        LocationListener, DirectionFinderListener, SensorEventListener {
 
 
     private static final String TAG = MapsActivity.class.getSimpleName();
@@ -85,7 +88,10 @@ public class MapsActivity extends FragmentActivity
     private Marker mCurrLocationMarker;
     //variables for step counter
     private int numSteps;
-    private TextView TvSteps;
+    private TextView count;
+    private SensorManager manager;
+    private Sensor sensor;
+    private Boolean activityRunning;
     private static final String TEXT_NUM_STEPS = "Steps: ";
     private StepDetector simpleStepDetector;
 
@@ -99,13 +105,7 @@ public class MapsActivity extends FragmentActivity
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        //SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        //Sensor accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        simpleStepDetector = new StepDetector();
-        simpleStepDetector.registerListener(this);
-        TvSteps = findViewById(R.id.stepText);
 
-        //sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         //getSupportActionBar().setTitle("Map Location Activity");
 
@@ -126,6 +126,16 @@ public class MapsActivity extends FragmentActivity
 
         getDeviceLocation();
         setSpinner();
+
+        //sensor pedometer
+        count = (TextView) findViewById(R.id.stepText);
+        manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        Sensor countSensor = manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+               if(countSensor != null){
+                   manager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
+               }else{
+                   Toast.makeText(this, "Count sensor error!", Toast.LENGTH_LONG).show();
+               }
 
         // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -310,43 +320,6 @@ public class MapsActivity extends FragmentActivity
 
     }
 
-   // public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-   /* private void checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(this)
-                        .setTitle("Location Permission Needed")
-                        .setMessage("This app needs the Location permission, please accept to use location functionality")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(MapsActivity.this,
-                                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION );
-                            }
-                        })
-                        .create()
-                        .show();
-
-
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION );
-            }
-        }
-    }*/
-
     @Override
     public void onDirectionFinderStart() {
         progressDialog = ProgressDialog.show(this, "Please wait.",
@@ -463,21 +436,14 @@ public class MapsActivity extends FragmentActivity
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            simpleStepDetector.updateAccel(
-                    event.timestamp, event.values[0], event.values[1], event.values[2]);
-        }
+        count.setText(String.valueOf(event.values[0]));
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
     }
 
-    @Override
-    public void step(long timeNs) {
-        numSteps++;
-        TvSteps.setText(TEXT_NUM_STEPS + numSteps);
-    }
+
 
 }
 
