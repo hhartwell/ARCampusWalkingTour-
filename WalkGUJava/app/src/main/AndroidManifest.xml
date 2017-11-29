@@ -45,7 +45,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"
             />
+<<<<<<< HEAD
+=======
 
+>>>>>>> 45521b443480049d639d672942322a006dc0d8fe
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

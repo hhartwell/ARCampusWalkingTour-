@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="harvey.com.walkgujava.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/cover"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:weightSum="1"
+        android:layout_alignParentBottom="true">
+
+
+        <Button
+            android:id="@+id/start_tour_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:background="#FFC22727"
+            android:fontFamily="@font/permanent_marker"
+            android:text="Tour"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
+
+
+        <Button
+            android:id="@+id/gallery_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="#FFC22727"
+            android:fontFamily="@font/permanent_marker"
+            android:text="Gallery"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/keys_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="#FFC22727"
+            android:fontFamily="@font/permanent_marker"
+            android:text="Keys"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
