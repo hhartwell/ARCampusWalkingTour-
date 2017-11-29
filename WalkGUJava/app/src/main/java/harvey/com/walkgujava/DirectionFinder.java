@@ -1,10 +1,6 @@
 package harvey.com.walkgujava;
 
-/**
- * Created by Danielle on 11/16/2017.
- */
-
-
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -19,27 +15,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
+//import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class
+class
 DirectionFinder {
     private static final String DIRECTION_URL_API = "https://maps.googleapis.com/maps/api/directions/json?";
-    private static final String GOOGLE_API_KEY = "AIzaSyB6i74DghDAxM3oeOrL8W0Oqii4sI51tuo";
+    private static final String GOOGLE_API_KEY = "AIzaSyA5_HBpvFsCW-2LYt2ri9R1wA4wIrpyhwo";
     private DirectionFinderListener listener;
-    private LatLng origin;
-    private LatLng destination;
+    private String origin;
+    private String destination;
     private String TAG = "Direction Finder: ";
 
-    public DirectionFinder(DirectionFinderListener listener, LatLng origin, LatLng destination) {
+    DirectionFinder(DirectionFinderListener listener, String origin, String destination) {
         this.listener = listener;
         this.origin = origin;
         this.destination = destination;
     }
 
-    public void execute() throws UnsupportedEncodingException {
+    void execute() throws UnsupportedEncodingException {
         listener.onDirectionFinderStart();
         new DirectionFinder.DownloadRawData().execute(createUrl());
     }
@@ -48,29 +44,29 @@ DirectionFinder {
         //String urlOrigin = URLEncoder.encode(origin.toString(), "utf-8");
         //String urlDestination = URLEncoder.encode(destination.toString(), "utf-8");
         Log.d(TAG, "createUrl: " + DIRECTION_URL_API + "origin=" + origin + "&destination=" + destination + "&key=" + GOOGLE_API_KEY);
-        return DIRECTION_URL_API + "origin=" + origin + "&destination=" + destination + "&key=" + GOOGLE_API_KEY;
+        return DIRECTION_URL_API + "origin=" + origin + "&destination=" + destination + "&sensor=false" + "&mode=walking" + "&key=" + GOOGLE_API_KEY;
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class DownloadRawData extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
             String link = params[0];
+            Log.d(TAG, "doInBackground: ");
             try {
                 URL url = new URL(link);
                 InputStream is = url.openConnection().getInputStream();
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    buffer.append(line + "\n");
+                    buffer.append(line).append("\n");
                 }
 
                 return buffer.toString();
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -91,7 +87,7 @@ DirectionFinder {
         if (data == null)
             return;
 
-        List<Route> routes = new ArrayList<Route>();
+        List<Route> routes = new ArrayList<>();
         JSONObject jsonData = new JSONObject(data);
         JSONArray jsonRoutes = jsonData.getJSONArray("routes");
         for (int i = 0; i < jsonRoutes.length(); i++) {
@@ -102,7 +98,7 @@ DirectionFinder {
             JSONArray jsonLegs = jsonRoute.getJSONArray("legs");
             JSONObject jsonLeg = jsonLegs.getJSONObject(0);
             JSONObject jsonDistance = jsonLeg.getJSONObject("distance");
-            JSONObject jsonDuration = jsonLeg.getJSONObject("duration");
+            //JSONObject jsonDuration = jsonLeg.getJSONObject("duration");
             JSONObject jsonEndLocation = jsonLeg.getJSONObject("end_location");
             JSONObject jsonStartLocation = jsonLeg.getJSONObject("start_location");
 
@@ -123,7 +119,7 @@ DirectionFinder {
     private List<LatLng> decodePolyLine(final String poly) {
         int len = poly.length();
         int index = 0;
-        List<LatLng> decoded = new ArrayList<LatLng>();
+        List<LatLng> decoded = new ArrayList<>();
         int lat = 0;
         int lng = 0;
 
