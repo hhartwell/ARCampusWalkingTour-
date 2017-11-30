@@ -30,7 +30,7 @@
         </activity>
 
         <activity android:name=".FatherDesmetInformation" />
-        <activity android:name=".KeysActivity" />
+        <activity android:name=".AchievementActivity" />
         <activity android:name=".DesmetGalleryActivity" />
         <activity android:name=".FullGalleryActivity" />
         <!--

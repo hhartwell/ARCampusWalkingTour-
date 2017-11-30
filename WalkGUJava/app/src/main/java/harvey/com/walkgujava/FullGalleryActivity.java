@@ -1,8 +1,6 @@
     package harvey.com.walkgujava;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,8 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
     public class FullGalleryActivity extends AppCompatActivity {
@@ -101,7 +97,7 @@ import android.widget.Spinner;
     }
 
     private void backToKeys(){
-        Intent intent = new Intent(this, KeysActivity.class);
+        Intent intent = new Intent(this, AchievementActivity.class);
         startActivity(intent);
     }
 

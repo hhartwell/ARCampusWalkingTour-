@@ -5,7 +5,6 @@
     <string-array name="dorms">
         <item><b>Please Select A Dorm:</b></item>
         <item><b>Alliance House</b></item>
-        <item><b>Alliance House</b></item>
         <item><b>Burch Apartments</b></item>
         <item><b>Campion House</b></item>
         <item><b>Catherine/Monica Hall</b></item>
@@ -22,10 +21,10 @@
         <item><b>Lincoln House</b></item>
         <item><b>Madonna Hall</b></item>
         <item><b>Marian Hall</b></item>
-        <item><b>River Inn Hal</b></item>
+        <item><b>River Inn Hall</b></item>
         <item><b>Roncalli House</b></item>
-        <item><b>Sharp Apartment</b></item>
+        <item><b>Sharp Apartments</b></item>
         <item><b>Twohy Hall</b></item>
-        <item><b>Welch Hall</b>></item>
+        <item><b>Welch Hall</b></item>
     </string-array>
 </resources>
