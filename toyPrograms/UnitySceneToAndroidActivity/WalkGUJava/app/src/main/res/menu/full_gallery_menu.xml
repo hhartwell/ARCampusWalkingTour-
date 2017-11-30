@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/option_get_home"
+        android:title="@string/option_get_home"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/option_get_map"
+        android:title="@string/option_get_map"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/option_get_keys"
+        android:title="@string/option_get_keys"
+        app:showAsAction="always"/>
+</menu>

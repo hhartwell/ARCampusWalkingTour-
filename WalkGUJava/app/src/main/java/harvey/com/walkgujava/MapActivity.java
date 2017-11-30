@@ -61,7 +61,7 @@ import java.util.List;
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, DirectionFinderListener, SensorEventListener {
+        LocationListener, DirectionFinderListener {
     //private final static String TAG = "MapActivity";
 
     private static final String TAG = MapActivity.class.getSimpleName();
@@ -100,6 +100,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     //variables for step counter
     private TextView count;
     private SensorManager manager;
+    private Boolean zeroSteps;
+    private float stepsDontCount;
+    private float steps;
     /**
      * objects used for the geofence
      * to create and use a geo fence we need four parts
@@ -143,13 +146,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         //sensor pedometer
         count = (TextView) findViewById(R.id.stepText);
         manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        Sensor countSensor = manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
-        if (countSensor != null) {
-            manager.registerListener(this, countSensor, SensorManager.SENSOR_DELAY_UI);
-        } else {
-            Toast.makeText(this, "Count sensor error!", Toast.LENGTH_LONG).show();
-        }
-
+        zeroSteps = true;
+        pedometer();
         //createFusedLocationServices();
         //CreateGeofenceToComplete();
         // Build the map.
@@ -449,7 +447,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
     }
-   /* private void CreateGeofenceToComplete() {
+    private void CreateGeofenceToComplete() {
         //create the geofence list
         geofenceList = new ArrayList<>();
         Toast.makeText(this, "from create geofence", Toast.LENGTH_SHORT).show();
@@ -520,23 +518,23 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             Log.d(TAG, "it was null!");
         }
 
-    }*/
+    }
 
-   /* private GeofencingClient getGeofencingClient() {
+    private GeofencingClient getGeofencingClient() {
         // check to see if client has already been created or not
         if (geofencingClient != null) {
             return geofencingClient;
         }
         // retrieve the geofencing client from locationServices
         return LocationServices.getGeofencingClient(this);
-    }*/
+    }
 
     /**
      * builds and returns a geofending request. Specifies the list of geofences to be monitored.
      * also specifies how the geofence notifications are initially triggered
      * @return geofence request
      */
-    /*private GeofencingRequest getGeofencingRequest() {
+    private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
 
         // the INITIAL_TRIGGER_ENTER flag indicates taht geofencing service should trigger a
@@ -550,8 +548,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         Log.d(TAG, geofenceList.get(0).toString() + " from getGeoFencingRequest");
         // build and return the request
         return builder.build();
-    }*/
-    /*private PendingIntent getGeofencingPendingIntent() {
+    }
+    private PendingIntent getGeofencingPendingIntent() {
         // reuse old intent if it exists
         if (pendingIntent != null) {
             return pendingIntent;
@@ -564,19 +562,29 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         pendingIntent = PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d(TAG, "INSIDE PENDING INTENT");
         return pendingIntent;
-    }*/
-
-
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        count.setText(String.valueOf(event.values[0]));
     }
+    /**
+     * sensor is activated and steps from sensor assigned to the textview
+     */
+    public void pedometer(){
+        manager.registerListener(new SensorEventListener() {
 
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+                                     @Override
+                                     public void onSensorChanged(SensorEvent event) {
+                                         //determines if the activity is just launched
+                                         if(zeroSteps){
+                                             stepsDontCount = event.values[0];//records steps since device reboot
+                                             zeroSteps = false;//activity will no loner be considered new
+                                         }
+                                         steps = event.values[0] - stepsDontCount;//subtracts the values stored in the
+                                         // phone so only the steps taken since the app show
+                                         count.setText(steps + "");
+                                     }
+                                     @Override
+                                     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+                                     }
+                                 }, manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
+                SensorManager.SENSOR_DELAY_UI);
     }
-
-
-
 }
