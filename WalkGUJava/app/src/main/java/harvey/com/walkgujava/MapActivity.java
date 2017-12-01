@@ -146,12 +146,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         });
         getDeviceLocation();
         setSpinner();
-        //sensor pedometer
-        count = (TextView) findViewById(R.id.stepText);
+
+        count = findViewById(R.id.stepText);
         manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         zeroSteps = true;
         pedometer();
-        //createFusedLocationServices();
         CreateGeofenceToComplete();
         // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -294,7 +293,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 Log.d(TAG, "onItemSelected: type" + type[i] + " Coordinates: " + destinationPoint.get(i).toString());
                 position = i;
                 geoLat= destinationPoint.get(position).latitude;
-                geoLong = destinationPoint.get(position).longitude
+                geoLong = destinationPoint.get(position).longitude;
             }
 
             /**
@@ -527,14 +526,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     }
 
-    private GeofencingClient getGeofencingClient() {
-        // check to see if client has already been created or not
-        if (geofencingClient != null) {
-            return geofencingClient;
-        }
-        // retrieve the geofencing client from locationServices
-        return LocationServices.getGeofencingClient(this);
-    }
 
     /**
      * builds and returns a geofending request. Specifies the list of geofences to be monitored.
