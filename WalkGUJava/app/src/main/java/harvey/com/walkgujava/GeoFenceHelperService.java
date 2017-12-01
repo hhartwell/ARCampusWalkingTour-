@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.Geofence;
@@ -23,9 +26,11 @@ public class GeoFenceHelperService extends IntentService{
 
     public GeoFenceHelperService(String name) {
         super(name);
+        Log.d(TAG, "GeoFenceHelperService: parameter constructor");
     }
     public GeoFenceHelperService(){
         super(TAG);
+        Log.d(TAG, "GeoFenceHelperService: default constructor");
     }
 
     @Override
@@ -50,9 +55,13 @@ public class GeoFenceHelperService extends IntentService{
 
             Log.d(TAG, triggeredFences.get(0).getRequestId() + " has been triggered");
             //Toast.makeText(this, triggeredFences.get(0).getRequestId() + " has been triggered", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "onHandleIntent: ");
             Intent i = new Intent(this, ARCameraActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
+
+           // ImageView desmet = (ImageView) findViewById(R.id.desmetText);
+           // desmet.setVisibility(View.VISIBLE);
 
         }
         else{

@@ -48,9 +48,9 @@ import android.widget.Spinner;
                 } else if (i == 9) {
 
                 } else if (i == 10) {
-
-                } else if (i == 11) {
                     startActivity(new Intent(FullGalleryActivity.this, DesmetGalleryActivity.class));
+                } else if (i == 11) {
+
                 } else if (i == 12) {
 
                 } else if (i == 13) {
