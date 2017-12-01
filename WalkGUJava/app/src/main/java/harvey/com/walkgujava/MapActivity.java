@@ -1,9 +1,11 @@
 package harvey.com.walkgujava;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -35,11 +37,13 @@ import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -62,7 +66,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     private static final String TAG = MapActivity.class.getSimpleName();
     private GoogleMap mMap;
-   // private CameraPosition mCameraPosition;
+    // private CameraPosition mCameraPosition;
 
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -82,7 +86,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     //private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
+    private Button btnFindPath;
     private Spinner spinner;
+    // private LatLng destinationPoint;
     private LatLng currLatLng;
     private LatLng destLatLng;
     private ProgressDialog progressDialog;
@@ -100,6 +106,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private Boolean zeroSteps;
     private float stepsDontCount;
     private float steps;
+    /**
+     * objects used for the geofence
+     * to create and use a geo fence we need four parts
+     * We need a geofencingclient to access api
+     * We need a geofence for obvious reasons
+     * We need a pending intent to add or remove a geofence
+     * We need a geofencing request to add geofence to geofencingClient
+     *
+     * I am also including a list of geofences for future development, but
+     * right now there will only be one geofence in the list
+     */
+    private GeofencingClient geofencingClient;
     private Geofence geofence;
     private PendingIntent pendingIntent;
     private GeofencingRequest geofencingRequest;
@@ -114,11 +132,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        //Intent intent = getIntent();
+        Intent intent = getIntent();
         // Construct a FusedLocationProviderClient.
-       mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        Button btnFindPath = findViewById(R.id.btnFindPath);
-        spinner = findViewById(R.id.spinner);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        btnFindPath = (Button) findViewById(R.id.btnFindPath);
+        spinner = (Spinner) findViewById(R.id.spinner);
         btnFindPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,13 +146,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         });
         getDeviceLocation();
         setSpinner();
-
-        count = findViewById(R.id.stepText);
+        //sensor pedometer
+        count = (TextView) findViewById(R.id.stepText);
         manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         zeroSteps = true;
         pedometer();
+        //createFusedLocationServices();
         CreateGeofenceToComplete();
-
         // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -277,8 +295,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 position = i;
                 geoLat= destinationPoint.get(position).latitude;
                 geoLong = destinationPoint.get(position).longitude;
-
             }
+
+            /**
+             * if nothing is selected
+             * @param adapterView
+             */
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
@@ -286,6 +308,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         });
     }
     private void sendRequest() {
+        //currLatLng = new LatLng(48, -117);
         double origLat = currLatLng.latitude;
         double origLong = currLatLng.longitude;
         double destLat = destLatLng.latitude;
@@ -407,7 +430,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     public void onConnectionSuspended(int i) {}
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
+    public void onConnectionFailed(ConnectionResult connectionResult) {}
 
     @Override
     public void onLocationChanged(Location location)
@@ -435,18 +458,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         geofenceList = new ArrayList<>();
         Toast.makeText(this, "from create geofence", Toast.LENGTH_SHORT).show();
         // create the client
-        /*
-      objects used for the geofence
-      to create and use a geo fence we need four parts
-      We need a geofencingclient to access api
-      We need a geofence for obvious reasons
-      We need a pending intent to add or remove a geofence
-      We need a geofencing request to add geofence to geofencingClient
-
-      I am also including a list of geofences for future development, but
-      right now there will only be one geofence in the list
-     */
-        GeofencingClient geofencingClient = LocationServices.getGeofencingClient(this);
+        geofencingClient = LocationServices.getGeofencingClient(this);
 
         // build the geofence
         // this uses a builder to assign all attributes.
@@ -461,8 +473,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 // float radius in meters
                 // currently set to crosby. replace first and second arg with geoLat and geoLong respectively
                 .setCircularRegion(
-                        47.727429,
-                        -117.475198,
+                        47.667275,
+                        -117.401374,
                         300)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
@@ -475,6 +487,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         // add geofence to geofence list
         geofenceList.add(geofence);
+
 
         // permissions check
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -514,6 +527,14 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     }
 
+    private GeofencingClient getGeofencingClient() {
+        // check to see if client has already been created or not
+        if (geofencingClient != null) {
+            return geofencingClient;
+        }
+        // retrieve the geofencing client from locationServices
+        return LocationServices.getGeofencingClient(this);
+    }
 
     /**
      * builds and returns a geofending request. Specifies the list of geofences to be monitored.

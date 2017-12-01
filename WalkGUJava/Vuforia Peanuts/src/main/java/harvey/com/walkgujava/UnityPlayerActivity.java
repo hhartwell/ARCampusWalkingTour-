@@ -86,7 +86,7 @@ public class UnityPlayerActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //mUnityPlayer.quit();
+        mUnityPlayer.quit();
     }
 
     // Pause Unity
