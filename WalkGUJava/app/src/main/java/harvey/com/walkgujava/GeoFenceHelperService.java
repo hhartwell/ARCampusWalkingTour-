@@ -1,7 +1,9 @@
 package harvey.com.walkgujava;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
@@ -39,6 +41,8 @@ public class GeoFenceHelperService extends IntentService{
         if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
                geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT ||
                 geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(500);
             // get the geofences that were triggered
             List<Geofence> triggeredFences = geofencingEvent.getTriggeringGeofences();
 

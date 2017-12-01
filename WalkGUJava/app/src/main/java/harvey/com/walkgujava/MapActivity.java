@@ -294,7 +294,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 Log.d(TAG, "onItemSelected: type" + type[i] + " Coordinates: " + destinationPoint.get(i).toString());
                 position = i;
                 geoLat= destinationPoint.get(position).latitude;
-                geoLong = destinationPoint.get(position).longitude
+                geoLong = destinationPoint.get(position).longitude;
             }
 
             /**
@@ -471,10 +471,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 // double longitude
                 // double latitude
                 // float radius in meters
-
+                // currently set to crosby. replace first and second arg with geoLat and geoLong respectively
                 .setCircularRegion(
-                        geoLat,
-                        geoLong,
+                        47.667275,
+                        -117.401374,
                         300)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
