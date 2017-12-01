@@ -97,6 +97,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private ArrayList<LatLng> destinationPoint;
     private List<Polyline> polylinePaths = new ArrayList<>();
     private Marker mCurrLocationMarker;
+    private int position;
+    private double geoLat;
+    private double geoLong;
     //variables for step counter
     private TextView count;
     private SensorManager manager;
@@ -149,7 +152,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         zeroSteps = true;
         pedometer();
         //createFusedLocationServices();
-        //CreateGeofenceToComplete();
+        CreateGeofenceToComplete();
         // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -289,6 +292,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(destLatLng, 18));
                 originMarkers.add(mMap.addMarker(new MarkerOptions().title(type[i]).position(destLatLng)));
                 Log.d(TAG, "onItemSelected: type" + type[i] + " Coordinates: " + destinationPoint.get(i).toString());
+                position = i;
+                geoLat= destinationPoint.get(position).latitude;
+                geoLong = destinationPoint.get(position).longitude
             }
 
             /**
@@ -465,9 +471,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 // double longitude
                 // double latitude
                 // float radius in meters
+
                 .setCircularRegion(
-                        47.666366,
-                        -117.402053,
+                        geoLat,
+                        geoLong,
                         300)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
