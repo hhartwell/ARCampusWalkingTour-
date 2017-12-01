@@ -43,8 +43,7 @@ public class DesmetGalleryActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(500);
+
     }
 
     /**
