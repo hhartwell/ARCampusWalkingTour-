@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.Geofence;
@@ -56,6 +59,9 @@ public class GeoFenceHelperService extends IntentService{
             Intent i = new Intent(this, ARCameraActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
+
+           // ImageView desmet = (ImageView) findViewById(R.id.desmetText);
+           // desmet.setVisibility(View.VISIBLE);
 
         }
         else{
