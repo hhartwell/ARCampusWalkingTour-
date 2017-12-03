@@ -1,6 +1,7 @@
 package harvey.com.walkgujava;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 public class ARCameraActivity extends UnityPlayerActivity {
 /*
@@ -17,7 +18,13 @@ public class ARCameraActivity extends UnityPlayerActivity {
         setContentView(R.layout.activity_arcamera);
   }
   */
-
+/*
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_unityplayer);
+    }
+    */
     @Override
     protected void startNewActivity() {
         super.startNewActivity();
