@@ -66,7 +66,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     private static final String TAG = MapActivity.class.getSimpleName();
     private GoogleMap mMap;
-   // private CameraPosition mCameraPosition;
+    // private CameraPosition mCameraPosition;
 
     // The entry point to the Fused Location Provider.
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -134,7 +134,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         setContentView(R.layout.activity_maps);
         Intent intent = getIntent();
         // Construct a FusedLocationProviderClient.
-       mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         btnFindPath = (Button) findViewById(R.id.btnFindPath);
         spinner = (Spinner) findViewById(R.id.spinner);
         btnFindPath.setOnClickListener(new View.OnClickListener() {

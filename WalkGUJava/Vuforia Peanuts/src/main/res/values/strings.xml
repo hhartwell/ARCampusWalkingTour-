@@ -2,4 +2,5 @@
 <resources>
   <string name="app_name">Vuforia Peanuts</string>
   <string name="rotate_right">rotate right</string>
+  <string name="next">next -></string>
 </resources>
