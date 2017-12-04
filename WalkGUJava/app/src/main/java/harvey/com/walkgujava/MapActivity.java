@@ -15,6 +15,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -152,11 +153,29 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         zeroSteps = true;
         pedometer();
         //createFusedLocationServices();
+/*
+this is commented out for prototype demonstration purposes only
         CreateGeofenceToComplete();
+*/
+        setUpFab();
         // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    /**
+     * function to be used for prototype demonstration only
+     */
+    private void setUpFab(){
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MapActivity.this.getApplicationContext(), ARCameraActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
     /**
