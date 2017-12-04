@@ -168,7 +168,7 @@ this is commented out for prototype demonstration purposes only
      * function to be used for prototype demonstration only
      */
     private void setUpFab(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.unitySceneFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
