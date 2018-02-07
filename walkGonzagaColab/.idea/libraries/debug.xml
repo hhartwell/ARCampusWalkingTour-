@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="debug">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Temp/gradleOut/build/intermediates/pre-dexed/debug/VuforiaUnityPlayer_ea8efd9521b18b7de03568af9ebd4acb668d739e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Temp/gradleOut/build/intermediates/pre-dexed/debug/debug_b827d6fc82d00d33c135091ca76e9b5175f68f44.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Temp/gradleOut/build/intermediates/pre-dexed/debug/unity-classes_841ddb0f6af3706b9bcaafc383612a9a8f75988f.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Temp/gradleOut/build/intermediates/pre-dexed/debug/Vuforia_a39fd9445ff9be45e234067d09bb9e6fc8b03d86.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

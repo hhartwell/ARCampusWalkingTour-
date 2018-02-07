@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Android">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Assets/Plugins/Android/Vuforia.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Assets/Plugins/Android/VuforiaUnityPlayer.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
