@@ -100,6 +100,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private int position;
     private double geoLat;
     private double geoLong;
+    final String type[] = {"Please Select A Building", "Alliance House", "Burch Apartments", "Campion House", "Catherine/Monica Hall",
+            "Chardin House", "Corkery Apartments", "Coughlin Hall", "Crimont Hall", "Cushing House", "DeSmet Hall", "Dillon Hall", "Dussault Suites",
+            "Goller Hall", "Kennedy Apartments", "Lincoln House", "Madonna Hall", "Marian Hall", "River Inn Hall", "Roncalli House", "Sharp Apartments",
+            "Twohy Hall", "Welch Hall", "Chardin House"};
     //variables for step counter
     private TextView count;
     private SensorManager manager;
@@ -136,6 +140,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         btnFindPath = (Button) findViewById(R.id.btnFindPath);
+
         spinner = (Spinner) findViewById(R.id.spinner);
         btnFindPath.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,10 +255,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
     }
     public void setSpinner(){
-        final String type[] = {"Please Select A Building", "Alliance House", "Burch Apartments", "Campion House", "Catherine/Monica Hall",
-                "Chardin House", "Corkery Apartments", "Coughlin Hall", "Crimont Hall", "Cushing House", "DeSmet Hall", "Dillon Hall", "Dussault Suites",
-                "Goller Hall", "Kennedy Apartments", "Lincoln House", "Madonna Hall", "Marian Hall", "River Inn Hall", "Roncalli House", "Sharp Apartments",
-                "Twohy Hall", "Welch Hall", "Chardin House"};
+
 
         destinationPoint = new ArrayList<>();
         destinationPoint.add(new LatLng(mDefaultLocation.latitude,mDefaultLocation.longitude));
@@ -281,9 +283,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         destinationPoint.add(new LatLng(47.667747, -117.400001));//Welsh22
         destinationPoint.add(new LatLng(47.669768, -117.399430));//Chardin23
 
-        //creates the drop down menu for the category
-        final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
+
+
+        final ArrayAdapter<CharSequence> spinnerArrayAdapter = ArrayAdapter.createFromResource(
+                this, R.array.dorms, R.layout.spinner_layout);
+        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_layout);
         spinner.setAdapter(spinnerArrayAdapter);
+        //creates the drop down menu for the category
+       /* final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
+        spinner.setAdapter(spinnerArrayAdapter);*/
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -452,6 +460,26 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
+    }
+    private void getNearestMarker(){
+        //destinationPoint, currLatLng;
+        //destinationPoint.get(0) is current location
+        //start with index of 1
+        /*Collections.sort(marker, new Comparator<Place>() {
+
+            @Override
+            public int compare(Markers a, Markers b) {
+                Location locationA = new Location("point A");
+                locationA.setLatitude(a.latitude);
+                locationA.setLongitude(a.longitude);
+                Location locationB = new Location("point B");
+                locationB.setLatitude(b.latitude);
+                locationB.setLongitude(b.longitude);
+                float distanceOne = location.distanceTo(locationA);
+                float distanceTwo = location.distanceTo(locationB);
+                return Float.compare(distanceOne, distanceTwo);
+            }
+        }*/
     }
     private void CreateGeofenceToComplete() {
         //create the geofence list
