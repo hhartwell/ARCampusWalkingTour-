@@ -28,14 +28,14 @@
             android:layout_height="wrap_content"
             android:columnCount="3">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/allianceImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/burchImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -43,7 +43,7 @@
                 android:visibility="invisible" />
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/campionImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -83,21 +83,21 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/cmImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/chardinImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/corkeryImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -137,7 +137,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/coughlinImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -145,14 +145,14 @@
                 android:visibility="invisible" />
 
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/crimontImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/cushingImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -192,7 +192,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/desmetImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -200,14 +200,14 @@
                 android:visibility="invisible"
                 android:src="@mipmap/desmet_father"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/dillonImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/dussaultImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -247,21 +247,21 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/gollerImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/kennedyImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/lincolnImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -301,21 +301,21 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/madonnaImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/marianImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/riverInnImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -355,21 +355,21 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/roncalliImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/sharpImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
                 android:layout_margin="10dp"
                 android:visibility="invisible"/>
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/twohyImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"
@@ -409,7 +409,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/welchImage"
                 android:layout_width="105dp"
                 android:layout_height="105dp"

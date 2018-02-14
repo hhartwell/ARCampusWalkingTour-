@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Practice</string>
+    <string name="title_home">Home</string>
+    <string name="title_map">Map</string>
+    <string name="title_AR">AR</string>
+    <string name="title_gallery">Gallery</string>
+    <string name="title_awards">Awards</string>
+
+    <string name="button_location">Specific Destination</string>
+    <string name="button_nearestme">Nearest Me</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

@@ -472,9 +472,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 // double latitude
                 // float radius in meters
                 // currently set to crosby. replace first and second arg with geoLat and geoLong respectively
-                .setCircularRegion(
-                        47.667275,
-                        -117.401374,
+                .setCircularRegion(47.6666,-117.4009,
+                       // 47.667275,
+                       // -117.401374,
                         300)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)

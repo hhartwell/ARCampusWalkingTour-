@@ -23,6 +23,7 @@ import java.util.List;
 public class GeoFenceHelperService extends IntentService{
     private final static String TAG = "GeoFenceHelperService";
     private final static String DEBUG_TAG = "GEOFENCEHELPERSERVICE";
+    private View view;
 
     public GeoFenceHelperService(String name) {
         super(name);
@@ -59,10 +60,7 @@ public class GeoFenceHelperService extends IntentService{
             Intent i = new Intent(this, ARCameraActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
-
-           // ImageView desmet = (ImageView) findViewById(R.id.desmetText);
-           // desmet.setVisibility(View.VISIBLE);
-
+            
         }
         else{
             Log.e(TAG, "ERROR IN ONHANDLEINTENT");

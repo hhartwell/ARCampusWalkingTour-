@@ -28,7 +28,6 @@
             android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
 
-
         <Button
             android:id="@+id/gallery_button"
             android:layout_width="wrap_content"

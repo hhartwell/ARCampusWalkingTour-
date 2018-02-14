@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 /**
  * class to display each key that has or has not been unlocked yet
@@ -29,6 +31,13 @@ public class AchievementActivity extends AppCompatActivity {
         setContentView(R.layout.activity_achievements);
         setTitle("Keys");
     }
+
+   /* public static void setVisibility(View view)
+    {
+        ImageView desmet = (ImageView) view.findViewById(R.id.desmetImage);
+        desmet.setVisibility(View.VISIBLE);
+    } */
+
 
 
     private void backToMain(){
