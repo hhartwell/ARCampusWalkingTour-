@@ -102,8 +102,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private List<Polyline> polylinePaths = new ArrayList<>();
     private Marker mCurrLocationMarker;
     private int position;
-    private double closest;
+    private float closest;
     private LatLng closeLatLng;
+    private int closestIndex;
     private double geoLat;
     private double geoLong;
     final String type[] = {"Please Select A Building", "Alliance House", "Burch Apartments", "Campion House", "Catherine/Monica Hall",
@@ -219,10 +220,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            currLatLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            currLatLng = new LatLng(47.668670, -117.600111);//mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom( currLatLng,DEFAULT_ZOOM));
+                                    //new LatLng(mLastKnownLocation.getLatitude(),
+                                            //mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                             destinationPoint.set(0, currLatLng);
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -289,9 +290,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         destinationPoint.add(new LatLng(47.667747, -117.400001));//Welsh22
         destinationPoint.add(new LatLng(47.669768, -117.399430));//Chardin23
         for(int i = 1; i < destinationPoint.size(); i++) {
-            CalculationByDistance(destinationPoint.get(0), destinationPoint.get(i));
+            float[]results = new float[1];
+            Location.distanceBetween(destinationPoint.get(0).latitude,
+                    destinationPoint.get(0).longitude, destinationPoint.get(i).latitude,
+                    destinationPoint.get(i).longitude, results);
+            if(results[0] < closest){
+                closest = results[0];
+                closeLatLng = (destinationPoint.get(i));
+                closestIndex = i;
+            }
         }
-        Log.d(TAG, "Shortest distance is " + closest + " at Latng: " + closeLatLng);
+        Log.d(TAG, "Shortest distance is " + closest + " at Latng: " + closeLatLng + " " + type[closestIndex]);
         final ArrayAdapter<CharSequence> spinnerArrayAdapter = ArrayAdapter.createFromResource(
                 this, R.array.dorms, R.layout.spinner_layout);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_layout);
@@ -467,34 +476,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         //move map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
-    }
-    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
-        int Radius = 6371;// radius of earth in Km
-        double lat1 = StartP.latitude;
-        double lat2 = EndP.latitude;
-        double lon1 = StartP.longitude;
-        double lon2 = EndP.longitude;
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLon = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                + Math.cos(Math.toRadians(lat1))
-                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
-                * Math.sin(dLon / 2);
-        double c = 2 * Math.asin(Math.sqrt(a));
-        double valueResult = Radius * c;
-        double km = valueResult / 1;
-        DecimalFormat newFormat = new DecimalFormat("####");
-        int kmInDec = Integer.valueOf(newFormat.format(km));
-        double meter = valueResult % 1000;
-        int meterInDec = Integer.valueOf(newFormat.format(meter));
-        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
-                + " Meter   " + meterInDec);
-        if((Radius * c)< closest){
-            closest = Radius * c;
-            closeLatLng = EndP;
-        }
-
-        return Radius * c;
     }
     private void CreateGeofenceToComplete() {
         //create the geofence list
