@@ -38,6 +38,7 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -55,7 +56,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -98,6 +102,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private List<Polyline> polylinePaths = new ArrayList<>();
     private Marker mCurrLocationMarker;
     private int position;
+    private double closest;
+    private LatLng closeLatLng;
     private double geoLat;
     private double geoLong;
     final String type[] = {"Please Select A Building", "Alliance House", "Burch Apartments", "Campion House", "Catherine/Monica Hall",
@@ -255,7 +261,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
     }
     public void setSpinner(){
-
+        closest = 1000000;
 
         destinationPoint = new ArrayList<>();
         destinationPoint.add(new LatLng(mDefaultLocation.latitude,mDefaultLocation.longitude));
@@ -282,9 +288,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         destinationPoint.add(new LatLng(47.668694, -117.397763));//Twohy21
         destinationPoint.add(new LatLng(47.667747, -117.400001));//Welsh22
         destinationPoint.add(new LatLng(47.669768, -117.399430));//Chardin23
-
-
-
+        for(int i = 1; i < destinationPoint.size(); i++) {
+            CalculationByDistance(destinationPoint.get(0), destinationPoint.get(i));
+        }
+        Log.d(TAG, "Shortest distance is " + closest + " at Latng: " + closeLatLng);
         final ArrayAdapter<CharSequence> spinnerArrayAdapter = ArrayAdapter.createFromResource(
                 this, R.array.dorms, R.layout.spinner_layout);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_layout);
@@ -461,25 +468,33 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,15));
 
     }
-    private void getNearestMarker(){
-        //destinationPoint, currLatLng;
-        //destinationPoint.get(0) is current location
-        //start with index of 1
-        /*Collections.sort(marker, new Comparator<Place>() {
+    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
+        int Radius = 6371;// radius of earth in Km
+        double lat1 = StartP.latitude;
+        double lat2 = EndP.latitude;
+        double lon1 = StartP.longitude;
+        double lon2 = EndP.longitude;
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat1))
+                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
+                * Math.sin(dLon / 2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult = Radius * c;
+        double km = valueResult / 1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec = Integer.valueOf(newFormat.format(km));
+        double meter = valueResult % 1000;
+        int meterInDec = Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
+                + " Meter   " + meterInDec);
+        if((Radius * c)< closest){
+            closest = Radius * c;
+            closeLatLng = EndP;
+        }
 
-            @Override
-            public int compare(Markers a, Markers b) {
-                Location locationA = new Location("point A");
-                locationA.setLatitude(a.latitude);
-                locationA.setLongitude(a.longitude);
-                Location locationB = new Location("point B");
-                locationB.setLatitude(b.latitude);
-                locationB.setLongitude(b.longitude);
-                float distanceOne = location.distanceTo(locationA);
-                float distanceTwo = location.distanceTo(locationB);
-                return Float.compare(distanceOne, distanceTwo);
-            }
-        }*/
+        return Radius * c;
     }
     private void CreateGeofenceToComplete() {
         //create the geofence list
