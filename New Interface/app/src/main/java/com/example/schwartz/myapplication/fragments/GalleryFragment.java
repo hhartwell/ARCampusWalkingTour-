@@ -37,10 +37,10 @@ public class GalleryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
-        retrieveGalleryItem("https://imgur.com/HSYZZWK.jpg", rootView);
+        retrieveGalleryItem("https://imgur.com/HSYZZWK.jpg", rootView, R.id.desmet);
         return rootView;
     }
-    private void retrieveGalleryItem(String url, View rootView){
+    private void retrieveGalleryItem(String url, View rootView, int resourceValue){
         Drawable desmet = null;
         try {
             desmet = new HTMLImageGetter().execute(url).get();
@@ -53,11 +53,10 @@ public class GalleryFragment extends Fragment {
         }
         Bitmap bitmap = ((BitmapDrawable) desmet).getBitmap();
         ImageButton ib;
-        ib = (ImageButton) rootView.findViewById(R.id.desmet);
+        ib = (ImageButton) rootView.findViewById(resourceValue);
         System.out.println("HEIGHT " + ib.getMeasuredWidth() + ", " + ib.getHeight());
         Drawable desmetResize = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 600, 600, true));
         ib.setImageDrawable(desmetResize);
         System.out.println(ib.getWidth());
     }
-
 }
