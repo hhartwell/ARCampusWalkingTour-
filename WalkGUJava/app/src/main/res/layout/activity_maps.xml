@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="harvey.com.walkgujava.MapActivity" >
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Find nearest historical point"
+        android:id="@+id/btnFindNearest" />
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OR"
+        android:id="@+id/tvOr" />
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"

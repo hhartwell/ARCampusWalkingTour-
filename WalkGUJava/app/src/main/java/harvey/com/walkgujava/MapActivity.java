@@ -65,7 +65,7 @@ import java.util.List;
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, DirectionFinderListener {
+        LocationListener, DirectionFinderListener,View.OnClickListener {
     //private final static String TAG = "MapActivity";
 
     private static final String TAG = MapActivity.class.getSimpleName();
@@ -77,7 +77,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng mDefaultLocation = new LatLng(47.668294, -117.403029);
+    private final LatLng mDefaultLocation = new LatLng(47.655, -117.455);//Herak Hall
     private static final int DEFAULT_ZOOM = 15;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
@@ -102,7 +102,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private List<Polyline> polylinePaths = new ArrayList<>();
     private Marker mCurrLocationMarker;
     private int position;
-    private float closest;
+    private float closest = 1000000000;
     private LatLng closeLatLng;
     private int closestIndex;
     private double geoLat;
@@ -146,18 +146,16 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         Intent intent = getIntent();
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        btnFindPath = (Button) findViewById(R.id.btnFindPath);
 
         spinner = (Spinner) findViewById(R.id.spinner);
-        btnFindPath.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                sendRequest();
-            }
-        });
-        getDeviceLocation();
+        Button btnFindNearest = findViewById(R.id.btnFindNearest);
+        btnFindNearest.setOnClickListener(this);
+        Button btnFindPath = findViewById(R.id.btnFindPath);
+        btnFindPath.setOnClickListener(this);
         setSpinner();
+        getDeviceLocation();
+
         //sensor pedometer
         count = (TextView) findViewById(R.id.stepText);
         manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -169,6 +167,26 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.btnFindNearest:
+                destLatLng = closeLatLng;
+                sendRequest();
+                break;
+
+            case R.id.btnFindPath:
+                sendRequest();
+                break;
+
+            default:
+                break;
+        }
+
+
     }
 
     /**
@@ -203,6 +221,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
         mMap.setMyLocationEnabled(true);
     }
+
     /**
      * Gets the current location of the device, and positions the map's camera.
      */
@@ -220,11 +239,31 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            currLatLng = new LatLng(47.668670, -117.600111);//mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom( currLatLng,DEFAULT_ZOOM));
-                                    //new LatLng(mLastKnownLocation.getLatitude(),
-                                            //mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                            destinationPoint.set(0, currLatLng);
+                            currLatLng = new LatLng(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude());
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                    new LatLng(mLastKnownLocation.getLatitude(),
+                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            destinationPoint.set(0,currLatLng);
+                            for(int i = 1; i < destinationPoint.size(); i++) { //start at 1 because 0 is current
+                                // location and always closest
+                                float[]results = new float[1];
+                                Location.distanceBetween(mLastKnownLocation.getLatitude(),
+                                        mLastKnownLocation.getLongitude(), destinationPoint.get(i).latitude,
+                                        destinationPoint.get(i).longitude, results);
+                                Log.d(TAG, "getDeviceLocation: Current location" + destinationPoint.get(0).toString());
+                                Log.d(TAG, "getDeviceLocation: " + results[0]);
+                                if(results[0] < closest){
+
+                                    closest = results[0];
+                                    closeLatLng = (destinationPoint.get(i));
+                                    closestIndex = i;
+                                    //destinationPoint.set(0,closeLatLng);
+                                    Log.d(TAG, "getDeviceLocation: " + type[i]);
+                                    Log.d(TAG, "getDeviceLocation: " + destinationPoint.get(i));
+                                    Log.d(TAG, "getDeviceLocation: " + results[0]);
+                                }
+                            }
+                            Log.d(TAG, "onComplete: Task successful" + currLatLng.toString());
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
@@ -236,7 +275,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                     }
                 });
             }
-        } catch (SecurityException e) {
+        } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
         }
     }
@@ -262,7 +301,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         }
     }
     public void setSpinner(){
-        closest = 1000000;
 
         destinationPoint = new ArrayList<>();
         destinationPoint.add(new LatLng(mDefaultLocation.latitude,mDefaultLocation.longitude));
@@ -289,18 +327,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         destinationPoint.add(new LatLng(47.668694, -117.397763));//Twohy21
         destinationPoint.add(new LatLng(47.667747, -117.400001));//Welsh22
         destinationPoint.add(new LatLng(47.669768, -117.399430));//Chardin23
-        for(int i = 1; i < destinationPoint.size(); i++) {
-            float[]results = new float[1];
-            Location.distanceBetween(destinationPoint.get(0).latitude,
-                    destinationPoint.get(0).longitude, destinationPoint.get(i).latitude,
-                    destinationPoint.get(i).longitude, results);
-            if(results[0] < closest){
-                closest = results[0];
-                closeLatLng = (destinationPoint.get(i));
-                closestIndex = i;
-            }
-        }
-        Log.d(TAG, "Shortest distance is " + closest + " at Latng: " + closeLatLng + " " + type[closestIndex]);
+
         final ArrayAdapter<CharSequence> spinnerArrayAdapter = ArrayAdapter.createFromResource(
                 this, R.array.dorms, R.layout.spinner_layout);
         spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_layout);
@@ -332,7 +359,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         });
     }
     private void sendRequest() {
-        //currLatLng = new LatLng(48, -117);
+       // currLatLng = mDefaultLocation;
         double origLat = currLatLng.latitude;
         double origLong = currLatLng.longitude;
         double destLat = destLatLng.latitude;
