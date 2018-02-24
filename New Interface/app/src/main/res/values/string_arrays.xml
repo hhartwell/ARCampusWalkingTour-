@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="dorm_prompt">Choose a Dorm:</string>
+    <string-array name="dorms">
+        <item><b>Please Select A Dorm:</b></item>
+        <item><b>Alliance House</b></item>
+        <item><b>Burch Apartments</b></item>
+        <item><b>Campion House</b></item>
+        <item><b>Catherine/Monica Hall</b></item>
+        <item><b>Chardin House</b></item>
+        <item><b>Corkery Apartments</b></item>
+        <item><b>Coughlin Hall</b></item>
+        <item><b>Crimont Hall</b></item>
+        <item><b>Cushing House</b></item>
+        <item><b>DeSmet Hall</b></item>
+        <item><b>Dillon Hall</b></item>
+        <item><b>Dussault Suites</b></item>
+        <item><b>Goller Hall</b></item>
+        <item><b>Kennedy Apartments</b></item>
+        <item><b>Lincoln House</b></item>
+        <item><b>Madonna Hall</b></item>
+        <item><b>Marian Hall</b></item>
+        <item><b>River Inn Hall</b></item>
+        <item><b>Roncalli House</b></item>
+        <item><b>Sharp Apartments</b></item>
+        <item><b>Twohy Hall</b></item>
+        <item><b>Welch Hall</b></item>
+    </string-array>
+</resources>

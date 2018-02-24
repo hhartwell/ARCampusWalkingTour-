@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    fragment = new MapFragment();
+                    fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_map:
