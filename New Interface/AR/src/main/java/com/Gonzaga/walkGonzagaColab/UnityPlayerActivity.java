@@ -37,6 +37,9 @@ public class UnityPlayerActivity extends Activity
         // replace the intent with the one caught here.
         setIntent(intent);
     }
+    protected void startNewActivity() {
+        // abstract class
+    }
 
     // Quit Unity
     @Override protected void onDestroy ()

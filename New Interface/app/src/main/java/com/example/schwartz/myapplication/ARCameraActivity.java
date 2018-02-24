@@ -3,6 +3,9 @@ package com.example.schwartz.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.Gonzaga.walkGonzagaColab.UnityPlayerActivity;
+import com.example.schwartz.myapplication.fragments.GalleryFragment;
+
 public class ARCameraActivity extends UnityPlayerActivity {
 /*
     @Override
@@ -25,10 +28,10 @@ public class ARCameraActivity extends UnityPlayerActivity {
         setContentView(R.layout.activity_unityplayer);
     }
     */
-//    @Override
-//    protected void startNewActivity() {
-//        super.startNewActivity();
-//        Intent i = new Intent(this, DesmetGalleryActivity.class);
-//        startActivity(i);
-//    }
+    @Override
+    protected void startNewActivity() {
+        super.startNewActivity();
+        Intent i = new Intent(this, GalleryFragment.class);
+        startActivity(i);
+    }
 }
