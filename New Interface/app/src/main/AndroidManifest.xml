@@ -8,9 +8,13 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<<<<<<< HEAD
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
+=======
+    <uses-permission android:name="android.permission.INTERNET" />
+>>>>>>> origin/updated-interface-map
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
