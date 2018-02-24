@@ -1,4 +1,4 @@
-package harvey.com.walkgujava;
+package com.Gonzaga.walkGonzagaColab;
 
 import com.unity3d.player.*;
 import android.app.NativeActivity;

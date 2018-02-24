@@ -29,7 +29,7 @@ android {
 
 	defaultConfig {
 		targetSdkVersion 27
-		//applicationId 'harvey.com.walkgujava'
+		//applicationId 'com.Gonzaga.walkGonzagaColab'
 	}
 
 	lintOptions {
