@@ -142,7 +142,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         fragment.setArguments(args);
         return fragment;
     }
-
+    @Override
+    public void onStart(){
+        super.onStart();
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
@@ -158,7 +162,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
+       // mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
 
         spinner = getView().findViewById(R.id.spinner);
 
