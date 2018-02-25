@@ -164,17 +164,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
        // mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
 
-        spinner = getView().findViewById(R.id.spinner);
+        spinner = view.findViewById(R.id.spinner);
 
-        Button btnFindNearest = getView().findViewById(R.id.btnFindNearest);
+        Button btnFindNearest = view.findViewById(R.id.btnFindNearest);
         btnFindNearest.setOnClickListener(this);
-        Button btnFindPath = getView().findViewById(R.id.btnFindPath);
+        Button btnFindPath = view.findViewById(R.id.btnFindPath);
         btnFindPath.setOnClickListener(this);
         setSpinner();
         getDeviceLocation();
 
         //sensor pedometer
-        count = (TextView) getView().findViewById(R.id.stepText);
+        count = (TextView) view.findViewById(R.id.stepText);
         manager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         zeroSteps = true;
         pedometer();
