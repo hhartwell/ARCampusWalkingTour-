@@ -1,6 +1,5 @@
 package com.example.schwartz.myapplication;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,13 +7,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.example.schwartz.myapplication.fragments.AwardsFragment;
 import com.example.schwartz.myapplication.fragments.GalleryFragment;
 import com.example.schwartz.myapplication.fragments.HomeFragment;
-import com.example.schwartz.myapplication.fragments.MapFragment;
-import com.example.schwartz.myapplication.fragments.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

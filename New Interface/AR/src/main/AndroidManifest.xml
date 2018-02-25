@@ -26,7 +26,7 @@
         android:screenOrientation="fullSensor"
         android:launchMode="singleTask"
         android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection"
-        android:name="com.Gonzaga.walkGonzagaColab.UnityPlayerNativeActivity">
+        android:name="com.gonzaga.walkgonzagacolab.UnityPlayerNativeActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
