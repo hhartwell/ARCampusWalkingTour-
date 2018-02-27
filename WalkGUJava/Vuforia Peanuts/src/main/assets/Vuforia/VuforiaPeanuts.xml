@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
-  <Tracking>
-    <ImageTarget name="desmetHall" size="4.000000 3.687151" />
-    <ImageTarget name="peanutButter" size="300.000000 225.000000" />
-  </Tracking>
-</QCARConfig>
