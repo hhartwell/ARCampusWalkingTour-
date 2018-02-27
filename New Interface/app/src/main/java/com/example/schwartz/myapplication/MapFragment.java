@@ -197,7 +197,71 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         Log.d(TAG, "onMapReady: ");
-
+        mMap.addMarker(new MarkerOptions().position(new LatLng(47.668670, -117.400111))
+                .title("Alliance"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669174, -117.406664))
+                .title("Burch"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668663, -117.401090))
+                .title("Campion"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47., -117))
+                .title("Catherine Monica NO COORDS"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669824, -117.399450))
+                .title("Chardin"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.670131, -117.400162))
+                .title("Corkery"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.664840, -117.397315))
+                .title("Coughlin"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.670186, -117.401682))
+                .title("Crimont"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669313, -117.398404))
+                .title("Cushing"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.667834, -117.401336))
+                .title("Desmet"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669266, -117.400999))
+                .title("Dillon"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.666730, -117.408119))
+                .title("Dussault"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669284, -117.400215))
+                .title("Goller"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668599, -117.408095))
+                .title("Kennedy"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668634, -117.399486))
+                .title("Lincoln"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.666774, -117.397601))
+                .title("Madonna"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668627, -117.394011))
+                .title("Marian"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47., -117))
+                .title("River Inn NO COORDS"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668652, -117.399025))
+                .title("Roncalli"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669293, -117.403457))
+                .title("Sharp"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668694, -117.397763))
+                .title("Twohy"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.667747, -117.400001))
+                .title("Welch"));
         getLocationPermission();
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
@@ -243,7 +307,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         try {
             if (mLocationPermissionGranted) {
                 Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener((Executor) this, new OnCompleteListener<Location>() {
+                locationResult.addOnCompleteListener( new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
@@ -331,7 +395,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         destinationPoint.add(new LatLng(47.668634, -117.399486));//Lincoln15
         destinationPoint.add(new LatLng(47.666774, -117.397601));//Madonna16
         destinationPoint.add(new LatLng(47.668627, -117.394011));//Marian17
-        destinationPoint.add(new LatLng(47., -117));//RiverInn18
+        destinationPoint.add(new LatLng(47.727424, -117.475184));//RiverInn18(NO COORDS, MY HOUSE)
         destinationPoint.add(new LatLng(47.668652, -117.399025));//Roncalli19
         destinationPoint.add(new LatLng(47.669293, -117.403457));//Sharp20
         destinationPoint.add(new LatLng(47.668694, -117.397763));//Twohy21
@@ -416,18 +480,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         destinationMarkers = new ArrayList<>();
 
         for (Route route : routes) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 19));
 
             ((TextView) getView().findViewById(R.id.tvDistance)).setText(route.distance.text);
 
-            originMarkers.add(mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_blue))
-                    .title(route.startAddress)
-                    .position(route.startLocation)));
-            destinationMarkers.add(mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.end_green))
-                    .title(route.endAddress)
-                    .position(route.endLocation)));
+
 
             PolylineOptions polylineOptions = new PolylineOptions().
                     geodesic(true).
@@ -534,8 +591,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 // float radius in meters
                 // currently set to crosby. replace first and second arg with geoLat and geoLong respectively
                 .setCircularRegion(
-                        47.667275,
-                        -117.401374,
+                        47.667253, -117.401352,
                         300)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)

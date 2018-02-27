@@ -203,7 +203,71 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         Log.d(TAG, "onMapReady: ");
-
+        mMap.addMarker(new MarkerOptions().position(new LatLng(47.668670, -117.400111))
+                .title("Alliance"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669174, -117.406664))
+                .title("Burch"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668663, -117.401090))
+                .title("Campion"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47., -117))
+                .title("Catherine Monica NO COORDS"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669824, -117.399450))
+                .title("Chardin"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.670131, -117.400162))
+                .title("Corkery"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.664840, -117.397315))
+                .title("Coughlin"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.670186, -117.401682))
+                .title("Crimont"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669313, -117.398404))
+                .title("Cushing"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.667834, -117.401336))
+                .title("Desmet"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669266, -117.400999))
+                .title("Dillon"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.666730, -117.408119))
+                .title("Dussault"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669284, -117.400215))
+                .title("Goller"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668599, -117.408095))
+                .title("Kennedy"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668634, -117.399486))
+                .title("Lincoln"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.666774, -117.397601))
+                .title("Madonna"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668627, -117.394011))
+                .title("Marian"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47., -117))
+                .title("River Inn NO COORDS"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668652, -117.399025))
+                .title("Roncalli"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.669293, -117.403457))
+                .title("Sharp"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668694, -117.397763))
+                .title("Twohy"));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.667747, -117.400001))
+                .title("Welsch"));
         getLocationPermission();
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
@@ -244,6 +308,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
                             destinationPoint.set(0,currLatLng);
+                            //determine nearest location
                             for(int i = 1; i < destinationPoint.size(); i++) { //start at 1 because 0 is current
                                 // location and always closest
                                 float[]results = new float[1];

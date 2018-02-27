@@ -47,7 +47,7 @@ public class GeoFenceHelperService extends IntentService{
             // get the geofences that were triggered
             List<Geofence> triggeredFences = geofencingEvent.getTriggeringGeofences();
 
-
+            Toast.makeText(this, "Geofence triggered", Toast.LENGTH_SHORT).show();
 
             Log.d(TAG, triggeredFences.get(0).getRequestId() + " has been triggered");
             //Toast.makeText(this, triggeredFences.get(0).getRequestId() + " has been triggered", Toast.LENGTH_SHORT).show();
