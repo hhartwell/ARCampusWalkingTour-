@@ -48,13 +48,16 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".ARCameraActivity" />
+        <activity android:name=".ARCameraActivity"
+            android:process=":UnityKillsMe"/>
         <activity
             android:name=".HistoryDisplayActivity"
             android:label="@string/title_activity_history_display"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <service android:name=".GeoFenceHelperService"
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -591,7 +591,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 // float radius in meters
                 // currently set to crosby. replace first and second arg with geoLat and geoLong respectively
                 .setCircularRegion(
-                        47.667253, -117.401352,
+                        47.666555, -117.400873,
                         300)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
@@ -635,11 +635,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 });
         Log.d(TAG, "CREATE_GEOFENCE_TO_COMPLETE DONE RUNNING");
 
-
         if (LocationServices.getFusedLocationProviderClient(this.getActivity()).getLastLocation() == null) {
             Log.d(TAG, "it was null!");
         }
-
     }
 
     private GeofencingClient getGeofencingClient() {
