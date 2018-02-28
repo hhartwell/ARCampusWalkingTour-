@@ -1,5 +1,6 @@
-package com.example.schwartz.myapplication.fragments;
+package com.example.schwartz.myapplication;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -9,9 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-
-import com.example.schwartz.myapplication.HTMLImageGetter;
-import com.example.schwartz.myapplication.R;
 
 import java.util.concurrent.ExecutionException;
 
@@ -37,10 +35,22 @@ public class GalleryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
-        retrieveGalleryItem("https://imgur.com/HSYZZWK.jpg", rootView, R.id.desmet);
+       // retrieveGalleryItem("https://imgur.com/HSYZZWK.jpg", rootView, R.id.desmet);
+
+        // retieve button resources
+        ImageButton desmet = (ImageButton) rootView.findViewById(R.id.desmet);
+
+        desmet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // needs to be fixed to be a true back button
+                Intent intent = new Intent(view.getContext(), DesmetActivity.class);
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
-    private void retrieveGalleryItem(String url, View rootView, int resourceValue){
+   /* private void retrieveGalleryItem(String url, View rootView, int resourceValue){
         Drawable desmet = null;
         try {
             desmet = new HTMLImageGetter().execute(url).get();
@@ -58,5 +68,5 @@ public class GalleryFragment extends Fragment {
         Drawable desmetResize = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 600, 600, true));
         ib.setImageDrawable(desmetResize);
         System.out.println(ib.getWidth());
-    }
+    } */
 }

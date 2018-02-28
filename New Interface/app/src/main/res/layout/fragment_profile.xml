@@ -12,13 +12,14 @@
 
 
     <include layout="@layout/fragment_profile2" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/bullDogRed"
+        app:backgroundTint="@color/gradient_end"
         app:srcCompat="@drawable/book" />
 
 </android.support.design.widget.CoordinatorLayout>

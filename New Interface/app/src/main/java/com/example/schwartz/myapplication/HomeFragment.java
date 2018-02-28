@@ -1,5 +1,4 @@
-package com.example.schwartz.myapplication.fragments;
-
+package com.example.schwartz.myapplication;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,16 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.schwartz.myapplication.R;
+public class HomeFragment extends Fragment {
 
-public class AwardsFragment extends Fragment {
-
-    public AwardsFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
-    public static AwardsFragment newInstance(String param1, String param2) {
-        AwardsFragment fragment = new AwardsFragment();
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -29,6 +26,6 @@ public class AwardsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_awards, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }

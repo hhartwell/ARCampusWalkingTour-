@@ -2,7 +2,6 @@ package com.example.schwartz.myapplication;
 
 import android.content.Intent;
 
-import com.example.schwartz.myapplication.fragments.GalleryFragment;
 import com.gonzaga.walkgonzagacolab.UnityPlayerActivity;
 
 public class ARCameraActivity extends UnityPlayerActivity {
