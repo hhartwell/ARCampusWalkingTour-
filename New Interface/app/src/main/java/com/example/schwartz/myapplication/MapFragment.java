@@ -496,6 +496,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
+
+
     }
     /**
      * Prompts the user for permission to use the device location.
@@ -556,6 +558,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
+        if(polylinePaths!=null){
+            sendRequest();
+        }
 
         //Place current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -591,8 +596,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 // float radius in meters
                 // currently set to crosby. replace first and second arg with geoLat and geoLong respectively
                 .setCircularRegion(
-                        47.666555, -117.400873,
-                        300)
+                        47.667837, -117.401328,
+                        100)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 // how the geo fence will be triggered
