@@ -596,13 +596,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 // float radius in meters
                 // currently set to crosby. replace first and second arg with geoLat and geoLong respectively
                 .setCircularRegion(
-                        47.667837, -117.401328,
-                        100)
+                        47.667842, -117.401327,
+                        30)
                 // how long the geo fence stays active
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 // how the geo fence will be triggered
-                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER |
-                        Geofence.GEOFENCE_TRANSITION_EXIT | Geofence.GEOFENCE_TRANSITION_DWELL)
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_ENTER | Geofence.GEOFENCE_TRANSITION_DWELL)
                 .setLoiteringDelay(10)
                 // create it
                 .build();
