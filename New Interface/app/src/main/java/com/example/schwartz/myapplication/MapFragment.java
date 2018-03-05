@@ -496,6 +496,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
+
+
     }
     /**
      * Prompts the user for permission to use the device location.
@@ -555,6 +557,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     {
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
+        }
+        if(polylinePaths!=null){
+            sendRequest();
         }
 
         //Place current location marker
