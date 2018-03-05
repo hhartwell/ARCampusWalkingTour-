@@ -9,8 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 public class GalleryFragment extends Fragment {
@@ -35,11 +38,12 @@ public class GalleryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
-       // retrieveGalleryItem("https://imgur.com/HSYZZWK.jpg", rootView, R.id.desmet);
 
-        // retieve button resources
+        // add all images into the fragment
+        assignAllPicturesToGalleryFragment(rootView);
+        //formatAllImageButtonSizes(rootView);
+        // retrieve button resources
         ImageButton desmet = (ImageButton) rootView.findViewById(R.id.desmet);
-
         desmet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,12 +54,85 @@ public class GalleryFragment extends Fragment {
         });
         return rootView;
     }
-   /* private void retrieveGalleryItem(String url, View rootView, int resourceValue){
+/*
+    private void formatAllImageButtonSizes(View rootView){
+        rootView.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        System.out.println("VIEW WIDTH: " + rootView.getMeasuredWidth());
+        int newWidth = rootView.getMeasuredWidth()/2 - (30* (int) getResources().getDisplayMetrics().density);
+        System.out.println("DISPLAY DENSITY: " + getResources().getDisplayMetrics().density);
+
+        ArrayList<ImageButton> imageButtons = new ArrayList<ImageButton>();
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.alliance));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.catherinemonica));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.chardin));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.corkery));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.coughlin));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.crimont));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.cushing));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.desmet));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.dillon));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.dooley));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.dussault));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.goller));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.kennedy));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.lincoln));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.madonna));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.marian));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.roncalli));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.sharp));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.twohy));
+        imageButtons.add((ImageButton) rootView.findViewById(R.id.welch));
+
+        GridLayout.LayoutParams params = (GridLayout.LayoutParams) imageButtons.get(0).getLayoutParams();
+        params.width = newWidth;
+
+        imageButtons.get(0).setLayoutParams(params);
+        params = (GridLayout.LayoutParams) imageButtons.get(1).getLayoutParams();
+        params.width = newWidth;
+        imageButtons.get(1).setLayoutParams(params);
+    }
+*/
+
+    /**
+     * helper function that adds all images from the WalkGU server to all
+     *  gallery image buttons in the fragment
+     * @param rootView
+     */
+    private void assignAllPicturesToGalleryFragment(View rootView){
+        ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
+        retrieveGalleryItem(dormURLS.get(0),rootView, R.id.alliance);
+        retrieveGalleryItem(dormURLS.get(1), rootView, R.id.catherinemonica);
+        retrieveGalleryItem(dormURLS.get(2), rootView, R.id.chardin);
+        retrieveGalleryItem(dormURLS.get(3), rootView, R.id.corkery);
+        retrieveGalleryItem(dormURLS.get(4), rootView, R.id.coughlin);
+        retrieveGalleryItem(dormURLS.get(5), rootView, R.id.crimont);
+        retrieveGalleryItem(dormURLS.get(6), rootView, R.id.cushing);
+        retrieveGalleryItem(dormURLS.get(7), rootView, R.id.desmet);
+        retrieveGalleryItem(dormURLS.get(8), rootView, R.id.dillon);
+        retrieveGalleryItem(dormURLS.get(9), rootView, R.id.dooley);
+        retrieveGalleryItem(dormURLS.get(10), rootView, R.id.dussault);
+        retrieveGalleryItem(dormURLS.get(11), rootView, R.id.goller);
+        retrieveGalleryItem(dormURLS.get(12), rootView, R.id.kennedy);
+        retrieveGalleryItem(dormURLS.get(13), rootView, R.id.lincoln);
+        retrieveGalleryItem(dormURLS.get(14), rootView, R.id.madonna);
+        retrieveGalleryItem(dormURLS.get(15), rootView, R.id.marian);
+        retrieveGalleryItem(dormURLS.get(16), rootView, R.id.roncalli);
+        retrieveGalleryItem(dormURLS.get(17), rootView, R.id.sharp);
+        retrieveGalleryItem(dormURLS.get(18), rootView, R.id.twohy);
+        retrieveGalleryItem(dormURLS.get(19), rootView, R.id.welch);
+    }
+
+    /**
+     * helper function that assigns an image to the resource value given the root view and a url to the image location.
+     * this url is meant to be hosted on the WalkGU server
+     * @param url
+     * @param rootView
+     * @param resourceValue
+     */
+   private void retrieveGalleryItem(String url, View rootView, int resourceValue){
         Drawable desmet = null;
         try {
             desmet = new HTMLImageGetter().execute(url).get();
-            System.out.println(desmet.getIntrinsicHeight());
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -64,9 +141,8 @@ public class GalleryFragment extends Fragment {
         Bitmap bitmap = ((BitmapDrawable) desmet).getBitmap();
         ImageButton ib;
         ib = (ImageButton) rootView.findViewById(resourceValue);
-        System.out.println("HEIGHT " + ib.getMeasuredWidth() + ", " + ib.getHeight());
-        Drawable desmetResize = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 600, 600, true));
-        ib.setImageDrawable(desmetResize);
+        Drawable drawableResize = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 600, 600, true));
+        ib.setImageDrawable(drawableResize);
         System.out.println(ib.getWidth());
-    } */
+    }
 }
