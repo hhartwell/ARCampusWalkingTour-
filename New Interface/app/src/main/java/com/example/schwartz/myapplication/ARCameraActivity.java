@@ -1,6 +1,11 @@
 package com.example.schwartz.myapplication;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.Layout;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.gonzaga.walkgonzagacolab.UnityPlayerActivity;
 
@@ -23,9 +28,11 @@ public class ARCameraActivity extends UnityPlayerActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        FrameLayout fl = findViewById(R.id.frameLayout);
+        fl.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
         setContentView(R.layout.activity_unityplayer);
     }
-    */
+*/
     @Override
     protected void startNewActivity() {
         super.startNewActivity();
