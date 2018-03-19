@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="dorm_prompt">Choose a Dorm:</string>
-    <string-array name="dorms">
-        <item><b>Please Select A Dorm:</b></item>
-        <item><b>Alliance House</b></item>
-        <item><b>Burch Apartments</b></item>
-        <item><b>Campion House</b></item>
-        <item><b>Catherine/Monica Hall</b></item>
-        <item><b>Chardin House</b></item>
-        <item><b>Corkery Apartments</b></item>
-        <item><b>Coughlin Hall</b></item>
-        <item><b>Crimont Hall</b></item>
-        <item><b>Cushing House</b></item>
-        <item><b>DeSmet Hall</b></item>
-        <item><b>Dillon Hall</b></item>
-        <item><b>Dussault Suites</b></item>
-        <item><b>Goller Hall</b></item>
-        <item><b>Kennedy Apartments</b></item>
-        <item><b>Lincoln House</b></item>
-        <item><b>Madonna Hall</b></item>
-        <item><b>Marian Hall</b></item>
-        <item><b>River Inn Hall</b></item>
-        <item><b>Roncalli House</b></item>
-        <item><b>Sharp Apartments</b></item>
-        <item><b>Twohy Hall</b></item>
-        <item><b>Welch Hall</b></item>
+    <string-array name="items_array_expandable_level_one">
+        <item>Tours</item>
+
+    </string-array>
+    <string-array name="items_array_expandable_level_one_one_child">
+        <item>Dorms</item>
+    </string-array>
+
+    <string-array name="items_array_expandable_level_three">
+        <item>DeSmet</item>
+        <item>Welch</item>
+        <item>Alliance</item>
+        <item>Campion</item>
+        <item>Madonna</item>
+        <item>CatherineMonica</item>
+        <item>Crimont</item>
+        <item>Rebmann</item>
+        <item>Robinson</item>
+    </string-array>
+    <string-array name="items_array_expandable_other_child">
+        <item>Second Level 01</item>
+        <item>Second Level 02</item>
+        <item>Second Level 03</item>
     </string-array>
 </resources>

@@ -11,6 +11,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +58,8 @@ import com.google.android.gms.tasks.Task;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -129,6 +133,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private PendingIntent pendingIntent;
     private GeofencingRequest geofencingRequest;
     private ArrayList<Geofence> geofenceList;
+    private ExpandableListAdapter listAdapter;
+    private ExpandableListView expListView;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listDataChild;
 
 
     SupportMapFragment mapFragment;
@@ -162,15 +170,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
 
-       // mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
-
-        spinner = view.findViewById(R.id.spinner);
-
-        Button btnFindNearest = view.findViewById(R.id.btnFindNearest);
-        btnFindNearest.setOnClickListener(this);
+        // Init top level data
+        List<String> listDataHeader = new ArrayList<>();
+        String[] mItemHeaders = getResources().getStringArray(R.array.items_array_expandable_level_one);
+        Collections.addAll(listDataHeader, mItemHeaders);
+        ExpandableListView mExpandableListView = (ExpandableListView) view.findViewById(R.id.expandableLV);
+        if (mExpandableListView != null) {
+            ExpandableListAdapter parentLevelAdapter = new ExpandableListAdapter(getActivity(), listDataHeader);
+            mExpandableListView.setAdapter(parentLevelAdapter);
+        }
+        //Button btnFindNearest = view.findViewById(R.id.btnFindNearest);
+        //btnFindNearest.setOnClickListener(this);
         Button btnFindPath = view.findViewById(R.id.btnFindPath);
         btnFindPath.setOnClickListener(this);
-        setSpinner();
+       // setSpinner();
+
         getDeviceLocation();
 
         //sensor pedometer
@@ -197,71 +211,44 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         Log.d(TAG, "onMapReady: ");
-        mMap.addMarker(new MarkerOptions().position(new LatLng(47.668670, -117.400111))
-                .title("Alliance"));
+        destinationPoint = new ArrayList<>();
+        destinationPoint.add(new LatLng(mDefaultLocation.latitude,mDefaultLocation.longitude));
         mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.669174, -117.406664))
-                .title("Burch"));
+                .position(new LatLng(47.668670, -117.400111))
+                .title("Alliance"));
+        destinationPoint.add(new LatLng(47.668670, -117.400111));
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(47.668663, -117.401090))
                 .title("Campion"));
+        destinationPoint.add(new LatLng(47.668663, -117.401090));
         mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47., -117))
-                .title("Catherine Monica NO COORDS"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.669824, -117.399450))
-                .title("Chardin"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.670131, -117.400162))
-                .title("Corkery"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.664840, -117.397315))
-                .title("Coughlin"));
+                .position(new LatLng(47.665924, -117.397732))
+                .title("Catherine Monica"));
+        destinationPoint.add(new LatLng(47.665924, -117.397732));
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(47.670186, -117.401682))
                 .title("Crimont"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.669313, -117.398404))
-                .title("Cushing"));
+        destinationPoint.add(new LatLng(47.670186, -117.401682));
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(47.667834, -117.401336))
                 .title("Desmet"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.669266, -117.400999))
-                .title("Dillon"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.666730, -117.408119))
-                .title("Dussault"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.669284, -117.400215))
-                .title("Goller"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.668599, -117.408095))
-                .title("Kennedy"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.668634, -117.399486))
-                .title("Lincoln"));
+        destinationPoint.add(new LatLng(47.667834, -117.401336));
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(47.666774, -117.397601))
                 .title("Madonna"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.668627, -117.394011))
-                .title("Marian"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47., -117))
-                .title("River Inn NO COORDS"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.668652, -117.399025))
-                .title("Roncalli"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.669293, -117.403457))
-                .title("Sharp"));
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(47.668694, -117.397763))
-                .title("Twohy"));
+        destinationPoint.add(new LatLng(47.666774, -117.397601));
         mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(47.667747, -117.400001))
                 .title("Welch"));
+        destinationPoint.add(new LatLng(47.667747, -117.400001));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668718, -117.404891))
+                .title("Rebmann"));
+        destinationPoint.add(new LatLng(47.668718, -117.404891));
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(47.668657, -117.404286))
+                .title("Robinson"));
+        destinationPoint.add(new LatLng(47.668657, -117.404286));
         getLocationPermission();
         // Turn on the My Location layer and the related control on the map.
         updateLocationUI();
@@ -285,13 +272,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
         switch (v.getId()) {
 
-            case R.id.btnFindNearest:
+           /* case R.id.btnFindNearest:
                 destLatLng = closeLatLng;
                 sendRequest();
-                break;
+                break;*/
 
             case R.id.btnFindPath:
-                sendRequest();
+                //sendRequest();
                 break;
 
             default:
@@ -374,65 +361,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             Log.e("Exception: %s", e.getMessage());
         }
     }
-    public void setSpinner(){
 
-        destinationPoint = new ArrayList<>();
-        destinationPoint.add(new LatLng(mDefaultLocation.latitude,mDefaultLocation.longitude));
-        destinationPoint.add(new LatLng(47.668670, -117.400111));//Alliance1
-        destinationPoint.add(new LatLng(47.669174, -117.406664));//Burch2
-        destinationPoint.add(new LatLng(47.668663, -117.401090));//Campion3
-        destinationPoint.add(new LatLng(47., -117));//Catherine/Monica4
-        destinationPoint.add(new LatLng(47.669824, -117.399450));//Chardin5
-        destinationPoint.add(new LatLng(47.670131, -117.400162));//Corkery6
-        destinationPoint.add(new LatLng(47.664840, -117.397315));//Coughlin7
-        destinationPoint.add(new LatLng(47.670186, -117.401682));//Crimont8
-        destinationPoint.add(new LatLng(47.669313, -117.398404));//Cushing9
-        destinationPoint.add(new LatLng(47.667834, -117.401336));//DeSmet10
-        destinationPoint.add(new LatLng(47.669266, -117.400999));//Dillon11
-        destinationPoint.add(new LatLng(47.666730, -117.408119));//Dussault12
-        destinationPoint.add(new LatLng(47.669284, -117.400215));//Goller13
-        destinationPoint.add(new LatLng(47.668599, -117.408095));//Kennedy14
-        destinationPoint.add(new LatLng(47.668634, -117.399486));//Lincoln15
-        destinationPoint.add(new LatLng(47.666774, -117.397601));//Madonna16
-        destinationPoint.add(new LatLng(47.668627, -117.394011));//Marian17
-        destinationPoint.add(new LatLng(47.727424, -117.475184));//RiverInn18(NO COORDS, MY HOUSE)
-        destinationPoint.add(new LatLng(47.668652, -117.399025));//Roncalli19
-        destinationPoint.add(new LatLng(47.669293, -117.403457));//Sharp20
-        destinationPoint.add(new LatLng(47.668694, -117.397763));//Twohy21
-        destinationPoint.add(new LatLng(47.667747, -117.400001));//Welsh22
-        destinationPoint.add(new LatLng(47.669768, -117.399430));//Chardin23
 
-        final ArrayAdapter<CharSequence> spinnerArrayAdapter = ArrayAdapter.createFromResource(
-                this.getActivity(), R.array.dorms, R.layout.spinner_layout);
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_layout);
-        spinner.setAdapter(spinnerArrayAdapter);
-        //creates the drop down menu for the category
-       /* final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
-        spinner.setAdapter(spinnerArrayAdapter);*/
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinner.setSelection(i);
-                destLatLng = destinationPoint.get(i);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(destLatLng, 18));
-                originMarkers.add(mMap.addMarker(new MarkerOptions().title(type[i]).position(destLatLng)));
-                Log.d(TAG, "onItemSelected: type" + type[i] + " Coordinates: " + destinationPoint.get(i).toString());
-                position = i;
-                geoLat= destinationPoint.get(position).latitude;
-                geoLong = destinationPoint.get(position).longitude;
-            }
-
-            /**
-             * if nothing is selected
-             * @param adapterView
-             */
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-    }
-    private void sendRequest() {
+   /* private void sendRequest() {
         // currLatLng = mDefaultLocation;
         double origLat = currLatLng.latitude;
         double origLong = currLatLng.longitude;
@@ -447,10 +378,33 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             e.printStackTrace();
         }
 
-    }
+    }*/
+
+   private void prepareListData() {
+       listDataHeader = new ArrayList<String>();
+       listDataChild = new HashMap<String, List<String>>();
+
+       // Adding child data
+       listDataHeader.add("Tours");
+
+       // Adding child data
+       List<String> dorms = new ArrayList<String>();
+       /*dorms.add("Alliance");
+       dorms.add("Campion");
+       dorms.add("Catherine Monica");
+       dorms.add("Crimont");
+       dorms.add("Desmet");
+       dorms.add("Madonna");
+       dorms.add("Welch");
+       dorms.add("Rebmann");
+       dorms.add("Robinson");*/
+
+       listDataChild.put(listDataHeader.get(0), dorms); // Header, Child data
+
+   }
     @Override
-    public void onDirectionFinderStart() {
-        progressDialog = ProgressDialog.show(this.getActivity(), "Please wait.",
+   public void onDirectionFinderStart() {
+       /*  progressDialog = ProgressDialog.show(this.getActivity(), "Please wait.",
                 "Finding direction..!", true);
 
         if (originMarkers != null) {
@@ -469,12 +423,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             for (Polyline polyline:polylinePaths ) {
                 polyline.remove();
             }
-        }
+        }*/
     }
 
-    @Override
-    public void onDirectionFinderSuccess(List<Route> routes) {
-        progressDialog.dismiss();
+   @Override
+   public void onDirectionFinderSuccess(List<Route> routes) {
+        /* progressDialog.dismiss();
         polylinePaths = new ArrayList<>();
         originMarkers = new ArrayList<>();
         destinationMarkers = new ArrayList<>();
@@ -495,7 +449,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 polylineOptions.add(route.points.get(i));
 
             polylinePaths.add(mMap.addPolyline(polylineOptions));
-        }
+        }*/
 
 
     }
@@ -559,7 +513,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             mCurrLocationMarker.remove();
         }
         if(polylinePaths!=null){
-            sendRequest();
+            //sendRequest();
         }
 
         //Place current location marker

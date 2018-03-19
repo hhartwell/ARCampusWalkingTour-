@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -133,6 +135,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private PendingIntent pendingIntent;
     private GeofencingRequest geofencingRequest;
     private ArrayList<Geofence> geofenceList;
+    private ExpandableListAdapter listAdapter;
+    private ExpandableListView expListView;
+    private List<String> listDataHeader;
+    private HashMap<String, List<String>> listDataChild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,13 +153,55 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        spinner = (Spinner) findViewById(R.id.spinner);
+        //spinner = (Spinner) findViewById(R.id.spinner);
+        expListView = (ExpandableListView) findViewById(R.id.expandableLV);
+        prepareListData();
+        //listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
-        Button btnFindNearest = findViewById(R.id.btnFindNearest);
-        btnFindNearest.setOnClickListener(this);
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                Toast.makeText(
+                        getApplicationContext(),
+                        listDataHeader.get(groupPosition)
+                                + " : "
+                                + listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT)
+                        .show();
+                return false;
+            }
+        });
+        // Listview Group expanded listener
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Expanded",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        // Listview Group collasped listener
+        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Collapsed",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        //Button btnFindNearest = findViewById(R.id.btnFindNearest);
+       // btnFindNearest.setOnClickListener(this);
         Button btnFindPath = findViewById(R.id.btnFindPath);
         btnFindPath.setOnClickListener(this);
-        setSpinner();
+
         getDeviceLocation();
 
         //sensor pedometer
@@ -173,10 +221,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         switch (v.getId()) {
 
-            case R.id.btnFindNearest:
+           /* case R.id.btnFindNearest:
                 destLatLng = closeLatLng;
                 sendRequest();
-                break;
+                break;*/
 
             case R.id.btnFindPath:
                 sendRequest();
@@ -365,63 +413,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("Exception: %s", e.getMessage());
         }
     }
-    public void setSpinner(){
 
-        destinationPoint = new ArrayList<>();
-        destinationPoint.add(new LatLng(mDefaultLocation.latitude,mDefaultLocation.longitude));
-        destinationPoint.add(new LatLng(47.668670, -117.400111));//Alliance1
-        destinationPoint.add(new LatLng(47.669174, -117.406664));//Burch2
-        destinationPoint.add(new LatLng(47.668663, -117.401090));//Campion3
-        destinationPoint.add(new LatLng(47., -117));//Catherine/Monica4
-        destinationPoint.add(new LatLng(47.669824, -117.399450));//Chardin5
-        destinationPoint.add(new LatLng(47.670131, -117.400162));//Corkery6
-        destinationPoint.add(new LatLng(47.664840, -117.397315));//Coughlin7
-        destinationPoint.add(new LatLng(47.670186, -117.401682));//Crimont8
-        destinationPoint.add(new LatLng(47.669313, -117.398404));//Cushing9
-        destinationPoint.add(new LatLng(47.667834, -117.401336));//DeSmet10
-        destinationPoint.add(new LatLng(47.669266, -117.400999));//Dillon11
-        destinationPoint.add(new LatLng(47.666730, -117.408119));//Dussault12
-        destinationPoint.add(new LatLng(47.669284, -117.400215));//Goller13
-        destinationPoint.add(new LatLng(47.668599, -117.408095));//Kennedy14
-        destinationPoint.add(new LatLng(47.668634, -117.399486));//Lincoln15
-        destinationPoint.add(new LatLng(47.666774, -117.397601));//Madonna16
-        destinationPoint.add(new LatLng(47.668627, -117.394011));//Marian17
-        destinationPoint.add(new LatLng(47., -117));//RiverInn18
-        destinationPoint.add(new LatLng(47.668652, -117.399025));//Roncalli19
-        destinationPoint.add(new LatLng(47.669293, -117.403457));//Sharp20
-        destinationPoint.add(new LatLng(47.668694, -117.397763));//Twohy21
-        destinationPoint.add(new LatLng(47.667747, -117.400001));//Welsh22
-        destinationPoint.add(new LatLng(47.669768, -117.399430));//Chardin23
+    /*
+     * Preparing the list data
+     */
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
 
-        final ArrayAdapter<CharSequence> spinnerArrayAdapter = ArrayAdapter.createFromResource(
-                this, R.array.dorms, R.layout.spinner_layout);
-        spinnerArrayAdapter.setDropDownViewResource(R.layout.spinner_layout);
-        spinner.setAdapter(spinnerArrayAdapter);
-        //creates the drop down menu for the category
-       /* final ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, type);
-        spinner.setAdapter(spinnerArrayAdapter);*/
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinner.setSelection(i);
-                destLatLng = destinationPoint.get(i);
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(destLatLng, 18));
-                originMarkers.add(mMap.addMarker(new MarkerOptions().title(type[i]).position(destLatLng)));
-                Log.d(TAG, "onItemSelected: type" + type[i] + " Coordinates: " + destinationPoint.get(i).toString());
-                position = i;
-                geoLat= destinationPoint.get(position).latitude;
-                geoLong = destinationPoint.get(position).longitude;
-            }
+        // Adding child data
+        listDataHeader.add("Top 250");
+        listDataHeader.add("Now Showing");
+        listDataHeader.add("Coming Soon..");
 
-            /**
-             * if nothing is selected
-             * @param adapterView
-             */
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
+        // Adding child data
+        List<String> top250 = new ArrayList<String>();
+        top250.add("The Shawshank Redemption");
+        top250.add("The Godfather");
+        top250.add("The Godfather: Part II");
+        top250.add("Pulp Fiction");
+        top250.add("The Good, the Bad and the Ugly");
+        top250.add("The Dark Knight");
+        top250.add("12 Angry Men");
 
-            }
-        });
+        List<String> nowShowing = new ArrayList<String>();
+        nowShowing.add("The Conjuring");
+        nowShowing.add("Despicable Me 2");
+        nowShowing.add("Turbo");
+        nowShowing.add("Grown Ups 2");
+        nowShowing.add("Red 2");
+        nowShowing.add("The Wolverine");
+
+        List<String> comingSoon = new ArrayList<String>();
+        comingSoon.add("2 Guns");
+        comingSoon.add("The Smurfs 2");
+        comingSoon.add("The Spectacular Now");
+        comingSoon.add("The Canyons");
+        comingSoon.add("Europa Report");
+
+        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), nowShowing);
+        listDataChild.put(listDataHeader.get(2), comingSoon);
+
     }
     private void sendRequest() {
         // currLatLng = mDefaultLocation;
