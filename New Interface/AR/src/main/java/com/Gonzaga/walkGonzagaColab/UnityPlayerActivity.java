@@ -65,7 +65,7 @@ public class UnityPlayerActivity extends Activity {
                 startNewActivity();
             }
         });
-        
+
         mUnityPlayer.requestFocus();
         Log.d("ONCREATE: ", "END OF FILE");
 
