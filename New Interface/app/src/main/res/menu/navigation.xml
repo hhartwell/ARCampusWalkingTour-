@@ -9,9 +9,9 @@
         app:showAsAction="always|withText" />
 
     <item
-        android:id="@+id/navigation_map"
+        android:id="@+id/navigation_tours"
         android:icon="@drawable/map"
-        android:title="@string/title_map"
+        android:title="@string/title_tours"
         app:showAsAction="always|withText"/>
 
     <item
@@ -22,8 +22,14 @@
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@drawable/profile"
+        android:icon="@drawable/footsteps"
         android:title="@string/title_profile"
+        app:showAsAction="always|withText"/>
+
+    <item
+        android:id="@+id/navigation_instructions"
+        android:icon="@drawable/instructions"
+        android:title="@string/title_instructions"
         app:showAsAction="always|withText"/>
 
 </menu>

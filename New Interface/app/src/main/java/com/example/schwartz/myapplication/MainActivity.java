@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
                     fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_map:
-                    fragment = new MapFragment();
+                case R.id.navigation_tours:
+                    fragment = new ToursFragment();
                     loadFragment(fragment);
                     return true;
                 case R.id.navigation_gallery:
@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_profile:
                     fragment = new ProfileFragment();
+                    loadFragment(fragment);
+                    return true;
+                case R.id.navigation_instructions:
+                    fragment = new InstructionsFragment();
                     loadFragment(fragment);
                     return true;
             }
