@@ -35,18 +35,34 @@
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAd7kHwR6ElulzZZ4jyt0IUw1MVgEI0SCc" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
+<<<<<<< HEAD
+            android:name=".ARCameraActivity"/>
+            <!--android:process=":UnityKillsMe" />-->
+=======
             android:name=".ARCameraActivity"
-            android:process=":UnityKillsMe" />
+            android:process=":UnityKillsMe" >
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+>>>>>>> a4838aa40f2c8933c6f8d8ace7f5f3d464d02146
         <activity
             android:name=".HistoryDisplayActivity"
             android:label="@string/title_activity_history_display"

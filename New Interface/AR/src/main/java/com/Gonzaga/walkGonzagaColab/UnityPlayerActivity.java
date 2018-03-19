@@ -12,10 +12,13 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 
 public class UnityPlayerActivity extends Activity {
@@ -47,6 +50,7 @@ public class UnityPlayerActivity extends Activity {
 
         Log.d("FrameLayoutResource: ", ((Integer) R.id.frameLayout).toString());
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
+        frameLayout.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         if (frameLayout == null) {
             Log.d("UnityPlayerActivity", "FRAME LAYOUT IS NULL");
         }
@@ -62,7 +66,6 @@ public class UnityPlayerActivity extends Activity {
             }
         });
 
-        frameLayout.addView(mUnityPlayer.getView(), FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
         mUnityPlayer.requestFocus();
         Log.d("ONCREATE: ", "END OF FILE");
 

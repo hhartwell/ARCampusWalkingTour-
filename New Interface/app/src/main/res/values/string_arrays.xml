@@ -25,4 +25,26 @@
         <item>Second Level 02</item>
         <item>Second Level 03</item>
     </string-array>
+    <string-array name="dorm_gallery_urls">
+        <item><b>http://147.222.165.81/~hhartwell/alliance.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/catherinemonica.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/chardin.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/corkery.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/coughlin.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/crimont.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/cushing.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/desmet.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/dillon.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/dooley.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/dussault.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/goller.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/kennedy.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/lincoln.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/madonna.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/marian.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/roncalli.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/sharp.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/twohy.jpg</b></item>
+        <item><b>http://147.222.165.81/~hhartwell/welch.jpg</b></item>
+    </string-array>
 </resources>
