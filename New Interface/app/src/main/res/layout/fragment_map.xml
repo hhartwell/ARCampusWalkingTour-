@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.schwartz.myapplication.MapFragment">
 
     <FrameLayout
@@ -23,7 +24,7 @@
             android:columnCount="3"
             android:background="@color/colorPrimary">
 
-            <!--<Button
+            <Button
                 android:id="@+id/btnFindNearest"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
@@ -33,9 +34,10 @@
                 android:text="Find N"
                 android:textAlignment="textStart"
                 android:textAllCaps="false"
-                android:textColor="@color/white" />-->
+                android:textColor="@color/white"
+                android:gravity="start" />
 
-            <!--<TextView
+            <TextView
                 android:id="@+id/tvOr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -43,22 +45,22 @@
                 android:padding="25dp"
                 android:text="OR"
                 android:textColor="@color/white"
-                />-->
+                />
 
-           <!-- <Spinner
+           <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:background="@color/gradient_end"
                 android:textColor="@color/white"
                 android:padding="10dp"
-                android:layout_margin="5dp"/>-->
-            <ExpandableListView
-                android:id="@+id/expandableLV"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_margin="5dp"/>
+            <!--<ExpandableListView-->
+                <!--android:id="@+id/expandableLV"-->
+                <!--android:layout_width="150dp"-->
+                <!--android:layout_height="wrap_content"-->
 
-            />
+            <!--/>-->
         </GridLayout>
 
         <GridLayout
@@ -101,6 +103,14 @@
         </GridLayout>
 
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|top"
+            android:layout_margin="@dimen/fab_margin"
+            app:backgroundTint="@color/gradient_end"
+            app:srcCompat="@drawable/book" />
 
     </GridLayout>
 

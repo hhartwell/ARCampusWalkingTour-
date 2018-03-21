@@ -48,12 +48,8 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-<<<<<<< HEAD
             android:name=".ARCameraActivity"/>
             <!--android:process=":UnityKillsMe" />-->
-=======
-            android:name=".ARCameraActivity"
-            android:process=":UnityKillsMe" >
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,8 +57,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             -->
-        </activity>
->>>>>>> a4838aa40f2c8933c6f8d8ace7f5f3d464d02146
         <activity
             android:name=".HistoryDisplayActivity"
             android:label="@string/title_activity_history_display"
