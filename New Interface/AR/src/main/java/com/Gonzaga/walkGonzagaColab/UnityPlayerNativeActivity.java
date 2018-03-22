@@ -1,4 +1,4 @@
-package com.gonzaga.walkgonzagacolab;
+package com.Gonzaga.walkGonzagaColab;
 
 import android.os.Bundle;
 import android.util.Log;

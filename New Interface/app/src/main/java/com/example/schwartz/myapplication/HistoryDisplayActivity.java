@@ -14,6 +14,7 @@ package com.example.schwartz.myapplication;
   @author Danielle Forrest
  * @version v1.0 12/8/17
  */
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
@@ -24,6 +25,8 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
+
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -40,12 +43,16 @@ public class HistoryDisplayActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_display);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(true);
-        }
+
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        ActionBar ab = getSupportActionBar();
+//        if (ab != null) {
+//            System.out.println("NULLL ACTION BAR");
+//            ab.setDisplayHomeAsUpEnabled(true);
+//        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getGraph();
 
 
@@ -120,9 +127,21 @@ public class HistoryDisplayActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         return sharedPreferences.getInt(key, 0);
     }
+    public void toActivity(){
+        Intent i= new Intent(this, ProfileFragment.class);
+    }
 
-
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case android.R.id.home:
+                toActivity();
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 

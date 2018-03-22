@@ -1,4 +1,4 @@
-package com.gonzaga.walkgonzagacolab;
+package com.Gonzaga.walkGonzagaColab;
 
 import com.example.schwartz.myapplication.R;
 import com.unity3d.player.*;

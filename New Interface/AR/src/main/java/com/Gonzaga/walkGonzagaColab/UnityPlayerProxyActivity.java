@@ -1,4 +1,4 @@
-package com.gonzaga.walkgonzagacolab;
+package com.Gonzaga.walkGonzagaColab;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +15,7 @@ public class UnityPlayerProxyActivity extends Activity
         Log.w("Unity", "UnityPlayerNativeActivity has been deprecated, please update your AndroidManifest to use UnityPlayerActivity instead");
         super.onCreate(savedInstanceState);
 
-        Intent intent = new Intent(this, com.gonzaga.walkgonzagacolab.UnityPlayerActivity.class);
+        Intent intent = new Intent(this, com.Gonzaga.walkGonzagaColab.UnityPlayerActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         Bundle extras = getIntent().getExtras();
         if (extras != null)

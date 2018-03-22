@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.gonzaga.walkgonzagacolab.UnityPlayerActivity;
+import com.Gonzaga.walkGonzagaColab.UnityPlayerActivity;
 
 public class ARCameraActivity extends UnityPlayerActivity {
 /*

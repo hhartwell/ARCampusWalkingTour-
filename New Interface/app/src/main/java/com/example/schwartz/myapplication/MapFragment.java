@@ -873,9 +873,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 //                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 //                mapFragment = SupportMapFragment.newInstance();
 //                fragmentTransaction.replace(R.id.map, mapFragment).commit();
-                        Intent i = new Intent(getActivity(), ARCameraActivity.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        getActivity().startActivity(i);
+                        System.out.println("FAB CLICKED");
+                        Intent i = new Intent(getActivity(), DesmetActivity.class);
+                        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
                     }
                 });
             }
