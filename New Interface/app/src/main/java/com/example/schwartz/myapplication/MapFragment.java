@@ -674,6 +674,7 @@ import android.Manifest;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -690,6 +691,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -697,6 +699,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -801,6 +804,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private GeofencingRequest geofencingRequest;
     private ArrayList<Geofence> geofenceList;
 
+    // number picker variables
+    Button numberPicker;
 
     SupportMapFragment mapFragment;
     public MapFragment() {
@@ -823,7 +828,31 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
-
+        destinationPoint = new ArrayList<>();
+        destinationPoint.add(new LatLng(mDefaultLocation.latitude,mDefaultLocation.longitude));
+        destinationPoint.add(new LatLng(47.668670, -117.400111));//Alliance1
+        destinationPoint.add(new LatLng(47.669174, -117.406664));//Burch2
+        destinationPoint.add(new LatLng(47.668663, -117.401090));//Campion3
+        destinationPoint.add(new LatLng(47., -117));//Catherine/Monica4
+        destinationPoint.add(new LatLng(47.669824, -117.399450));//Chardin5
+        destinationPoint.add(new LatLng(47.670131, -117.400162));//Corkery6
+        destinationPoint.add(new LatLng(47.664840, -117.397315));//Coughlin7
+        destinationPoint.add(new LatLng(47.670186, -117.401682));//Crimont8
+        destinationPoint.add(new LatLng(47.669313, -117.398404));//Cushing9
+        destinationPoint.add(new LatLng(47.667834, -117.401336));//DeSmet10
+        destinationPoint.add(new LatLng(47.669266, -117.400999));//Dillon11
+        destinationPoint.add(new LatLng(47.666730, -117.408119));//Dussault12
+        destinationPoint.add(new LatLng(47.669284, -117.400215));//Goller13
+        destinationPoint.add(new LatLng(47.668599, -117.408095));//Kennedy14
+        destinationPoint.add(new LatLng(47.668634, -117.399486));//Lincoln15
+        destinationPoint.add(new LatLng(47.666774, -117.397601));//Madonna16
+        destinationPoint.add(new LatLng(47.668627, -117.394011));//Marian17
+        destinationPoint.add(new LatLng(47.727424, -117.475184));//RiverInn18(NO COORDS, MY HOUSE)
+        destinationPoint.add(new LatLng(47.668652, -117.399025));//Roncalli19
+        destinationPoint.add(new LatLng(47.669293, -117.403457));//Sharp20
+        destinationPoint.add(new LatLng(47.668694, -117.397763));//Twohy21
+        destinationPoint.add(new LatLng(47.667747, -117.400001));//Welsh22
+        destinationPoint.add(new LatLng(47.669768, -117.399430));//Chardin23
         super.onCreate(savedInstanceState);
     }
 
@@ -835,13 +864,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
         // mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this.getActivity());
 
-        spinner = view.findViewById(R.id.spinner);
+        //spinner = view.findViewById(R.id.spinner);
 
         Button btnFindNearest = view.findViewById(R.id.btnFindNearest);
         btnFindNearest.setOnClickListener(this);
         Button btnFindPath = view.findViewById(R.id.btnFindPath);
         btnFindPath.setOnClickListener(this);
-        setSpinner();
+        //setSpinner();
         getDeviceLocation();
 
         //sensor pedometer
@@ -861,6 +890,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         }
         mapFragment.getMapAsync(this);
 
+        // number picker
+        numberPicker = (Button) view.findViewById(R.id.numberPicker);
+        numberPicker.setOnClickListener(this);
+
+
+        // fab used for usability testing purposes only
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -881,6 +916,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 });
             }
         });
+
         return view;
     }
 
@@ -985,10 +1021,57 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             case R.id.btnFindPath:
                 sendRequest();
                 break;
+            case R.id.numberPicker:
+                numberPickerDialog();
 
             default:
                 break;
         }
+    }
+    private void numberPickerDialog()
+    {
+        NumberPicker myNumberPicker = new NumberPicker(getActivity());
+        final String[] values= {"Alliance House","Burch Apartments", "Campion House", "Catherine Monica Hall",
+                "Chardin House", "Corkery Apartments", "Coughlin Hall", "Crimont Hall", "Cushing House",
+                "Desmet Hall", "Dillon Hall", "Dussault Suites", "Goller Hall", "Kennedy Apartments",
+                "Lincoln House", "Madonna Hall", "Marian Hall", "River Inn Hall", "Roncalli House",
+                "Sharp Apartments", "Twohy Hall", "Welch Hall"};
+        myNumberPicker.setMaxValue(values.length-1);
+        myNumberPicker.setMinValue(0);
+        myNumberPicker.setDisplayedValues(values);
+        myNumberPicker.setWrapSelectorWheel(true);
+        NumberPicker.OnValueChangeListener myValChangedListener = new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                numberPicker.setText(values[newVal]);
+                // this is where we update the map
+                destLatLng = destinationPoint.get(newVal);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(destLatLng, 18));
+                originMarkers.add(mMap.addMarker(new MarkerOptions().title(type[newVal]).position(destLatLng)));
+                Log.d(TAG, "onItemSelected: type" + type[newVal] + " Coordinates: " + destinationPoint.get(newVal).toString());
+                position = newVal;
+                geoLat= destinationPoint.get(position).latitude;
+                geoLong = destinationPoint.get(position).longitude;
+            }
+        };
+        myNumberPicker.setOnValueChangedListener(myValChangedListener);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity()).setView(myNumberPicker);
+        builder.setTitle("Residence Halls");
+
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
     }
 
     private void getDeviceLocation() {

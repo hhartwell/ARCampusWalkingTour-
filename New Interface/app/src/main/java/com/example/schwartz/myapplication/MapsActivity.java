@@ -894,13 +894,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Construct a FusedLocationProviderClient.
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
-        spinner = (Spinner) findViewById(R.id.spinner);
+        //spinner = (Spinner) findViewById(R.id.spinner);
 
         Button btnFindNearest = findViewById(R.id.btnFindNearest);
         btnFindNearest.setOnClickListener(this);
         Button btnFindPath = findViewById(R.id.btnFindPath);
         btnFindPath.setOnClickListener(this);
-        setSpinner();
+        //setSpinner();
         getDeviceLocation();
 
         //sensor pedometer
