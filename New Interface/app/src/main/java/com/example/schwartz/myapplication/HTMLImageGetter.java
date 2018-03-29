@@ -17,8 +17,12 @@ public class HTMLImageGetter extends AsyncTask<String, Drawable, Drawable>{
 
     @Override
     protected Drawable doInBackground(String... urls) {
-
         return LoadImageFromWebOperations(urls[0]);
+    }
+
+    @Override
+    protected void onProgressUpdate(Drawable... values) {
+        super.onProgressUpdate(values);
     }
 
     public static Drawable LoadImageFromWebOperations(String url) {
