@@ -100,6 +100,7 @@ public class GalleryFragment extends Fragment {
      * @param rootView
      */
     private void assignAllPicturesToGalleryFragment(View rootView){
+
         //ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
         ArrayList<ImageButton> imageButtons = new ArrayList<ImageButton>();
         imageButtons.add((ImageButton) rootView.findViewById(R.id.alliance));
@@ -145,6 +146,28 @@ public class GalleryFragment extends Fragment {
 //        retrieveGalleryItem(dormURLS.get(17), rootView, R.id.sharp);
 //        retrieveGalleryItem(dormURLS.get(18), rootView, R.id.twohy);
 //        retrieveGalleryItem(dormURLS.get(19), rootView, R.id.welch);
+
+        ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
+        retrieveGalleryItem(dormURLS.get(0),rootView, R.id.alliance);
+        retrieveGalleryItem(dormURLS.get(1), rootView, R.id.catherinemonica);
+        //retrieveGalleryItem(dormURLS.get(2), rootView, R.id.chardin);
+        //retrieveGalleryItem(dormURLS.get(3), rootView, R.id.corkery);
+        //retrieveGalleryItem(dormURLS.get(4), rootView, R.id.coughlin);
+        retrieveGalleryItem(dormURLS.get(5), rootView, R.id.crimont);
+        //retrieveGalleryItem(dormURLS.get(6), rootView, R.id.cushing);
+        retrieveGalleryItem(dormURLS.get(7), rootView, R.id.desmet);
+        //retrieveGalleryItem(dormURLS.get(8), rootView, R.id.dillon);
+        //retrieveGalleryItem(dormURLS.get(9), rootView, R.id.dooley);
+        //retrieveGalleryItem(dormURLS.get(10), rootView, R.id.dussault);
+        //retrieveGalleryItem(dormURLS.get(11), rootView, R.id.goller);
+       // retrieveGalleryItem(dormURLS.get(12), rootView, R.id.kennedy);
+        //retrieveGalleryItem(dormURLS.get(13), rootView, R.id.lincoln);
+        retrieveGalleryItem(dormURLS.get(14), rootView, R.id.madonna);
+        //retrieveGalleryItem(dormURLS.get(15), rootView, R.id.marian);
+        //retrieveGalleryItem(dormURLS.get(16), rootView, R.id.roncalli);
+       // retrieveGalleryItem(dormURLS.get(17), rootView, R.id.sharp);
+       // retrieveGalleryItem(dormURLS.get(18), rootView, R.id.twohy);
+        retrieveGalleryItem(dormURLS.get(19), rootView, R.id.welch);
     }
 
     /**
