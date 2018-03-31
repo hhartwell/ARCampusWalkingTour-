@@ -1,29 +1,22 @@
 package com.example.schwartz.myapplication;
 
-import android.content.Context;
-import android.content.pm.PackageInstaller;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.os.AsyncTask;
-import android.widget.ImageButton;
-
+/**
+ * imports
+ */
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.ChannelExec;
-
-import java.io.BufferedInputStream;
 import java.io.InputStream;
 
 /**
- * Created by Harvey on 2/25/2018.
+ * WHAT DOES THIS DO? ***********************************************************************
  */
-
 public class SSHConnection {
+    /**
+     * Initiations
+     */
     String username;
     String password;
     String host;
@@ -31,13 +24,25 @@ public class SSHConnection {
     Session session;
     Channel channel;
 
-
+    /**
+     * Constructor
+     * @param username
+     * @param password
+     * @param host
+     * @param portNum
+     */
     public SSHConnection(String username, String password, String host, int portNum) {
         this.username = username;
         this.password = password;
         this.host = host;
         this.portNum = portNum;
     }
+
+    /**
+     * WHAT DOES THIS DO? ***********************************************************************
+     * @param cmd
+     * @return
+     */
     public InputStream command(String cmd) {
         InputStream is = null;
         InputStream in = null;
@@ -59,23 +64,6 @@ public class SSHConnection {
             ChannelSftp sftp = (ChannelSftp) channel;
             is = sftp.get("desmet.bmp");
 
-
-            /*
-            byte[] tmp = new byte[1024];
-            while (true){
-                while(in.available() > 0) {
-                    int i = in.read(tmp, 0, 1024);
-                    if(i<0)
-                        break;
-                    System.out.print(new String(tmp, 0 , i));
-                }
-                if (channel.isClosed()){
-                    System.out.println("exit-status: " + channel.getExitStatus());
-                    break;
-                }
-                try{Thread.sleep(1000);} catch (Exception ee ){}
-            }
-            */
             sftp.disconnect();
             channel.disconnect();
             session.disconnect();

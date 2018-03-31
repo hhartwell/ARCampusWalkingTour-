@@ -7,6 +7,10 @@ import android.view.MenuItem;
 
 public class FatherDesmetActivity extends AppCompatActivity {
 
+    /**
+     * Creates actions for this Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,11 +19,19 @@ public class FatherDesmetActivity extends AppCompatActivity {
         setTitle("");
     }
 
+    /**
+     * Grabs the intent for the DesmetActivity.
+     */
     private void gallery(){
         Intent intent = new Intent(this, DesmetActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Initiates the back button action.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

@@ -17,51 +17,48 @@ import com.google.android.gms.location.GeofencingEvent;
 import java.util.List;
 
 public class GeoFenceHelperService extends IntentService{
+    /**
+     * Initiations
+     */
     private final static String TAG = "GeoFenceHelperService";
     private final static String DEBUG_TAG = "GEOFENCEHELPERSERVICE";
 
+    /**
+     *
+     * @param name
+     */
     public GeoFenceHelperService(String name) {
         super(name);
-        Log.d(TAG, "GeoFenceHelperService: parameter constructor");
-    }
-    public GeoFenceHelperService(){
-        super(TAG);
-        Log.d(TAG, "GeoFenceHelperService: default constructor");
     }
 
+    /**
+     *
+     * @param intent
+     */
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Log.d(DEBUG_TAG, "IN ON_HANDLE_INTENT");
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
-        if (geofencingEvent.hasError()){
-            Log.d(DEBUG_TAG, "there was an error");
+        if (geofencingEvent.hasError())
+        {
             return;
         }
-        // get the transition types
+
+        /**
+         * Gets the transition types
+         */
         int geofenceTransition = geofencingEvent.getGeofenceTransition();
-        if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER ||
-               geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT ||
-                geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL){
+        if(geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER || geofenceTransition == Geofence.GEOFENCE_TRANSITION_EXIT || geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL)
+        {
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);
-            // get the geofences that were triggered
+
+            /**
+             * Gets the geofences that were triggered
+             */
             List<Geofence> triggeredFences = geofencingEvent.getTriggeringGeofences();
-
-            Toast.makeText(this, "Geofence triggered", Toast.LENGTH_SHORT).show();
-
-            Log.d(TAG, triggeredFences.get(0).getRequestId() + " has been triggered");
-            //Toast.makeText(this, triggeredFences.get(0).getRequestId() + " has been triggered", Toast.LENGTH_SHORT).show();
-            Log.d(TAG, "onHandleIntent: ");
             Intent i = new Intent(this, ARCameraActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
-
-           // ImageView desmet = (ImageView) findViewById(R.id.desmetText);
-           // desmet.setVisibility(View.VISIBLE);
-
-        }
-        else{
-            Log.e(TAG, "ERROR IN ONHANDLEINTENT");
         }
     }
 }

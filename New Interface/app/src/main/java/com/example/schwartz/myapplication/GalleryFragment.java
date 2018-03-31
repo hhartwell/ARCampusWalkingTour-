@@ -19,23 +19,28 @@ import java.util.concurrent.ExecutionException;
 
 public class GalleryFragment extends Fragment {
 
-    public GalleryFragment() {
-        // Required empty public constructor
-    }
+    /**
+     *
+     */
+    public GalleryFragment() { }
 
-    public static GalleryFragment newInstance(String param1, String param2) {
-        GalleryFragment fragment = new GalleryFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
@@ -101,7 +106,7 @@ public class GalleryFragment extends Fragment {
      */
     private void assignAllPicturesToGalleryFragment(View rootView){
 
-        //ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
+//        ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
         ArrayList<ImageButton> imageButtons = new ArrayList<ImageButton>();
         imageButtons.add((ImageButton) rootView.findViewById(R.id.alliance));
         imageButtons.add((ImageButton) rootView.findViewById(R.id.catherinemonica));
@@ -125,48 +130,26 @@ public class GalleryFragment extends Fragment {
         imageButtons.add((ImageButton) rootView.findViewById(R.id.welch));
 
         assignDrawablesToImageButtons(imageButtons, getDormDrawables(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
-
-//        retrieveGalleryItem(dormURLS.get(0),rootView, R.id.alliance);
-//        retrieveGalleryItem(dormURLS.get(1), rootView, R.id.catherinemonica);
+        ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
+        retrieveGalleryItem(dormURLS.get(0),rootView, R.id.alliance);
+        retrieveGalleryItem(dormURLS.get(1), rootView, R.id.catherinemonica);
 //        retrieveGalleryItem(dormURLS.get(2), rootView, R.id.chardin);
 //        retrieveGalleryItem(dormURLS.get(3), rootView, R.id.corkery);
 //        retrieveGalleryItem(dormURLS.get(4), rootView, R.id.coughlin);
-//        retrieveGalleryItem(dormURLS.get(5), rootView, R.id.crimont);
+        retrieveGalleryItem(dormURLS.get(5), rootView, R.id.crimont);
 //        retrieveGalleryItem(dormURLS.get(6), rootView, R.id.cushing);
-//        retrieveGalleryItem(dormURLS.get(7), rootView, R.id.desmet);
+        retrieveGalleryItem(dormURLS.get(7), rootView, R.id.desmet);
 //        retrieveGalleryItem(dormURLS.get(8), rootView, R.id.dillon);
 //        retrieveGalleryItem(dormURLS.get(9), rootView, R.id.dooley);
 //        retrieveGalleryItem(dormURLS.get(10), rootView, R.id.dussault);
 //        retrieveGalleryItem(dormURLS.get(11), rootView, R.id.goller);
 //        retrieveGalleryItem(dormURLS.get(12), rootView, R.id.kennedy);
 //        retrieveGalleryItem(dormURLS.get(13), rootView, R.id.lincoln);
-//        retrieveGalleryItem(dormURLS.get(14), rootView, R.id.madonna);
+        retrieveGalleryItem(dormURLS.get(14), rootView, R.id.madonna);
 //        retrieveGalleryItem(dormURLS.get(15), rootView, R.id.marian);
 //        retrieveGalleryItem(dormURLS.get(16), rootView, R.id.roncalli);
 //        retrieveGalleryItem(dormURLS.get(17), rootView, R.id.sharp);
 //        retrieveGalleryItem(dormURLS.get(18), rootView, R.id.twohy);
-//        retrieveGalleryItem(dormURLS.get(19), rootView, R.id.welch);
-
-        ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
-        retrieveGalleryItem(dormURLS.get(0),rootView, R.id.alliance);
-        retrieveGalleryItem(dormURLS.get(1), rootView, R.id.catherinemonica);
-        //retrieveGalleryItem(dormURLS.get(2), rootView, R.id.chardin);
-        //retrieveGalleryItem(dormURLS.get(3), rootView, R.id.corkery);
-        //retrieveGalleryItem(dormURLS.get(4), rootView, R.id.coughlin);
-        retrieveGalleryItem(dormURLS.get(5), rootView, R.id.crimont);
-        //retrieveGalleryItem(dormURLS.get(6), rootView, R.id.cushing);
-        retrieveGalleryItem(dormURLS.get(7), rootView, R.id.desmet);
-        //retrieveGalleryItem(dormURLS.get(8), rootView, R.id.dillon);
-        //retrieveGalleryItem(dormURLS.get(9), rootView, R.id.dooley);
-        //retrieveGalleryItem(dormURLS.get(10), rootView, R.id.dussault);
-        //retrieveGalleryItem(dormURLS.get(11), rootView, R.id.goller);
-       // retrieveGalleryItem(dormURLS.get(12), rootView, R.id.kennedy);
-        //retrieveGalleryItem(dormURLS.get(13), rootView, R.id.lincoln);
-        retrieveGalleryItem(dormURLS.get(14), rootView, R.id.madonna);
-        //retrieveGalleryItem(dormURLS.get(15), rootView, R.id.marian);
-        //retrieveGalleryItem(dormURLS.get(16), rootView, R.id.roncalli);
-       // retrieveGalleryItem(dormURLS.get(17), rootView, R.id.sharp);
-       // retrieveGalleryItem(dormURLS.get(18), rootView, R.id.twohy);
         retrieveGalleryItem(dormURLS.get(19), rootView, R.id.welch);
     }
 
