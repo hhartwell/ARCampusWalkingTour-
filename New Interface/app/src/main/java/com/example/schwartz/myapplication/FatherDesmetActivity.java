@@ -1,10 +1,16 @@
 package com.example.schwartz.myapplication;
 
+/**
+ * Imports
+ */
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+/**
+ * Activity class that gets the Father Desmet's information
+ */
 public class FatherDesmetActivity extends AppCompatActivity {
 
     /**

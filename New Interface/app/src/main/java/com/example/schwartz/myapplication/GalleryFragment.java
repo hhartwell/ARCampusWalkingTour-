@@ -1,5 +1,8 @@
 package com.example.schwartz.myapplication;
 
+/**
+ * Imports
+ */
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -9,23 +12,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Fragment class that holds the images for the gallery screen.
+ */
 public class GalleryFragment extends Fragment {
 
     /**
-     *
+     * Empty Constructor
      */
     public GalleryFragment() { }
 
     /**
-     *
+     * Creates actions for this Activity
      * @param savedInstanceState
      */
     @Override
@@ -35,7 +39,7 @@ public class GalleryFragment extends Fragment {
     }
 
     /**
-     *
+     * Creates actions for this Activity
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -100,8 +104,8 @@ public class GalleryFragment extends Fragment {
 */
 
     /**
-     * helper function that adds all images from the WalkGU server to all
-     *  gallery image buttons in the fragment
+     * Helper function that adds all images from the WalkGU server to all
+     * Gallery image buttons in the fragment
      * @param rootView
      */
     private void assignAllPicturesToGalleryFragment(View rootView){
@@ -154,8 +158,8 @@ public class GalleryFragment extends Fragment {
     }
 
     /**
-     * helper function that assigns an image to the resource value given the root view and a url to the image location.
-     * this url is meant to be hosted on the WalkGU server
+     * Helper function that assigns an image to the resource value given the root view and a url to the image location.
+     * This url is meant to be hosted on the WalkGU server
      * @param url
      * @param rootView
      * @param resourceValue
@@ -176,6 +180,12 @@ public class GalleryFragment extends Fragment {
         ib.setImageDrawable(drawableResize);
         System.out.println(ib.getWidth());
     }
+
+    /**
+     *
+     * @param imageButtons
+     * @param drawables
+     */
     private void assignDrawablesToImageButtons(ArrayList<ImageButton> imageButtons, ArrayList<Drawable> drawables){
        ImageButton imageButton;
        Drawable drawable;
@@ -185,6 +195,12 @@ public class GalleryFragment extends Fragment {
            imageButton.setImageDrawable(drawable);
        }
     }
+
+    /**
+     *
+     * @param urls
+     * @return
+     */
     private ArrayList<Drawable> getDormDrawables(String ... urls){
         ArrayList<Drawable> drawables = new ArrayList<>();
         ProgressBar p = (ProgressBar) getActivity().findViewById(R.id.progressBar);
@@ -197,6 +213,12 @@ public class GalleryFragment extends Fragment {
         }
         return resizeDrawables(drawables);
     }
+
+    /**
+     *
+     * @param drawables
+     * @return
+     */
     private ArrayList<Drawable> resizeDrawables(ArrayList<Drawable> drawables){
         ArrayList<Drawable> newDrawables = new ArrayList<Drawable>();
         Bitmap bitmap;

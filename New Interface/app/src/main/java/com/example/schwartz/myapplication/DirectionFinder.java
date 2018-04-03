@@ -1,5 +1,8 @@
 package com.example.schwartz.myapplication;
 
+/**
+ * Imports
+ */
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -16,7 +19,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that finds the direction paths
+ */
 class DirectionFinder {
+
     /**
      * Initiations
      */
@@ -40,7 +47,7 @@ class DirectionFinder {
     }
 
     /**
-     * WHAT DOES THIS DO?
+     * WHAT DOES THIS DO? ***********************************************************************
      * @throws UnsupportedEncodingException
      */
     void execute() throws UnsupportedEncodingException {
@@ -49,7 +56,7 @@ class DirectionFinder {
     }
 
     /**
-     * WHAT DOES THIS DO?
+     * WHAT DOES THIS DO? ***********************************************************************
      * @return
      * @throws UnsupportedEncodingException
      */
@@ -59,13 +66,13 @@ class DirectionFinder {
     }
 
     /**
-     * WHAT DOES THIS DO?
+     * WHAT DOES THIS DO? ***********************************************************************
      */
     @SuppressLint("StaticFieldLeak")
     private class DownloadRawData extends AsyncTask<String, Void, String> {
 
         /**
-         * WHAT DOES THIS DO?
+         * WHAT DOES THIS DO? ***********************************************************************
          * @param params
          * @return
          */
@@ -89,7 +96,7 @@ class DirectionFinder {
         }
 
         /**
-         * WHAT DOES THIS DO?
+         * WHAT DOES THIS DO? ***********************************************************************
          * @param res
          */
         @Override
@@ -103,7 +110,7 @@ class DirectionFinder {
     }
 
     /**
-     * WHAT DOES THIS DO?
+     * WHAT DOES THIS DO? ***********************************************************************
      * @param data
      * @throws JSONException
      */
@@ -138,7 +145,7 @@ class DirectionFinder {
     }
 
     /**
-     * WHAT DOES THIS DO?
+     * WHAT DOES THIS DO? ***********************************************************************
      * @param poly
      * @return
      */

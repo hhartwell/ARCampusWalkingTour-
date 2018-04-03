@@ -1,6 +1,10 @@
 package com.example.schwartz.myapplication;
 
+/**
+ * Class that finds the distance
+ */
 public class Distance {
+
     /**
      * Initiations
      */

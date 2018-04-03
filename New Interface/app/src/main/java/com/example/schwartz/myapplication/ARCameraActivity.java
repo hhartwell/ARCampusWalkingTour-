@@ -1,8 +1,14 @@
 package com.example.schwartz.myapplication;
 
+/**
+ * Imports
+ */
 import android.content.Intent;
 import com.Gonzaga.walkGonzagaColab.UnityPlayerActivity;
 
+/**
+ * Class that controls the AR Camera
+ */
 public class ARCameraActivity extends UnityPlayerActivity {
 
     /**
