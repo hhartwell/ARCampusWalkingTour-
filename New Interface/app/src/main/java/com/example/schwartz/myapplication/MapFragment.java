@@ -1,5 +1,8 @@
 package com.example.schwartz.myapplication;
 
+/**
+ * Imports
+ */
 import android.Manifest;
 //import android.annotation.SuppressLint;
 import android.app.PendingIntent;

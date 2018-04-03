@@ -1,22 +1,22 @@
 package com.example.schwartz.myapplication;
 
+/**
+ * Imports
+ */
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
-
 import java.util.List;
 
+/**
+ * Class that helps with the geofence
+ */
 public class GeoFenceHelperService extends IntentService{
+
     /**
      * Initiations
      */

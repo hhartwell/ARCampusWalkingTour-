@@ -746,7 +746,9 @@ package com.example.schwartz.myapplication;
 //}
 
 
-
+/**
+ * Imports
+ */
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.PendingIntent;

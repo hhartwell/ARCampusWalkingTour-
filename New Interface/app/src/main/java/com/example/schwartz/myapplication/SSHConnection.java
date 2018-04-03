@@ -1,7 +1,7 @@
 package com.example.schwartz.myapplication;
 
 /**
- * imports
+ * Imports
  */
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;

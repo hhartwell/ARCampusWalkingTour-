@@ -1,7 +1,7 @@
 package com.example.schwartz.myapplication;
 
 /**
- * imports
+ * Imports
  */
 import java.util.ArrayList;
 

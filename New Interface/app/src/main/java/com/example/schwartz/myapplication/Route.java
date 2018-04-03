@@ -1,7 +1,7 @@
 package com.example.schwartz.myapplication;
 
 /**
- * imports
+ * Imports
  */
 import com.google.android.gms.maps.model.LatLng;
 import java.util.List;

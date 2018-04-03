@@ -1,5 +1,8 @@
 package com.example.schwartz.myapplication;
 
+/**
+ * Imports
+ */
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
@@ -8,20 +11,21 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
-
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
-
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Activity class that displays the history of steps
+ */
 public class HistoryDisplayActivity extends AppCompatActivity {
+
     /**
-     *
+     * Creates actions for this Activity
      * @param savedInstanceState
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -35,11 +39,10 @@ public class HistoryDisplayActivity extends AppCompatActivity {
     }
 
     /**
-     * creates a graph and displays points based on the date and number of steps taken
+     * Creates a graph and displays points based on the date and number of steps taken
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void getGraph(){
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar cal = Calendar.getInstance();
         String dateArr[] = new String[7];
@@ -118,7 +121,7 @@ public class HistoryDisplayActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * Gets the functionality of the back button
      * @param item
      * @return
      */

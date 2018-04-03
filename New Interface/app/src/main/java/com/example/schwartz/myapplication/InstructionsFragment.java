@@ -1,7 +1,7 @@
 package com.example.schwartz.myapplication;
 
 /**
- * imports
+ * Imports
  */
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,7 +1,7 @@
 package com.example.schwartz.myapplication;
 
 /**
- * imports
+ * Imports
  */
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +15,7 @@ import android.widget.Button;
  * Fragment class that holds all of the interactions with the tours
  */
 public class ToursFragment extends Fragment {
+
     /**
      * Empty Constructor
      */
