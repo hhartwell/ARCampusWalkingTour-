@@ -1,5 +1,8 @@
 package com.example.schwartz.myapplication;
 
+/**
+ * Imports
+ */
 import android.Manifest;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
