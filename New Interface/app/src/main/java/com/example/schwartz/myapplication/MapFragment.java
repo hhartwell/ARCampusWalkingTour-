@@ -1,7 +1,6 @@
 package com.example.schwartz.myapplication;
 
 import android.Manifest;
-//import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -29,11 +28,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.AdapterView;
-//import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.NumberPicker;
-//import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,13 +61,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-//import java.util.concurrent.Executor;
+
 
 public class MapFragment extends Fragment implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener, DirectionFinderListener,View.OnClickListener {
-    private static final String TAG = MapsActivity.class.getSimpleName();
+    private String TAG = "MapFragment";
     private GoogleMap mMap;
 
 
@@ -92,22 +88,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     // Keys for storing activity state.
     private static final String KEY_LOCATION = "location";
 
-    //private Button btnFindPath;
-    //private Spinner spinner;
     private LatLng currLatLng;
     private LatLng destLatLng;
     private ProgressDialog progressDialog;
     private List<Marker> originMarkers = new ArrayList<>();
-    //private List<Marker> destinationMarkers = new ArrayList<>();
+    private ArrayList<Boolean> isVisited = new ArrayList<>();// for next nearest location
     private ArrayList<LatLng> destinationPoint;
     private List<Polyline> polylinePaths = new ArrayList<>();
     private Marker mCurrLocationMarker;
-    //private int position;
+
     private float closest = 1000000000;
     private LatLng closeLatLng;
-    //private int closestIndex;
-    //private double geoLat;
-    //private double geoLong;
 
     //variables for step counter
     private TextView count;
@@ -117,7 +108,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private float steps;
     private Geofence geofence;
     private PendingIntent pendingIntent;
-    //private GeofencingRequest geofencingRequest;
     private ArrayList<Geofence> geofenceList;
     private String[] values = new String[]{"Alliance House", "Campion House", "Catherine Monica Hall",
             "Crimont Hall", "Desmet Hall", "Madonna Hall", "Rebmann",
@@ -131,12 +121,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         // Required empty public constructor
     }
 
-    /*public static MapFragment newInstance(String param1, String param2) {
-        MapFragment fragment = new MapFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }*/
     @Override
     public void onStart(){
         super.onStart();
@@ -158,6 +142,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         destinationPoint.add(new LatLng(47.668507, -117.404350));//Robinson
         destinationPoint.add(new LatLng(47.667649, -117.400308));//Welsh
         super.onCreate(savedInstanceState);
+        //create boolean list for next nearest destination
+        for(int i = 0; i < destinationPoint.size(); i++){
+            isVisited.add(false);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -218,7 +206,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        Log.d(TAG, "onMapReady: ");
+        //Log.d(TAG, "onMapReady: ");
         /*
         //if we are keeping these markers, convert them to a for loop
         mMap.addMarker(new MarkerOptions().position(new LatLng(47.668670, -117.400111))
@@ -300,10 +288,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 destLatLng = destinationPoint.get(newVal);
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(destLatLng, 18));
                 originMarkers.add(mMap.addMarker(new MarkerOptions().title(values[newVal]).position(destLatLng)));
-                Log.d(TAG, "onItemSelected: type" + values[newVal] + " Coordinates: " + destinationPoint.get(newVal).toString());
-                //position = newVal;
-                //geoLat= destinationPoint.get(position).latitude;
-                //geoLong = destinationPoint.get(position).longitude;
+                //Log.d(TAG, "onItemSelected: type" + values[newVal] + " Coordinates: " + destinationPoint.get(newVal).toString());
             }
         };
         myNumberPicker.setOnValueChangedListener(myValChangedListener);
@@ -344,27 +329,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
-                            for(int i = 0; i < destinationPoint.size(); i++) { //start at 1 because 0 is current
+                            //get nearest location
+                            for(int i = 0; i < destinationPoint.size(); i++) {
                                 // location and always closest
                                 float[]results = new float[1];
                                 Location.distanceBetween(mLastKnownLocation.getLatitude(),
                                         mLastKnownLocation.getLongitude(), destinationPoint.get(i).latitude,
                                         destinationPoint.get(i).longitude, results);
-                                Log.d(TAG, "getDeviceLocation: Current location" + destinationPoint.get(0).toString());
-                                Log.d(TAG, "getDeviceLocation: " + results[0]);
+                               // Log.d(TAG, "getDeviceLocation: Current location" + destinationPoint.get(0).toString());
+                                //Log.d(TAG, "getDeviceLocation: " + results[0]);
                                 if(results[0] < closest){
 
                                     closest = results[0];
                                     closeLatLng = (destinationPoint.get(i));
                                     //closestIndex = i;
-                                    Log.d(TAG, "getDeviceLocation: " + destinationPoint.get(i));
-                                    Log.d(TAG, "getDeviceLocation: " + results[0]);
+                                    //Log.d(TAG, "getDeviceLocation: " + destinationPoint.get(i));
+                                    //Log.d(TAG, "getDeviceLocation: " + results[0]);
                                 }
                             }
-                            Log.d(TAG, "onComplete: Task successful" + currLatLng.toString());
+                            //Log.d(TAG, "onComplete: Task successful" + currLatLng.toString());
                         } else {
-                            Log.d(TAG, "Current location is null. Using defaults.");
-                            Log.e(TAG, "Exception: %s", task.getException());
+                            //Log.d(TAG, "Current location is null. Using defaults.");
+                            //Log.e(TAG, "Exception: %s", task.getException());
                             currLatLng = mDefaultLocation;
                             mMap.moveCamera(CameraUpdateFactory
                                     .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
@@ -406,7 +392,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         double destLong = destLatLng.longitude;
         String origin = origLat + "," + origLong;
         String destination = destLat + "," + destLong;
-        Log.d(TAG, "sendRequest: origin LatLong- "  + " destination LaatLng- " + destLatLng);
+        //Log.d(TAG, "sendRequest: origin LatLong- "  + " destination LaatLng- " + destLatLng);
         try {
             new DirectionFinder(this, origin, destination).execute();
         } catch (UnsupportedEncodingException e) {
@@ -424,12 +410,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 marker.remove();
             }
         }
-
-        /*if (destinationMarkers != null) {
-            for (Marker marker : destinationMarkers) {
-                marker.remove();
-            }
-        }*/
 
         if (polylinePaths != null) {
             for (Polyline polyline:polylinePaths ) {
@@ -583,7 +563,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         }
         // permissions check
         if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "permisions denied fine location");
+            //Log.d(TAG, "permisions denied fine location");
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -614,17 +594,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             Log.d(TAG, "it was null!");
         }
     }
-
-    /*private GeofencingClient getGeofencingClient() {
-        // check to see if client has already been created or not
-        if (geofencingClient != null) {
-            return geofencingClient;
-        }
-        // retrieve the geofencing client from locationServices
-        return LocationServices.getGeofencingClient(this.getActivity());
-    }*/
-
-    /**
+     /**
      * builds and returns a geofending request. Specifies the list of geofences to be monitored.
      * also specifies how the geofence notifications are initially triggered
      * @return geofence request
@@ -632,7 +602,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
 
-        // the INITIAL_TRIGGER_ENTER flag indicates taht geofencing service should trigger a
+        // the INITIAL_TRIGGER_ENTER flag indicates that geofencing service should trigger a
         // GEOFENCE_TRANSITION_ENTER notification when the geofence is added and if the device
         // is already inside that geofence
         builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
@@ -675,6 +645,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                                          }
                                          steps = event.values[0] - stepsDontCount;//subtracts the values stored in the
                                          // phone so only the steps taken since the app show
+
                                          count.setText(steps + "");
                                      }
                                      @Override

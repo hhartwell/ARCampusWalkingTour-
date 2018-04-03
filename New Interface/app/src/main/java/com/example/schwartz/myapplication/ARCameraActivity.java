@@ -35,6 +35,7 @@ public class ARCameraActivity extends UnityPlayerActivity {
 */
     @Override
     protected void startNewActivity() {
+
         super.startNewActivity();
         Intent i = new Intent(this, GalleryFragment.class);
         startActivity(i);

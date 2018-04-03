@@ -50,15 +50,11 @@ public class GeoFenceHelperService extends IntentService{
             Toast.makeText(this, "Geofence triggered", Toast.LENGTH_SHORT).show();
 
             Log.d(TAG, triggeredFences.get(0).getRequestId() + " has been triggered");
-            //Toast.makeText(this, triggeredFences.get(0).getRequestId() + " has been triggered", Toast.LENGTH_SHORT).show();
+
             Log.d(TAG, "onHandleIntent: ");
             Intent i = new Intent(this, ARCameraActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
-
-           // ImageView desmet = (ImageView) findViewById(R.id.desmetText);
-           // desmet.setVisibility(View.VISIBLE);
-
         }
         else{
             Log.e(TAG, "ERROR IN ONHANDLEINTENT");
