@@ -40,7 +40,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:fontFamily="@font/raleway_thin"
+            android:fontFamily="@font/raleway"
             android:gravity="center_horizontal"
             android:text="Steps Completed Today"
             android:textAllCaps="false"
