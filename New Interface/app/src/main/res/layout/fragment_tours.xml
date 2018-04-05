@@ -13,7 +13,7 @@
         android:layout_marginLeft="50px"
         android:layout_marginRight="50px"
         android:layout_marginTop="20px"
-        android:fontFamily="@font/bevan"
+        android:fontFamily="@font/raleway"
         android:text="Please Pick A Tour:"
         android:textAlignment="center"
         android:textColor="@color/white"

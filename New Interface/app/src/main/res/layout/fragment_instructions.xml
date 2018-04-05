@@ -1,8 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_colors"
+    android:background="#C1C6C8"
     tools:context="com.example.schwartz.myapplication.InstructionsFragment">
 
     <ScrollView
@@ -14,144 +15,103 @@
             android:layout_height="wrap_content"
             android:columnCount="1">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bevan"
-                android:text="Instructions:"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="36sp" />
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="300dp"
+                android:src="@drawable/hello" />
 
             <TextView
-                android:id="@+id/intro"
+                android:id="@+id/homeTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:fontFamily="@font/actor"
-                android:text="This application is controlled with a navigation bar on the bottom of the screen. There are five buttons in this navigation bar:"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:fontFamily="@font/raleway"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="What Does The Home Button Do?"
+                android:textColor="#C8102E"
+                android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/one"
-                android:layout_width="match_parent"
+                android:id="@+id/homeBody"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/bevan"
-                android:text="1) Home"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:background="#041E42"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Displays the image of College Hall with the title of the application."
+                android:textColor="#C1C6C8" />
 
             <TextView
-                android:id="@+id/description1"
+                android:id="@+id/tourTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:fontFamily="@font/actor"
-                android:padding="5dp"
-                android:text="This button just displays the home screen image for the application."
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:fontFamily="@font/raleway"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="What Does The Tours Button Do?"
+                android:textColor="#C8102E"
+                android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/two"
-                android:layout_width="match_parent"
+                android:id="@+id/tourBody"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/bevan"
-                android:text="2) Tours"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:background="#041E42"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Starts with a list of buttons with all of the different tours you can take. Once you select a tour button, a map will pop-up to direct you to the location of your choosing. After reaching the intended destination, you will have access to the camera to view the augmented reality (AR) imaging. Make sure that you point the camera directly at the designated target in order to view this AR imaging."
+                android:textColor="#C1C6C8" />
 
             <TextView
-                android:id="@+id/description2"
+                android:id="@+id/visitedTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:fontFamily="@font/actor"
-                android:padding="5dp"
-                android:text="This button will open up a screen with buttons to choose which tour you would like to go on. Once a tour is selected, the screen will switch to a map screen so that you can figure out where you need to go on the tour. When you have reached the intended destination a camera screen will pop up. Point the phone camera at the building/statue indicated in order to view the augmented reality displayed."
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:fontFamily="@font/raleway"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="What Does The Visited Button Do?"
+                android:textColor="#C8102E"
+                android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/three"
-                android:layout_width="match_parent"
+                android:id="@+id/vistedBody"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/bevan"
-                android:text="3) Visited"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:background="#041E42"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Displays all of the destinations you have already been to. These destinations are clickable when unlocked, which leads you to extra images, audio, and video to view."
+                android:textColor="#C1C6C8" />
 
             <TextView
-                android:id="@+id/description3"
+                android:id="@+id/distanceTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:fontFamily="@font/actor"
-                android:padding="5dp"
-                android:text="This button will show all of the destinations you have been to, along with extra images, audio, video, and augmented reality images for you to view."
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:fontFamily="@font/raleway"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="What Does The Distance Button Do?"
+                android:textColor="#C8102E"
+                android:textSize="20dp" />
 
             <TextView
-                android:id="@+id/four"
-                android:layout_width="match_parent"
+                android:id="@+id/distanceBody"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/bevan"
-                android:text="4) Distance"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/description4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:fontFamily="@font/actor"
-                android:padding="5dp"
-                android:text="This button is purely used for Zagfit for employees of Gonzaga University to track the steps they take on these tours."
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/five"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="@font/bevan"
-                android:text="5) Instructions"
-                android:textColor="@color/white"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/description5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/common_google_signin_btn_text_light_default"
-                android:fontFamily="@font/actor"
-                android:padding="5dp"
-                android:text="This button helps you navigate this application."
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="35dp"
+                android:background="#041E42"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:text="Tracks your steps throughout your use of the application. Stops counting when application is closed. Used by faculty and staff for their Zagfit log."
+                android:textColor="#C1C6C8" />
         </GridLayout>
     </ScrollView>
-
-
 </FrameLayout>
