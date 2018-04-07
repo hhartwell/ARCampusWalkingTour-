@@ -1,6 +1,14 @@
 package com.example.schwartz.myapplication;
 
+import android.widget.ImageButton;
+
+import java.util.ArrayList;
 import android.content.Context;
+
+/**
+ * Imports
+ */
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -16,29 +24,36 @@ import android.view.WindowManager;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Fragment class that holds the images for the gallery screen.
+ */
 public class GalleryFragment extends Fragment {
 
-    public GalleryFragment() {
-        // Required empty public constructor
-    }
+    /**
+     * Empty Constructor
+     */
+    public GalleryFragment() { }
 
-    public static GalleryFragment newInstance(String param1, String param2) {
-        GalleryFragment fragment = new GalleryFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    /**
+     * Creates actions for this Activity
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Creates actions for this Activity
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_gallery, container, false);
@@ -102,20 +117,27 @@ public class GalleryFragment extends Fragment {
 
 
     /**
-     * helper function that adds all images from the WalkGU server to all
-     *  gallery image buttons in the fragment
+     * Helper function that adds all images from the WalkGU server to all
+     * Gallery image buttons in the fragment
      * @param rootView
      */
-    private ArrayList<ImageButton> assignAllPicturesToGalleryFragment(View rootView){
-        //ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
-        ArrayList<ImageButton> imageButtons = new ArrayList<ImageButton>();
-        ImageButton ib;
-        for (int i = 0; i < getContext().getResources().getStringArray(R.array.dorm_gallery_urls).length; i++){
-            imageButtons.add(new ImageButton(getContext()));
-        }
 
-        assignDrawablesToImageButtons(imageButtons, getDormDrawables(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
-        return imageButtons;
+    private ArrayList<ImageButton> assignAllPicturesToGalleryFragment(View rootView) {
+        //ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
+
+
+
+//        ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
+
+            ArrayList<ImageButton> imageButtons = new ArrayList<ImageButton>();
+            ImageButton ib;
+            for (int i = 0; i < getContext().getResources().getStringArray(R.array.dorm_gallery_urls).length; i++) {
+                imageButtons.add(new ImageButton(getContext()));
+            }
+
+            assignDrawablesToImageButtons(imageButtons, getDormDrawables(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
+
+            return imageButtons;
 /*
         ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
         retrieveGalleryItem(dormURLS.get(0),rootView, R.id.alliance);
@@ -137,13 +159,36 @@ public class GalleryFragment extends Fragment {
         //retrieveGalleryItem(dormURLS.get(16), rootView, R.id.roncalli);
         //retrieveGalleryItem(dormURLS.get(17), rootView, R.id.sharp);
         //retrieveGalleryItem(dormURLS.get(18), rootView, R.id.twohy);
+
+        ArrayList<String> dormURLS = new ArrayList(Arrays.asList(getContext().getResources().getStringArray(R.array.dorm_gallery_urls)));
+        retrieveGalleryItem(dormURLS.get(0),rootView, R.id.alliance);
+        retrieveGalleryItem(dormURLS.get(1), rootView, R.id.catherinemonica);
+//        retrieveGalleryItem(dormURLS.get(2), rootView, R.id.chardin);
+//        retrieveGalleryItem(dormURLS.get(3), rootView, R.id.corkery);
+//        retrieveGalleryItem(dormURLS.get(4), rootView, R.id.coughlin);
+        retrieveGalleryItem(dormURLS.get(5), rootView, R.id.crimont);
+//        retrieveGalleryItem(dormURLS.get(6), rootView, R.id.cushing);
+        retrieveGalleryItem(dormURLS.get(7), rootView, R.id.desmet);
+//        retrieveGalleryItem(dormURLS.get(8), rootView, R.id.dillon);
+//        retrieveGalleryItem(dormURLS.get(9), rootView, R.id.dooley);
+//        retrieveGalleryItem(dormURLS.get(10), rootView, R.id.dussault);
+//        retrieveGalleryItem(dormURLS.get(11), rootView, R.id.goller);
+//        retrieveGalleryItem(dormURLS.get(12), rootView, R.id.kennedy);
+//        retrieveGalleryItem(dormURLS.get(13), rootView, R.id.lincoln);
+        retrieveGalleryItem(dormURLS.get(14), rootView, R.id.madonna);
+//        retrieveGalleryItem(dormURLS.get(15), rootView, R.id.marian);
+//        retrieveGalleryItem(dormURLS.get(16), rootView, R.id.roncalli);
+//        retrieveGalleryItem(dormURLS.get(17), rootView, R.id.sharp);
+//        retrieveGalleryItem(dormURLS.get(18), rootView, R.id.twohy);
+
         retrieveGalleryItem(dormURLS.get(19), rootView, R.id.welch);
   */
     }
+
 /*
     /**
-     * helper function that assigns an image to the resource value given the root view and a url to the image location.
-     * this url is meant to be hosted on the WalkGU server
+     * Helper function that assigns an image to the resource value given the root view and a url to the image location.
+     * This url is meant to be hosted on the WalkGU server
      * @param url
      * @param rootView
      * @param resourceValue
@@ -165,11 +210,16 @@ public class GalleryFragment extends Fragment {
         ib.setImageDrawable(drawableResize);
         System.out.println(ib.getWidth());
     }
+
 */
 
     /**
      * helper function to assign gallery items to imagebuttons
      * Use the helper function getDormDrawables as the drawables parameter
+
+
+    /**
+     *
      * @param imageButtons
      * @param drawables
      */

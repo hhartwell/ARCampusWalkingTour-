@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C1C6C8"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:paddingTop="20dp"
@@ -11,25 +12,17 @@
     tools:context="com.example.schwartz.myapplication.ProfileFragment"
     tools:showIn="@layout/fragment_profile">
 
-    <View
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:background="@drawable/gonzaga_logo" />
-
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/stepsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/bevan"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/raleway"
+        android:gravity="center"
         android:text="0.0"
-        android:textColor="@color/white"
-        android:textSize="50dp" />
+        android:textColor="#041E42"
+        android:textSize="150dp" />
 
 
     <LinearLayout
@@ -43,13 +36,24 @@
             android:id="@+id/stepTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:fontFamily="@font/bevan"
-            android:text="steps today"
-            android:textColor="@color/white"
-            android:textSize="30dp" />
+            android:fontFamily="@font/raleway"
+            android:gravity="center_horizontal"
+            android:text="Steps Completed Today"
+            android:textAllCaps="false"
+            android:textColor="#041E42"
+            android:textSize="55dp" />
+
+        <ImageView
+            android:id="@+id/footstepImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/steps" />
 
 
     </LinearLayout>
-
 </LinearLayout>

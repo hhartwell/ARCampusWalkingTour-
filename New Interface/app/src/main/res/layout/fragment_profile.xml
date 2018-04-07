@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|top"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/gradient_end"
-        app:srcCompat="@drawable/book" />
+        app:backgroundTint="#C8102E"
+        app:srcCompat="@drawable/graph" />
 
 </android.support.design.widget.CoordinatorLayout>
