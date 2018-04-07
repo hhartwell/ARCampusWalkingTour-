@@ -3,7 +3,7 @@
     <string-array name="dorms">
         <item><b>Please Select A Dorm:</b></item>
         <item><b>Alliance House</b></item>
-        <item><b>Campion House</b></item>
+        <!--<item><b>Campion House</b></item>-->
         <item><b>Catherine/Monica Hall</b></item>
         <item><b>Crimont Hall</b></item>
         <item><b>DeSmet Hall</b></item>
