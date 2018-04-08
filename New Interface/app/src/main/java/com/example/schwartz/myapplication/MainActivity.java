@@ -4,6 +4,7 @@ package com.example.schwartz.myapplication;
  * Imports
  */
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
@@ -13,12 +14,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+
+import com.google.android.gms.location.Geofence;
+
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 /**
  * Main Activity that controls all that goes on in the app
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
+
+    // Container Activity must implement this interface
+    public interface GeoFenceListener {
+
+        public String onFragmentGetDestinations(String go);
+    }
 
     /**
      * Listener for the bottom navigation
@@ -44,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 /**
-                 * Tours Button
+                 * Tours Button/Map
                  */
                 case R.id.navigation_tours:
                     fragment = new ToursFragment();

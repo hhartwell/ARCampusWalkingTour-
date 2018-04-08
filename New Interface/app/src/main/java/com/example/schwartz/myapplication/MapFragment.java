@@ -4,6 +4,7 @@ package com.example.schwartz.myapplication;
  * Imports
  */
 import android.Manifest;
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -69,7 +70,7 @@ import java.util.Objects;
 public class MapFragment extends Fragment implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener, DirectionFinderListener,View.OnClickListener {
+        LocationListener, DirectionFinderListener,View.OnClickListener{
     private String TAG = "MapFragment";
     private GoogleMap mMap;
 
@@ -118,10 +119,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
     // number picker variables
     Button numberPicker;
-
     SupportMapFragment mapFragment;
+
     public MapFragment() {
         // Required empty public constructor
+
     }
 
     @Override
@@ -631,6 +633,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         Log.d(TAG, "INSIDE PENDING INTENT");
         return pendingIntent;
     }
+
     /**
      * sensor is activated and steps from sensor assigned to the textview
      */
@@ -660,3 +663,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     }
 
 }
+
