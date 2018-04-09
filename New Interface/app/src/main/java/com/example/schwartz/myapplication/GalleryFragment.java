@@ -22,10 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.GridLayout;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -60,10 +58,10 @@ public class GalleryFragment extends Fragment {
 
         // add all images into the fragment
         ArrayList<ImageButton> imageButtons = assignAllPicturesToGalleryFragment(rootView);
-        GridLayout gridLayout = (GridLayout) rootView.findViewById(R.id.grid_layout);
-        for (int i = 0; i < imageButtons.size(); i++){
-            gridLayout.addView(imageButtons.get(i));
-        }
+//        GridLayout gridLayout = (GridLayout) rootView.findViewById(R.id.grid_layout);
+//        for (int i = 0; i < imageButtons.size(); i++){
+//            gridLayout.addView(imageButtons.get(i));
+//        }
         return rootView;
     }
 

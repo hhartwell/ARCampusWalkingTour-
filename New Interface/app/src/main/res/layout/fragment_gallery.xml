@@ -2,166 +2,127 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C1C6C8"
     tools:context="com.example.schwartz.myapplication.GalleryFragment">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="56dp"
+        android:layout_marginTop="200dp">
 
         <GridLayout
-            android:id="@+id/grid_layout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:columnCount="2">
+            android:layout_marginTop="10dp"
+            android:columnCount="1">
 
-            <!--<ImageButton-->
-                <!--android:id="@+id/alliance"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/alliance" />-->
+            <Button
+                android:id="@+id/alliance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50px"
+                android:background="#C8102E"
+                android:fontFamily="@font/raleway"
+                android:text="Alliance Hall"
+                android:textColor="#C1C6C8"
+                android:textSize="20sp" />
 
-            <!--<ImageButton-->
-                <!--android:id="@+id/catherinemonica"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/catherinemonica" />-->
+            <Button
+                android:id="@+id/catherineMonica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50px"
+                android:background="#C8102E"
+                android:fontFamily="@font/raleway"
+                android:text="Catherine-Monica Hall"
+                android:textColor="#C1C6C8"
+                android:textSize="20sp" />
 
+            <Button
+                android:id="@+id/crimont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50px"
+                android:background="#C8102E"
+                android:fontFamily="@font/raleway"
+                android:text="Crimont Hall"
+                android:textColor="#C1C6C8"
+                android:textSize="20sp" />
 
-            <!--<ImageButton-->
-                <!--android:id="@+id/chardin"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/chardin" />-->
+            <Button
+                android:id="@+id/desmet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50px"
+                android:background="#C8102E"
+                android:fontFamily="@font/raleway"
+                android:text="Desmet Hall"
+                android:textColor="#C1C6C8"
+                android:textSize="20sp" />
 
+            <Button
+                android:id="@+id/madonna"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50px"
+                android:background="#C8102E"
+                android:fontFamily="@font/raleway"
+                android:text="Madonna Hall"
+                android:textColor="#C1C6C8"
+                android:textSize="20sp" />
 
-            <!--<ImageButton-->
-                <!--android:id="@+id/corkery"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/corkery" />-->
+            <Button
+                android:id="@+id/redmond"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50px"
+                android:background="#C8102E"
+                android:fontFamily="@font/raleway"
+                android:text="Redmond Hall"
+                android:textColor="#C1C6C8"
+                android:textSize="20sp" />
 
-            <!--<ImageButton-->
-                <!--android:id="@+id/coughlin"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/coughlin" />-->
+            <Button
+                android:id="@+id/robinson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50px"
+                android:background="#C8102E"
+                android:fontFamily="@font/raleway"
+                android:text="Robinson Hall"
+                android:textColor="#C1C6C8"
+                android:textSize="20sp" />
 
-            <!--<ImageButton-->
-                <!--android:id="@+id/crimont"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/crimont" />-->
-
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/cushing"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/cushing" />-->
-
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/desmet"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/desmet" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/dillon"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/dillon" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/dooley"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/dooley" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/dussault"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/dussault" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/goller"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/goller" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/kennedy"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/kennedy" />-->
-
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/lincoln"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/lincoln" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/madonna"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/madonna" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/marian"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/marian" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/roncalli"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/roncalli" />-->
-
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/sharp"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/sharp" />-->
-
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/twohy"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/twohy" />-->
-
-            <!--<ImageButton-->
-                <!--android:id="@+id/welch"-->
-                <!--android:layout_width="160dp"-->
-                <!--android:layout_height="195dp"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/welch" />-->
+            <Button
+                android:id="@+id/welch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="50px"
+                android:background="#C8102E"
+                android:fontFamily="@font/raleway"
+                android:text="Welch Hall"
+                android:textColor="#C1C6C8"
+                android:textSize="20sp" />
         </GridLayout>
     </ScrollView>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="100px"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:layout_marginTop="20px"
+        android:fontFamily="@font/raleway"
+        android:text="Please Pick A Residence Hall To View:"
+        android:textAlignment="center"
+        android:textColor="#041E42"
+        android:textSize="55dp" />
+
 </FrameLayout>
+
+
+
+
