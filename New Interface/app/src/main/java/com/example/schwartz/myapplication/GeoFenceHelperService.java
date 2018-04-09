@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Class that helps with the geofence
  */
-public class GeoFenceHelperService extends IntentService implements MainActivity.GeoFenceListener {
+public class GeoFenceHelperService extends IntentService implements MapFragment.GeoFenceListener {
 
     /**
      * Initiations
@@ -82,7 +82,7 @@ public class GeoFenceHelperService extends IntentService implements MainActivity
                 triggerIds[i] = triggeredFences.get(i).getRequestId();
             }
             geoStr = triggerIds[0];
-            this.onFragmentGetDestinations(geoStr);
+
             Intent i = new Intent(this, ARCameraActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
@@ -92,8 +92,8 @@ public class GeoFenceHelperService extends IntentService implements MainActivity
 
 
     @Override
-    public String onFragmentGetDestinations(String go) {
-        return go;
+    public String onFragmentGetDestinations() {
+        return geoStr;
 
     };
 }

@@ -100,7 +100,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private ArrayList<LatLng> destinationPoint;
     private List<Polyline> polylinePaths = new ArrayList<>();
     private Marker mCurrLocationMarker;
-
+    private String geoStr;
     private float closest = 1000000000;
     private LatLng closeLatLng;
 
@@ -120,6 +120,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     // number picker variables
     Button numberPicker;
     SupportMapFragment mapFragment;
+    GeoFenceListener geoFenceListener;
 
     public MapFragment() {
         // Required empty public constructor
@@ -257,7 +258,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         }
         mMap.setMyLocationEnabled(true);
     }
+    // Container Activity must implement this interface
+    public interface GeoFenceListener {
 
+        public String onFragmentGetDestinations();
+    }
     @Override
     public void onClick(View v) {
 
@@ -619,6 +624,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         // build and return the request
         return builder.build();
     }
+
     private PendingIntent getGeofencingPendingIntent() {
         // reuse old intent if it exists
         if (pendingIntent != null) {
@@ -631,6 +637,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         Log.d(TAG, intent.toString());
         pendingIntent = PendingIntent.getService(this.getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d(TAG, "INSIDE PENDING INTENT");
+        geoStr = geoFenceListener.onFragmentGetDestinations();
+
+        Toast.makeText(getActivity(),  geoStr,
+                Toast.LENGTH_LONG).show();
         return pendingIntent;
     }
 

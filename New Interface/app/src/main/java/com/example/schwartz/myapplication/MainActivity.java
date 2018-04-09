@@ -25,11 +25,7 @@ import java.util.ArrayList;
  */
 public class MainActivity extends AppCompatActivity  {
 
-    // Container Activity must implement this interface
-    public interface GeoFenceListener {
 
-        public String onFragmentGetDestinations(String go);
-    }
 
     /**
      * Listener for the bottom navigation
