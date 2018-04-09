@@ -638,7 +638,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         pendingIntent = PendingIntent.getService(this.getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d(TAG, "INSIDE PENDING INTENT");
         geoStr = geoFenceListener.onFragmentGetDestinations();
-        Log.d(TAG, "getGeofencingPendingIntent: " + geoStr);
+
+        Toast.makeText(getActivity(),  geoStr,
+                Toast.LENGTH_LONG).show();
         return pendingIntent;
     }
 
