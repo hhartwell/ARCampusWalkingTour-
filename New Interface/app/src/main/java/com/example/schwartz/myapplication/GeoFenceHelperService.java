@@ -40,12 +40,13 @@ public class GeoFenceHelperService extends IntentService implements MapFragment.
     public GeoFenceHelperService(String name) {
         super(name);
     }
-
+    public GeoFenceHelperService(){ super("DEFAULT");}
     /**
      * @param intent
      */
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
+        Log.d(TAG, "onHandleIntent: INSIDE GEOFENCEHELPERSERVICE");
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);
         if (geofencingEvent.hasError()) {
             return;
@@ -76,12 +77,9 @@ public class GeoFenceHelperService extends IntentService implements MapFragment.
              */
             List<Geofence> triggeredFences = geofencingEvent.getTriggeringGeofences();
             //return string getrequestid- geofence method in map activity and compare to values array
-            String[] triggerIds = new String[triggeredFences.size()];
 
-            for (int i = 0; i < triggerIds.length; i++) {
-                triggerIds[i] = triggeredFences.get(i).getRequestId();
-            }
-            geoStr = triggerIds[0];
+            geoStr = triggeredFences.get(0).getRequestId();;
+            Log.d(TAG, "onHandleIntent: " + geoStr);
 
             Intent i = new Intent(this, ARCameraActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -93,7 +91,10 @@ public class GeoFenceHelperService extends IntentService implements MapFragment.
 
     @Override
     public String onFragmentGetDestinations() {
-        return geoStr;
+        if (geoStr != null) {
+            return geoStr;
+        }else
+            return "empty";
 
     };
 }

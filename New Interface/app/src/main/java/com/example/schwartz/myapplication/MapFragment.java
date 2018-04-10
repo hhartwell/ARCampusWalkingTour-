@@ -113,7 +113,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private Geofence geofence;
     private PendingIntent pendingIntent;
     private ArrayList<Geofence> geofenceList;
-    private String[] values = new String[]{"Alliance House", "Campion House", "Catherine Monica Hall",
+    private String[] values = new String[]{"Dani's House", "Alliance House", "Campion House", "Catherine Monica Hall",
             "Crimont Hall", "Desmet Hall", "Madonna Hall", "Rebmann",
             "Robinson", "Welch Hall"};
 
@@ -138,6 +138,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
         destinationPoint = new ArrayList<>();
+        destinationPoint.add(new LatLng(47.655256, -117.463520));//Dani's house
         destinationPoint.add(new LatLng(47.668670, -117.400111));//Alliance
         destinationPoint.add(new LatLng(47.668663, -117.401090));//Campion
         destinationPoint.add(new LatLng(47.665921, -117.397811));//Catherine/Monica
@@ -168,7 +169,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         getDeviceLocation();
 
         //sensor pedometer
-        count = view.findViewById(R.id.stepText);
+        //count = view.findViewById(R.id.stepText);
         manager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         zeroSteps = true;
         pedometer();
@@ -637,7 +638,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         Log.d(TAG, intent.toString());
         pendingIntent = PendingIntent.getService(this.getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d(TAG, "INSIDE PENDING INTENT");
-        geoStr = geoFenceListener.onFragmentGetDestinations();
+        if(geoFenceListener != null) {
+            geoStr = geoFenceListener.onFragmentGetDestinations();
+        }
 
         Toast.makeText(getActivity(),  geoStr,
                 Toast.LENGTH_LONG).show();
@@ -662,7 +665,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                                          steps = event.values[0] - stepsDontCount;//subtracts the values stored in the
                                          // phone so only the steps taken since the app show
 
-                                         count.setText(steps + "");
+                                         //count.setText(steps + "");
                                      }
                                      @Override
                                      public void onAccuracyChanged(Sensor sensor, int accuracy) {
