@@ -61,6 +61,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +123,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private String[] values = new String[]{"Dani's House", "Alliance House", "Campion House", "Catherine Monica Hall",
             "Crimont Hall", "Desmet Hall", "Madonna Hall", "Rebmann",
             "Robinson", "Welch Hall"};
-
+    private String geoStrFile = "geoStrFile.txt";
     // number picker variables
     Button numberPicker;
     SupportMapFragment mapFragment;
@@ -136,6 +143,34 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+        }
+        try {
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader =
+                    new FileReader(geoStrFile);
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader =
+                    new BufferedReader(fileReader);
+
+            geoStr = bufferedReader.readLine();
+            Log.d(TAG, "onCreate: " + geoStr);
+
+
+            // Always close files.
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException ex) {
+            Log.d(TAG, "onCreate: " +
+                    "Unable to open file '" +
+                            geoStrFile + "'");
+        }
+        catch(IOException ex) {
+            Log.d(TAG, "onCreate: " +
+                    "Error reading file '"
+                            + geoStrFile + "'");
+            // Or we could just do this:
+            // ex.printStackTrace();
         }
         destinationPoint = new ArrayList<>();
         destinationPoint.add(new LatLng(47.655256, -117.463520));//Dani's house
@@ -552,7 +587,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         for(int i = 0; i < values.length; i++){
             geofence = new Geofence.Builder()
                     // string used to refer to the geo fence
-                    .setRequestId(values[i] + "Geofence")
+                    .setRequestId(values[i] + " Geofence")
                     // bounds of the fence
                     // double longitude
                     // double latitude
@@ -621,7 +656,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         // add the geofences to be monitered by geofencing services.
         builder.addGeofences(geofenceList);
         assert (geofenceList != null);
-        Log.d(TAG, geofenceList.get(0).toString() + " from getGeoFencingRequest");
+        //Log.d(TAG, geofenceList.get(0).toString() + " from getGeoFencingRequest");
+        geoStr = geofenceList.get(0).getRequestId();
+        Toast.makeText(getActivity(), geoStr, Toast.LENGTH_LONG).show();
         // build and return the request
         return builder.build();
     }
@@ -638,12 +675,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         Log.d(TAG, intent.toString());
         pendingIntent = PendingIntent.getService(this.getActivity(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d(TAG, "INSIDE PENDING INTENT");
-        if(geoFenceListener != null) {
-            geoStr = geoFenceListener.onFragmentGetDestinations();
-        }
 
-        Toast.makeText(getActivity(),  geoStr,
-                Toast.LENGTH_LONG).show();
         return pendingIntent;
     }
 

@@ -4,11 +4,10 @@ package com.example.schwartz.myapplication;
  * Imports
  */
 
-import android.app.FragmentTransaction;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -16,22 +15,26 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofencingEvent;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 
-import java.util.ArrayList;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.util.List;
 
 /**
  * Class that helps with the geofence
  */
-public class GeoFenceHelperService extends IntentService implements MapFragment.GeoFenceListener {
+public class GeoFenceHelperService extends IntentService {
 
     /**
      * Initiations
      */
     private final static String TAG = "GeoFenceHelperService";
     private final static String DEBUG_TAG = "GEOFENCEHELPERSERVICE";
+    private File geoStrFile = new File("geoStrFile.txt");
     private String geoStr;
 
     /**
@@ -67,6 +70,7 @@ public class GeoFenceHelperService extends IntentService implements MapFragment.
 
             Log.d(TAG, "onHandleIntent: ");
             Intent i = new Intent(this, ARCameraActivity.class);
+
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
         } else {
@@ -76,25 +80,33 @@ public class GeoFenceHelperService extends IntentService implements MapFragment.
              * Gets the geofences that were triggered
              */
             List<Geofence> triggeredFences = geofencingEvent.getTriggeringGeofences();
-            //return string getrequestid- geofence method in map activity and compare to values array
+            geoStr = triggeredFences.get(0).getRequestId();
+            try {
+                // Assume default encoding.
+                FileWriter fileWriter =
+                        new FileWriter(geoStrFile);
 
-            geoStr = triggeredFences.get(0).getRequestId();;
-            Log.d(TAG, "onHandleIntent: " + geoStr);
+                // Always wrap FileWriter in BufferedWriter.
+                BufferedWriter bufferedWriter =
+                        new BufferedWriter(fileWriter);
 
+                // Note that write() does not automatically
+                // append a newline character.
+                bufferedWriter.write(geoStr);
+                // Always close files.
+                bufferedWriter.close();
+            }
+            catch(IOException ex) {
+                System.out.println(
+                        "Error writing to file '"
+                                + geoStrFile + "'");
+                // Or we could just do this:
+                // ex.printStackTrace();
+            }
+        }
             Intent i = new Intent(this, ARCameraActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
 
         }
-    }
-
-
-    @Override
-    public String onFragmentGetDestinations() {
-        if (geoStr != null) {
-            return geoStr;
-        }else
-            return "empty";
-
-    };
 }
