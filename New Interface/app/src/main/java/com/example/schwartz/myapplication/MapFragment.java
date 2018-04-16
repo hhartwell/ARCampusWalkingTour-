@@ -120,7 +120,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private Geofence geofence;
     private PendingIntent pendingIntent;
     private ArrayList<Geofence> geofenceList;
-    private String[] values = new String[]{"Dani's House", "Alliance House", "Campion House", "Catherine Monica Hall",
+    private String[] values = new String[]{"Crosby", "Dani's House", "Alliance House", "Campion House", "Catherine Monica Hall",
             "Crimont Hall", "Desmet Hall", "Madonna Hall", "Rebmann",
             "Robinson", "Welch Hall"};
     private String geoStrFile = "geoStrFile.txt";
@@ -173,6 +173,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             // ex.printStackTrace();
         }
         destinationPoint = new ArrayList<>();
+        destinationPoint.add(new LatLng(47.667246,-117.401390)); // crosby
         destinationPoint.add(new LatLng(47.655256, -117.463520));//Dani's house
         destinationPoint.add(new LatLng(47.668670, -117.400111));//Alliance
         destinationPoint.add(new LatLng(47.668663, -117.401090));//Campion
@@ -234,8 +235,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                     @Override
                     public void onClick(View view) {
                         System.out.println("FAB CLICKED");
-                        Intent i = new Intent(getActivity(), DesmetActivity.class);
-                        startActivity(i);
+                        Intent i = new Intent(getActivity(), ARCameraActivity.class);
+                        MapFragment.this.startActivity(i);
+                        Log.d(TAG, i.toString());
                     }
                 });
             }
@@ -595,7 +597,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                     // currently set to crosby. replace first and second arg with geoLat and geoLong respectively
                     .setCircularRegion(
                             destinationPoint.get(i).latitude, destinationPoint.get(i).longitude,
-                            20)
+                            50)
                     // how long the geo fence stays active
                     .setExpirationDuration(Geofence.NEVER_EXPIRE)
                     // how the geo fence will be triggered
@@ -706,6 +708,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                                  }, manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
                 SensorManager.SENSOR_DELAY_UI);
     }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "ONDESTROY");
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "ONPAUSE");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "ONRESUME");
+    }
 }
 
