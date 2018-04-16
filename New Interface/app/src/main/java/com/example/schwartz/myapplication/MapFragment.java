@@ -127,7 +127,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     // number picker variables
     Button numberPicker;
     SupportMapFragment mapFragment;
-    GeoFenceListener geoFenceListener;
 
     public MapFragment() {
         // Required empty public constructor
@@ -144,34 +143,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         if (savedInstanceState != null) {
             mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
         }
-        try {
-            // FileReader reads text files in the default encoding.
-            FileReader fileReader =
-                    new FileReader(geoStrFile);
 
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
-
-            geoStr = bufferedReader.readLine();
-            Log.d(TAG, "onCreate: " + geoStr);
-
-
-            // Always close files.
-            bufferedReader.close();
-        }
-        catch(FileNotFoundException ex) {
-            Log.d(TAG, "onCreate: " +
-                    "Unable to open file '" +
-                            geoStrFile + "'");
-        }
-        catch(IOException ex) {
-            Log.d(TAG, "onCreate: " +
-                    "Error reading file '"
-                            + geoStrFile + "'");
-            // Or we could just do this:
-            // ex.printStackTrace();
-        }
         destinationPoint = new ArrayList<>();
         destinationPoint.add(new LatLng(47.667246,-117.401390)); // crosby
         destinationPoint.add(new LatLng(47.655256, -117.463520));//Dani's house
@@ -360,6 +332,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     }
 
     private void getDeviceLocation() {
+
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
@@ -377,6 +350,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
                             //get nearest location
                             for(int i = 0; i < destinationPoint.size(); i++) {
                                 // location and always closest
@@ -384,21 +358,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                                 Location.distanceBetween(mLastKnownLocation.getLatitude(),
                                         mLastKnownLocation.getLongitude(), destinationPoint.get(i).latitude,
                                         destinationPoint.get(i).longitude, results);
-                               // Log.d(TAG, "getDeviceLocation: Current location" + destinationPoint.get(0).toString());
-                                //Log.d(TAG, "getDeviceLocation: " + results[0]);
-                                if(results[0] < closest){
+
+                                if(results[0] < closest && !isVisited.get(i)){
 
                                     closest = results[0];
                                     closeLatLng = (destinationPoint.get(i));
-                                    //closestIndex = i;
-                                    //Log.d(TAG, "getDeviceLocation: " + destinationPoint.get(i));
-                                    //Log.d(TAG, "getDeviceLocation: " + results[0]);
+
                                 }
                             }
-                            //Log.d(TAG, "onComplete: Task successful" + currLatLng.toString());
+
                         } else {
-                            //Log.d(TAG, "Current location is null. Using defaults.");
-                            //Log.e(TAG, "Exception: %s", task.getException());
+
                             currLatLng = mDefaultLocation;
                             mMap.moveCamera(CameraUpdateFactory
                                     .newLatLngZoom(mDefaultLocation, DEFAULT_ZOOM));
@@ -666,6 +636,39 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     }
 
     private PendingIntent getGeofencingPendingIntent() {
+        try {
+            // FileReader reads text files in the default encoding.
+            FileReader fileReader =
+                    new FileReader(geoStrFile);
+
+            // Always wrap FileReader in BufferedReader.
+            BufferedReader bufferedReader =
+                    new BufferedReader(fileReader);
+
+            while((geoStr = bufferedReader.readLine()) != null) {
+                System.out.println(geoStr);
+            }
+
+            // Always close files.
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println(
+                    "Unable to open file '" +
+                            geoStrFile + "'");
+        }
+        catch(IOException ex) {
+            System.out.println(
+                    "Error reading file '"
+                            + geoStrFile + "'");
+            // Or we could just do this:
+            // ex.printStackTrace();
+        }
+        for(int i = 0; i < isVisited.size(); i++) {
+            if (geoStr.equals(values[i])) {
+                isVisited.set(i, true);
+            }
+        }
         // reuse old intent if it exists
         if (pendingIntent != null) {
             return pendingIntent;
