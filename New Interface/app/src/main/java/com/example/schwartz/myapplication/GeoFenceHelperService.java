@@ -19,9 +19,11 @@ import com.google.android.gms.location.GeofencingEvent;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 /**
@@ -34,7 +36,7 @@ public class GeoFenceHelperService extends IntentService {
      */
     private final static String TAG = "GeoFenceHelperService";
     private final static String DEBUG_TAG = "GEOFENCEHELPERSERVICE";
-    private File geoStrFile = new File("geoStrFile.txt");
+    private File geoStrFile = new File("src/geostr_file.txt");
     private String geoStr;
 
     /**
@@ -63,7 +65,8 @@ public class GeoFenceHelperService extends IntentService {
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             v.vibrate(500);
 
-
+            List<Geofence> triggeredFences = geofencingEvent.getTriggeringGeofences();
+            geoStr = triggeredFences.get(0).getRequestId();
             Toast.makeText(this, "Geofence triggered", Toast.LENGTH_SHORT).show();
 
             //Log.d(TAG, triggeredFences.get(0).getRequestId() + " has been triggered");
@@ -95,8 +98,7 @@ public class GeoFenceHelperService extends IntentService {
                 bufferedWriter.write(geoStr);
                 // Always close files.
                 bufferedWriter.close();
-            }
-            catch(IOException ex) {
+            } catch (IOException ex) {
                 System.out.println(
                         "Error writing to file '"
                                 + geoStrFile + "'");

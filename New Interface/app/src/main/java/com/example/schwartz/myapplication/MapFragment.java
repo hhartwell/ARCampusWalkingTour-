@@ -4,7 +4,6 @@ package com.example.schwartz.myapplication;
  * Imports
  */
 import android.Manifest;
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -61,13 +60,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,10 +119,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private Geofence geofence;
     private PendingIntent pendingIntent;
     private ArrayList<Geofence> geofenceList;
-    private String[] values = new String[]{"Dani's House", "Alliance House", "Campion House", "Catherine Monica Hall",
+    private String[] values = new String[]{"Hemmingson", "Alliance House", "Campion House", "Catherine Monica Hall",
             "Crimont Hall", "Desmet Hall", "Madonna Hall", "Rebmann",
             "Robinson", "Welch Hall"};
-    private String geoStrFile = "geoStrFile.txt";
+    private String geoStrFile = "src/geostr_file.txt";
     // number picker variables
     Button numberPicker;
     SupportMapFragment mapFragment;
@@ -145,7 +144,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         }
 
         destinationPoint = new ArrayList<>();
-        destinationPoint.add(new LatLng(47.655256, -117.463520));//Dani's house
+        destinationPoint.add(new LatLng(47.667136, -117.399139));//Hemminson
         destinationPoint.add(new LatLng(47.668670, -117.400111));//Alliance
         destinationPoint.add(new LatLng(47.668663, -117.401090));//Campion
         destinationPoint.add(new LatLng(47.665921, -117.397811));//Catherine/Monica
@@ -277,6 +276,39 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         switch (v.getId()) {
 
             case R.id.btnFindNearest:
+                try {
+                    // FileReader reads text files in the default encoding.
+                    FileReader fileReader =
+                            new FileReader(geoStrFile);
+
+                    // Always wrap FileReader in BufferedReader.
+                    BufferedReader bufferedReader =
+                            new BufferedReader(fileReader);
+
+                    while((geoStr = bufferedReader.readLine()) != null) {
+                        System.out.println(geoStr);
+                    }
+
+                    // Always close files.
+                    bufferedReader.close();
+                }
+                catch(FileNotFoundException ex) {
+                    System.out.println(
+                            "Unable to open file '" +
+                                    geoStrFile + "'");
+                }
+                catch(IOException ex) {
+                    System.out.println(
+                            "Error reading file '"
+                                    + geoStrFile + "'");
+                    // Or we could just do this:
+                    // ex.printStackTrace();
+                }
+                for(int i = 0; i < isVisited.size(); i++) {
+                    if (geoStr.equals(values[i])) {
+                        isVisited.set(i, true);
+                    }
+                }
                 destLatLng = closeLatLng;
                 sendRequest();
                 break;
@@ -402,6 +434,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     }
 
     private void sendRequest() {
+
         double origLat = currLatLng.latitude;
         double origLong = currLatLng.longitude;
         double destLat = destLatLng.latitude;
@@ -565,7 +598,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                     // currently set to crosby. replace first and second arg with geoLat and geoLong respectively
                     .setCircularRegion(
                             destinationPoint.get(i).latitude, destinationPoint.get(i).longitude,
-                            20)
+                            50)
                     // how long the geo fence stays active
                     .setExpirationDuration(Geofence.NEVER_EXPIRE)
                     // how the geo fence will be triggered
@@ -626,47 +659,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         // add the geofences to be monitered by geofencing services.
         builder.addGeofences(geofenceList);
         assert (geofenceList != null);
-        //Log.d(TAG, geofenceList.get(0).toString() + " from getGeoFencingRequest");
-        geoStr = geofenceList.get(0).getRequestId();
+
         Toast.makeText(getActivity(), geoStr, Toast.LENGTH_LONG).show();
         // build and return the request
         return builder.build();
     }
 
     private PendingIntent getGeofencingPendingIntent() {
-        try {
-            // FileReader reads text files in the default encoding.
-            FileReader fileReader =
-                    new FileReader(geoStrFile);
 
-            // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader =
-                    new BufferedReader(fileReader);
-
-            while((geoStr = bufferedReader.readLine()) != null) {
-                System.out.println(geoStr);
-            }
-
-            // Always close files.
-            bufferedReader.close();
-        }
-        catch(FileNotFoundException ex) {
-            System.out.println(
-                    "Unable to open file '" +
-                            geoStrFile + "'");
-        }
-        catch(IOException ex) {
-            System.out.println(
-                    "Error reading file '"
-                            + geoStrFile + "'");
-            // Or we could just do this:
-            // ex.printStackTrace();
-        }
-        for(int i = 0; i < isVisited.size(); i++) {
-            if (geoStr.equals(values[i])) {
-                isVisited.set(i, true);
-            }
-        }
         // reuse old intent if it exists
         if (pendingIntent != null) {
             return pendingIntent;
