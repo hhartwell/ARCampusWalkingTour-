@@ -119,7 +119,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private Geofence geofence;
     private PendingIntent pendingIntent;
     private ArrayList<Geofence> geofenceList;
+<<<<<<< HEAD
     private String[] values = new String[]{"Hemmingson", "Alliance House", "Campion House", "Catherine Monica Hall",
+=======
+    private String[] values = new String[]{"Crosby", "Dani's House", "Alliance House", "Campion House", "Catherine Monica Hall",
+>>>>>>> 0101252252892650b93b0282368030cfebaff926
             "Crimont Hall", "Desmet Hall", "Madonna Hall", "Rebmann",
             "Robinson", "Welch Hall"};
     private String geoStrFile = "src/geostr_file.txt";
@@ -144,7 +148,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         }
 
         destinationPoint = new ArrayList<>();
+<<<<<<< HEAD
         destinationPoint.add(new LatLng(47.667136, -117.399139));//Hemminson
+=======
+        destinationPoint.add(new LatLng(47.667246,-117.401390)); // crosby
+        destinationPoint.add(new LatLng(47.655256, -117.463520));//Dani's house
+>>>>>>> 0101252252892650b93b0282368030cfebaff926
         destinationPoint.add(new LatLng(47.668670, -117.400111));//Alliance
         destinationPoint.add(new LatLng(47.668663, -117.401090));//Campion
         destinationPoint.add(new LatLng(47.665921, -117.397811));//Catherine/Monica
@@ -205,8 +214,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                     @Override
                     public void onClick(View view) {
                         System.out.println("FAB CLICKED");
-                        Intent i = new Intent(getActivity(), DesmetActivity.class);
-                        startActivity(i);
+                        Intent i = new Intent(getActivity(), ARCameraActivity.class);
+                        MapFragment.this.startActivity(i);
+                        Log.d(TAG, i.toString());
                     }
                 });
             }
@@ -709,6 +719,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                                  }, manager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER),
                 SensorManager.SENSOR_DELAY_UI);
     }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        Log.d(TAG, "ONDESTROY");
+    }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "ONPAUSE");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "ONRESUME");
+    }
 }
 
