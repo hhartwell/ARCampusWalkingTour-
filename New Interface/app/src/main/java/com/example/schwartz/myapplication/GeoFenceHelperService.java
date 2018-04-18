@@ -69,7 +69,7 @@ public class GeoFenceHelperService extends IntentService {
             geoStr = triggeredFences.get(0).getRequestId();
             Toast.makeText(this, "Geofence triggered", Toast.LENGTH_SHORT).show();
 
-            //Log.d(TAG, triggeredFences.get(0).getRequestId() + " has been triggered");
+
 
             Log.d(TAG, "onHandleIntent: ");
             Intent i = new Intent(this, ARCameraActivity.class);
@@ -83,28 +83,7 @@ public class GeoFenceHelperService extends IntentService {
              * Gets the geofences that were triggered
              */
             List<Geofence> triggeredFences = geofencingEvent.getTriggeringGeofences();
-            geoStr = triggeredFences.get(0).getRequestId();
-            try {
-                // Assume default encoding.
-                FileWriter fileWriter =
-                        new FileWriter(geoStrFile);
 
-                // Always wrap FileWriter in BufferedWriter.
-                BufferedWriter bufferedWriter =
-                        new BufferedWriter(fileWriter);
-
-                // Note that write() does not automatically
-                // append a newline character.
-                bufferedWriter.write(geoStr);
-                // Always close files.
-                bufferedWriter.close();
-            } catch (IOException ex) {
-                System.out.println(
-                        "Error writing to file '"
-                                + geoStrFile + "'");
-                // Or we could just do this:
-                // ex.printStackTrace();
-            }
         }
             Intent i = new Intent(this, ARCameraActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
