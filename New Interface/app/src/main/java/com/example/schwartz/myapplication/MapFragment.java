@@ -122,6 +122,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     private Geofence geofence;
     private PendingIntent pendingIntent;
     private ArrayList<Geofence> geofenceList;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 64e56634d74ba10b78b1c0eda96d0e1b0ac2654a
     private String[] values = new String[]{"Crosby", "Dani's House", "Alliance House", "Campion House", "Catherine Monica Hall",
             "Crimont Hall", "Desmet Hall", "Madonna Hall", "Rebmann",
             "Robinson", "Welch Hall"};
@@ -148,6 +152,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         }
 
         destinationPoint = new ArrayList<>();
+<<<<<<< HEAD
+=======
+        destinationPoint.add(new LatLng(47.667136, -117.399139));//Hemminson
+>>>>>>> 64e56634d74ba10b78b1c0eda96d0e1b0ac2654a
         destinationPoint.add(new LatLng(47.667246,-117.401390)); // crosby
         destinationPoint.add(new LatLng(47.655256, -117.463520));//Dani's house
         destinationPoint.add(new LatLng(47.668670, -117.400111));//Alliance
@@ -175,9 +183,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
         Button btnFindNearest = view.findViewById(R.id.btnFindNearest);
         btnFindNearest.setOnClickListener(this);
-        Button btnFindPath = view.findViewById(R.id.btnFindPath);
-        btnFindPath.setOnClickListener(this);
-        getDeviceLocation();
+//        Button btnFindPath = view.findViewById(R.id.btnFindPath);
+//        btnFindPath.setOnClickListener(this);
+//        getDeviceLocation();
 
         //sensor pedometer
         //count = view.findViewById(R.id.stepText);
@@ -285,10 +293,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 destLatLng = closeLatLng;
                 sendRequest();
                 break;
-
-            case R.id.btnFindPath:
-                sendRequest();
-                break;
             case R.id.numberPicker:
                 numberPickerDialog();
 
@@ -321,7 +325,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                sendRequest();
             }
         });
 
